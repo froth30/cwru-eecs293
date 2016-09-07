@@ -40,7 +40,7 @@ object Main {
     * Finds the longest common prefix in two lists.
     * @param a the first list
     * @param b the second list
-    * @param cmp an admissible comparing function
+    * @param ord an admissible comparison function, which imposes a <i>total ordering</i> on the list elements
     * @tparam T the type of the list elements to be compared
     * @return the prefix of maximum length that is common to both lists
     */

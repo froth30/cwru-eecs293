@@ -28,8 +28,8 @@ public class Main {
         List b = readList();
 
         System.out.print("\nLongest common prefix:  ");
-        System.out.println(longestPrefix(a, b,
-                (s1, s2) -> ((String) s1).compareTo((String) s2)));
+        System.out.println(longestPrefix(a, b, Comparator.naturalOrder()));
+//                (s1, s2) -> ((String) s1).compareTo((String) s2)));
     }
 
     /**
