@@ -52,10 +52,19 @@ object Main {
                                     ord: Ordering[_ >: T]
                                    ): List[T] =
   {
+    val ita: Iterator[T] = a.iterator
+    val itb: Iterator[T] = b.iterator
     var len = 0
-    while (ord.compare(a(len), b(len)) == 0) {
+    while (ita.hasNext && itb.hasNext && ord.compare(ita.next(), itb.next()) == 0) {
       len += 1
     }
     a.slice(0, len)
+
+//  // The way I'd normally implement this method...
+//  var len = 0
+//  while (ord.compare(a(len), b(len)) == 0) {
+//    len += 1
+//  }
+//  a.slice(0, len)
   }
 }
