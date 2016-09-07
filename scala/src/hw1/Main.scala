@@ -52,6 +52,14 @@ object Main {
                                     ord: Ordering[_ >: T]
                                    ): List[T] =
   {
+    //  // How I'd normally implement this method...
+    //  var len = 0
+    //  while (ord.compare(a(len), b(len)) == 0) {
+    //    len += 1
+    //  }
+    //  a.slice(0, len)
+
+    // What I presented in discussion...
     val ita: Iterator[T] = a.iterator
     val itb: Iterator[T] = b.iterator
     var len = 0
@@ -60,11 +68,14 @@ object Main {
     }
     a.slice(0, len)
 
-//  // The way I'd normally implement this method...
-//  var len = 0
-//  while (ord.compare(a(len), b(len)) == 0) {
-//    len += 1
-//  }
-//  a.slice(0, len)
+    //  // Rewritten using feedback from discussion... TODO
+//    val iter = a.iterator.zip(b.iterator)
+//    var next: (T, T) = null
+//    var len = -1
+//    do {
+//      next = iter.next()
+//      len += 1
+//    } while (next != null && ord.compare(next._1, next._2) == 0)
+//    a.slice(0, len)
   }
 }
