@@ -19,14 +19,13 @@ object Main {
     System.out.println("\n< Programming Assignment 1 (Java) >")
 
     System.out.print("\nList A:  ")
-    val a: List[String] = readList
+    val a = readList
 
     System.out.print("\nList B:  ")
-    val b: List[String] = readList
+    val b = readList
 
     System.out.print("\nLongest common prefix:  ")
-    System.out.println(longestPrefix(a, b,
-      (s1: String, s2: String) => s1.compareTo(s2)))
+    System.out.println(longestPrefix(a, b, Ordering[String]))
   }
 
   /**
@@ -34,9 +33,7 @@ object Main {
     * @return a list of strings, with leading and trailing whitespace removed
     */
   private def readList: List[String] = {
-    val list: List[String] = StdIn.readLine().split(",").toList
-    list.foreach(s => s.trim)
-    list
+    StdIn.readLine().split(",").map(_.trim).toList
   }
 
   /**
@@ -49,12 +46,13 @@ object Main {
     */
   private[hw1] def longestPrefix[T](a: List[T],
                                     b: List[T],
-                                    cmp: Ordering[_ >: T]
+                                    ord: Ordering[_ >: T]
                                    ): List[T] =
   {
-    val maxLen: Int = math.min(a.size, b.size)
-    val prefix: List[T] = Range(0, maxLen).toList
-    for (i <- )
-    prefix
+    var len = 0
+    while (ord.compare(a(len), b(len)) == 0) {
+      len += 1
+    }
+    a.slice(0, len)
   }
 }
