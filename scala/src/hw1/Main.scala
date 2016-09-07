@@ -33,7 +33,10 @@ object Main {
     * @return a list of strings, with leading and trailing whitespace removed
     */
   private def readList: List[String] = {
-    StdIn.readLine().split(",").map(_.trim).toList
+    StdIn.readLine()
+      .split(",")
+      .map(_.trim)
+      .toList
   }
 
   /**
