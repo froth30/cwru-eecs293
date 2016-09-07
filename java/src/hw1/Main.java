@@ -57,15 +57,11 @@ public class Main {
                                      List<T> b,
                                      Comparator<? super T> cmp)
     {
-        int maxLen = Math.min(a.size(), b.size());
-        List<T> prefix = new ArrayList<>(maxLen);
-
-        for (int i = 0; i < maxLen; i++) {
-            if (cmp.compare(a.get(i), b.get(i)) == 0) {
-                prefix.add(a.get(i));
-            }
+        int len = 0;
+        while (cmp.compare(a.get(len), b.get(len)) == 0) {
+            len++;
         }
-        return prefix;
+        return a.subList(0, len);
     }
 
 }
