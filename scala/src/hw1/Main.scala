@@ -1,5 +1,9 @@
+package hw1
+
+import scala.io.StdIn
+
 /**
-  * Main script for Programming Assignment 1
+  * Main class for Programming Assignment 1
   *
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
@@ -9,7 +13,48 @@
   *
   * Theodore Frohlich <ttf10@case.edu>
   */
+object Main {
 
-println("\n< Programming Assignment 1 (Scala) >")
+  def main(args: Array[String]) {
+    System.out.println("\n< Programming Assignment 1 (Java) >")
 
-// Continue coding here
+    System.out.print("\nList A:  ")
+    val a: List[String] = readList
+
+    System.out.print("\nList B:  ")
+    val b: List[String] = readList
+
+    System.out.print("\nLongest common prefix:  ")
+    System.out.println(longestPrefix(a, b,
+      (s1: String, s2: String) => s1.compareTo(s2)))
+  }
+
+  /**
+    * Reads a line of text as a list of comma-separated strings.
+    * @return a list of strings, with leading and trailing whitespace removed
+    */
+  private def readList: List[String] = {
+    val list: List[String] = StdIn.readLine().split(",").toList
+    list.foreach(s => s.trim)
+    list
+  }
+
+  /**
+    * Finds the longest common prefix in two lists.
+    * @param a the first list
+    * @param b the second list
+    * @param cmp an admissible comparing function
+    * @tparam T the type of the list elements to be compared
+    * @return the prefix of maximum length that is common to both lists
+    */
+  private[hw1] def longestPrefix[T](a: List[T],
+                                    b: List[T],
+                                    cmp: Ordering[_ >: T]
+                                   ): List[T] =
+  {
+    val maxLen: Int = math.min(a.size, b.size)
+    val prefix: List[T] = Range(0, maxLen).toList
+    for (i <- )
+    prefix
+  }
+}
