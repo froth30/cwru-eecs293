@@ -53,6 +53,7 @@ public class Main {
      * @param <T> the type of the list elements to be compared
      * @return the prefix of maximum length that is common to both lists
      */
+    @SuppressWarnings("WeakerAccess")
     static <T> List<T> longestPrefix(List<T> a,
                                      List<T> b,
                                      Comparator<? super T> cmp)
