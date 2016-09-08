@@ -1,4 +1,4 @@
-package hw1
+package edu.cwru.eecs293.ttf10.prefix
 
 import scala.io.StdIn
 
