@@ -17,18 +17,29 @@ public final class Connector {
 
     public enum Type { COMPUTER, PERIPHERAL }
 
+    private final Device device;
     private final int index;
     private final Type type;
     private Optional<Connector> peer;
 
     /**
-     * Creates a new connector with the given index and type, and no peer.
+     * Creates a new connector with the given device, index, and type, and no peer.
+     * @param device the device to which the connector belongs
      * @param index the plug number in the connector's device
      * @param type the type of the connector
      */
-    public Connector(int index, Type type) {
+    public Connector(Device device, int index, Type type) {
+        this.device = device;
         this.index = index;
         this.type = type;
+    }
+
+    /**
+     * Returns the device to which this connector belongs.
+     * @return the device to which this connector belongs
+     */
+    public Device getDevice() {
+        return device;
     }
 
     /**
