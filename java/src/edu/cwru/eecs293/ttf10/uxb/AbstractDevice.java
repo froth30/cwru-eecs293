@@ -31,32 +31,39 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
         connectors = null;  // TODO verify type Connector versus Connector.Type
     }
 
+    @Override
     public Optional<Integer> getProductCode() {
         return productCode;
     }
 
+    @Override
     public Optional<BigInteger> getSerialNumber() {
         return serialNumber;
     }
 
+    @Override
     public Integer getVersion() {
         return version;
     }
 
+    @Override
     public DeviceClass getDeviceClass() {
         // TODO
         return null;
     }
 
+    @Override
     public Integer getConnectorCount() {
         return connectors.size();
     }
 
+    @Override
     public List<Connector.Type> getConnectors() {
         // TODO
         return null;
     }
 
+    @Override
     public Connector getConnector(int index) {
         // TODO
         return connectors.get(index);

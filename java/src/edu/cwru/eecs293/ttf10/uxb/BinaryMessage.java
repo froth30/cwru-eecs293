@@ -26,6 +26,7 @@ public final class BinaryMessage implements Message {
         return value;
     }
 
+    @Override
     public boolean equals(Object anObject) {
         return anObject != null
                 && anObject instanceof BinaryMessage
