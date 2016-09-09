@@ -18,6 +18,10 @@ public class Hub extends AbstractDevice.Builder<Hub.Builder> {
         super(null);
     }
 
+    public DeviceClass getDeviceClass() {
+        return DeviceClass.HUB;
+    }
+
     @Override
     protected Builder getThis() {
         return null;
