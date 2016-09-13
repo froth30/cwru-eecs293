@@ -51,8 +51,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
 
     @Override
     public DeviceClass getDeviceClass() {
-        // TODO
-        return null;
+        return DeviceClass.UNSPECIFIED;
     }
 
     @Override
