@@ -15,7 +15,7 @@ public class Hub extends AbstractDevice<Hub.Builder> {
 
     /**
      * Initializes the hub from the given builder.
-     * @param builder a builder
+     * @param builder a builder for initializing the hub
      */
     private Hub(Builder builder) {
         super(builder);
@@ -43,8 +43,8 @@ public class Hub extends AbstractDevice<Hub.Builder> {
          * @throws IllegalStateException if the version is null, or the hub has no computer connector, or the hub has no peripheral connector.
          */
         public Hub build() throws IllegalStateException {
-            // TODO
-            return null;
+            validate();
+            return new Hub(this);
         }
 
         /**
@@ -62,7 +62,20 @@ public class Hub extends AbstractDevice<Hub.Builder> {
          */
         @Override
         protected void validate() throws IllegalStateException {
-            // TODO
+            // Check if the version number is null
+            try {
+                super.validate();
+            } catch (NullPointerException e) {
+                throw new IllegalStateException(e);
+            }
+            // Check if the hub has no computer connector
+            if (!getConnectors().contains(Connector.Type.COMPUTER)) {
+                throw new IllegalStateException("Validation failed: hub has no computer connector.");
+            }
+            // Check if the hub has no peripheral connector
+            if (!getConnectors().contains(Connector.Type.PERIPHERAL)) {
+                throw new IllegalStateException("Validation failed: hub has no peripheral connector.");
+            }
         }
 
     }  // class Builder
