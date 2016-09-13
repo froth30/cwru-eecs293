@@ -47,7 +47,7 @@ object Main {
     * @tparam T the type of the list elements to be compared
     * @return the prefix of maximum length that is common to both lists
     */
-  private[hw1] def longestPrefix[T](a: List[T],
+  private[prefix] def longestPrefix[T](a: List[T],
                                     b: List[T],
                                     ord: Ordering[_ >: T]
                                    ): List[T] =
