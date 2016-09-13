@@ -11,44 +11,60 @@ package edu.cwru.eecs293.ttf10.uxb;
  *
  * Theodore Frohlich <ttf10@case.edu>
  */
-public class Hub extends AbstractDevice.Builder<Hub.Builder> {
+public class Hub extends AbstractDevice<Hub.Builder> {
 
+    /**
+     * Initializes the hub from the given builder.
+     * @param builder
+     */
     private Hub(Builder builder) {
-        // TODO
-        super(null);
-    }
-
-    public DeviceClass getDeviceClass() {
-        return DeviceClass.HUB;
+        super(builder);
     }
 
     @Override
-    protected Builder getThis() {
-        return null;
+    public DeviceClass getDeviceClass() {
+        return DeviceClass.HUB;
     }
 
 
     public static class Builder extends AbstractDevice.Builder<Builder> {
 
+        /**
+         * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+         * @param version the UXB version that this device supports
+         */
         public Builder(Integer version) {
-            // TODO
             super(version);
         }
 
-        public Hub build() {
+        /**
+         * Initializes the hub with the builder’s version, product code, serial number, and connector list.
+         * @return the initialized hub
+         * @throws IllegalStateException if the version is null, or the hub has no computer connector, or the hub has no peripheral connector.
+         */
+        public Hub build() throws IllegalStateException {
             // TODO
             return null;
         }
 
+        /**
+         * Returns this builder.
+         * @return this builder
+         */
         @Override
         protected Builder getThis() {
             return this;
         }
 
+        /**
+         *
+         * @throws IllegalStateException if and only if the version number is null, or if the hub has no computer connector, or if the hub has no peripheral connector
+         */
         @Override
         protected void validate() throws IllegalStateException {
             // TODO
         }
+
     }  // class Builder
 
 }  // class Hub
