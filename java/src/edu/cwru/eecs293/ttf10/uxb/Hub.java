@@ -49,5 +49,6 @@ public class Hub extends AbstractDevice.Builder<Hub.Builder> {
         protected void validate() throws IllegalStateException {
             // TODO
         }
-    }
-}
+    }  // class Builder
+
+}  // class Hub
