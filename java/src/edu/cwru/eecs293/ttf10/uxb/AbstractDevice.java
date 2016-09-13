@@ -1,7 +1,6 @@
 package edu.cwru.eecs293.ttf10.uxb;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +73,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
     }
 
 
+
     public static abstract class Builder<T> {
 
         private Integer version;
@@ -142,6 +142,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
             }
         }
 
-    }  // class Builder
+    }
 
-}  // class AbstractDevice
+
+}
