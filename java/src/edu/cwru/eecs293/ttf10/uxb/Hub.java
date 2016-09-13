@@ -27,6 +27,7 @@ public class Hub extends AbstractDevice<Hub.Builder> {
     }
 
 
+
     public static class Builder extends AbstractDevice.Builder<Builder> {
 
         /**
@@ -78,6 +79,7 @@ public class Hub extends AbstractDevice<Hub.Builder> {
             }
         }
 
-    }  // class Builder
+    }
 
-}  // class Hub
+
+}
