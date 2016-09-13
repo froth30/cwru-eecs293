@@ -15,7 +15,7 @@ public class Hub extends AbstractDevice<Hub.Builder> {
 
     /**
      * Initializes the hub from the given builder.
-     * @param builder
+     * @param builder a builder
      */
     private Hub(Builder builder) {
         super(builder);

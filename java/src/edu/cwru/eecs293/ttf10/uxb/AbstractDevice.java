@@ -26,7 +26,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
 
     /**
      * Initializes an abstract device from the given builder.
-     * @param builder
+     * @param builder a builder for initializing an abstract device
      */
     protected AbstractDevice(Builder<T> builder) {
         productCode = builder.productCode;
@@ -133,7 +133,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
         }
 
         /**
-         * Throws an NullPointerException if and only if the version number is null.
+         * Validates this builder.
          * @throws NullPointerException if and only if the version number is null
          */
         protected void validate() throws NullPointerException {
