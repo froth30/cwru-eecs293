@@ -24,6 +24,10 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
     private final Integer version;
     private final List<Connector> connectors;
 
+    /**
+     * Initializes an abstract device from the given builder.
+     * @param builder
+     */
     protected AbstractDevice(Builder<T> builder) {
         productCode = builder.productCode;
         serialNumber = builder.serialNumber;
@@ -77,6 +81,10 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
         private Optional<BigInteger> serialNumber;
         private List<Connector.Type> connectors;
 
+        /**
+         * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
+         * @param version the UXB version that this device supports
+         */
         public Builder(Integer version) {
             this.version = version;
             connectors = Collections.emptyList();
@@ -84,16 +92,31 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
             serialNumber = Optional.empty();
         }
 
+        /**
+         * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
+         * @param productCode the product code of this device
+         * @return {@link #getThis()}
+         */
         public T productCode(Integer productCode) {
             this.productCode = Optional.ofNullable(productCode);
             return getThis();
         }
 
+        /**
+         * Sets the serial number to the given value. If the serial number is null, set it to an empty optional.
+         * @param serialNumber the serial number of this device
+         * @return {@link #getThis()}
+         */
         public T serialNumber(BigInteger serialNumber) {
             this.serialNumber = Optional.ofNullable(serialNumber);
             return getThis();
         }
 
+        /**
+         * Sets the connector types to a copy of the given value. If the argument is null, the device will have no connectors.
+         * @param connectors the type of each connector in this device
+         * @return {@link #getThis()}
+         */
         public T connectors(List<Connector.Type> connectors) {
             Collections.copy(this.connectors, connectors);  // TODO check Collections.copy if exception is thrown
             return getThis();
@@ -101,10 +124,18 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
 
         protected abstract T getThis();
 
+        /**
+         * Returns a copy of the connector types.
+         * @return a copy of the connector types
+         */
         protected List<Connector.Type> getConnectors() {
             return connectors;  // TODO if mutable, might need to return a copy instead
         }
 
+        /**
+         * Throws an NullPointerException if and only if the version number is null.
+         * @throws NullPointerException if and only if the version number is null
+         */
         protected void validate() throws NullPointerException {
             if (version == null) {
                 throw new NullPointerException("Validation failed: version number cannot be null.");
