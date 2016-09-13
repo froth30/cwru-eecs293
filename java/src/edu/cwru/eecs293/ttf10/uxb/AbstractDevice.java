@@ -138,7 +138,7 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
          */
         protected void validate() throws NullPointerException {
             if (version == null) {
-                throw new NullPointerException("Validation failed: version number cannot be null.");
+                throw new NullPointerException("Validation failed: version number is null.");
             }
         }
 
