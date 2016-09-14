@@ -16,6 +16,9 @@ final class BinaryMessage(var value: BigInt) extends Message {
   def getValue: BigInt = value
 
   override def equals(anObject: Any): Boolean = {
-    anObject != null && anObject.isInstanceOf[BinaryMessage] && anObject.asInstanceOf[BinaryMessage].value == value
+    anObject != null &&
+      anObject.isInstanceOf[BinaryMessage] &&
+      anObject.asInstanceOf[BinaryMessage].value == value
   }
+
 }
