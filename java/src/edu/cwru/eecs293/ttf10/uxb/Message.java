@@ -9,7 +9,7 @@ package edu.cwru.eecs293.ttf10.uxb;
  *
  * @see <a href="Hw2.pdf">https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4276971_1/courses/eecs293_vxl11/Hw2.pdf</a>
  *
- * Theodore Frohlich <ttf10@case.edu>
+ * @author Theodore Frohlich <ttf10@case.edu>
  */
 public interface Message {
 

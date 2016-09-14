@@ -11,7 +11,7 @@ import scala.io.StdIn
   *
   * @see <a href="Hw1.pdf">https://blackboard.case.edu/bbcswebdav/pid-1366059-dt-content-rid-4244627_1/courses/eecs293_vxl11/Hw1.pdf</a>
   *
-  * Theodore Frohlich <ttf10@case.edu>
+  * @author Theodore Frohlich <ttf10@case.edu>
   */
 object Main {
 
