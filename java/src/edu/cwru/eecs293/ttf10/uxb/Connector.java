@@ -1,7 +1,6 @@
 package edu.cwru.eecs293.ttf10.uxb;
 
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 /**
  * Represents one of multiple <i>connectors</i> belonging to a UXB device. Each connector is a physical plug that enables the user to insert a cable for connecting the device to a computer or to a UXB hub. Connectors are of two types: computer-side and peripheral-side. A computer-side connector is an outlet that is installed in a computer and a peripheral-side connector is a plug that is installed in a peripheral device. A UXB cable always runs from a peripheral to a computer but never from a computer to a computer or from a peripheral to a peripheral. A computer can have multiple computer-side connectors so that multiple peripherals can be added. A peripheral can have multiple peripheral-side connectors so that the peripheral can be added to multiple computers. A UXB hub can have multiple computer-side and peripheral-side connectors.
