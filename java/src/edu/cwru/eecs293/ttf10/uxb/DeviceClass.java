@@ -1,7 +1,5 @@
 package edu.cwru.eecs293.ttf10.uxb;
 
-import org.omg.CORBA.COMM_FAILURE;
-
 /**
  * Represents one of many <i>classes</i> in which UXB devices are grouped. The concept of device class similar in traditional USB. UXB classes are: audio, communication, human-interface, physical-interface (e.g., force feedback joysticks), image, printer, mass storage, video, audio-video, virtual reality, and hub.
  *
