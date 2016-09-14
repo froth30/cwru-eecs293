@@ -1,9 +1,9 @@
 package edu.cwru.eecs293.ttf10.uxb
 
 import java.math.BigInteger
-import java.util.Collections
-import java.util.List
-import java.util.Optional
+import java.util.{Collections, Optional}
+
+import edu.cwru.eecs293.ttf10.uxb.DeviceClass.DeviceClass
 
 /**
   * Represents a prototypical UXB device.
@@ -13,6 +13,7 @@ import java.util.Optional
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
   *
   * @see <a href="Hw2.pdf">https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4276971_1/courses/eecs293_vxl11/Hw2.pdf</a>
+  *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
 object AbstractDevice {
@@ -21,7 +22,6 @@ object AbstractDevice {
 
   /**
     * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
-    *
     * @param version the UXB version that this device supports
     */ {
     connectors = Collections.emptyList
@@ -33,7 +33,6 @@ object AbstractDevice {
 
     /**
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
-      *
       * @param productCode the product code of this device
       * @return { @link #getThis()}
       */
@@ -44,7 +43,6 @@ object AbstractDevice {
 
     /**
       * Sets the serial number to the given value. If the serial number is null, set it to an empty optional.
-      *
       * @param serialNumber the serial number of this device
       * @return { @link #getThis()}
       */
@@ -55,7 +53,6 @@ object AbstractDevice {
 
     /**
       * Sets the connector types to a copy of the given value. If the argument is null, the device will have no connectors.
-      *
       * @param connectors the type of each connector in this device
       * @return { @link #getThis()}
       */
@@ -68,14 +65,12 @@ object AbstractDevice {
 
     /**
       * Returns a copy of the connector types.
-      *
       * @return a copy of the connector types
       */
     protected def getConnectors: util.List[Connector.Type] = connectors // TODO if mutable, might need to return a copy instead
 
     /**
       * Validates this builder.
-      *
       * @throws NullPointerException if and only if the version number is null
       */
     @throws[NullPointerException]
@@ -90,7 +85,6 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected(val buil
 
 /**
   * Initializes an abstract device from the given builder.
-  *
   * @param builder a builder for initializing an abstract device
   */
   extends Device {
@@ -99,22 +93,22 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected(val buil
   version = builder.version
   connectors = null
   // TODO verify type Connector versus Connector.Type
-  final private var productCode: Optional[Integer] = null
-  final private var serialNumber: Optional[BigInteger] = null
+  final private var productCode: Option[Integer] = null
+  final private var serialNumber: Option[BigInteger] = null
   final private var version: Integer = null
-  final private var connectors: util.List[Connector] = null
+  final private var connectors: List[Connector] = null
 
-  def getProductCode: Optional[Integer] = productCode
+  def getProductCode: Option[Integer] = productCode
 
-  def getSerialNumber: Optional[BigInteger] = serialNumber
+  def getSerialNumber: Option[BigInteger] = serialNumber
 
   def getVersion: Integer = version
 
-  def getDeviceClass: DeviceClass = DeviceClass.UNSPECIFIED
+  def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.UNSPECIFIED
 
   def getConnectorCount: Integer = connectors.size
 
-  def getConnectors: util.List[Connector.Type] = {
+  def getConnectors: List[Connector.Type.Type] = {
     // TODO
     null
   }
