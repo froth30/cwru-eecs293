@@ -1,4 +1,4 @@
-package edu.cwru.eecs293.ttf10.longestPrefix
+package edu.cwru.eecs293.ttf10.longest_common_prefix
 
 import scala.io.StdIn
 
@@ -47,9 +47,9 @@ object Main {
     * @tparam T the type of the list elements to be compared
     * @return the prefix of maximum length that is common to both lists
     */
-  private[longestPrefix] def longestPrefix[T](a: List[T],
-                                              b: List[T],
-                                              ord: Ordering[_ >: T]
+  private[longest_common_prefix] def longestPrefix[T](a: List[T],
+                                                      b: List[T],
+                                                      ord: Ordering[_ >: T]
                                    ): List[T] =
   {
     //  // How I'd normally implement this method...

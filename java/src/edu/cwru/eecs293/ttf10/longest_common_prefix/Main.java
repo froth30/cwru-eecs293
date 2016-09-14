@@ -1,4 +1,4 @@
-package edu.cwru.eecs293.ttf10.longestPrefix;
+package edu.cwru.eecs293.ttf10.longest_common_prefix;
 
 import java.io.*;
 import java.util.*;
