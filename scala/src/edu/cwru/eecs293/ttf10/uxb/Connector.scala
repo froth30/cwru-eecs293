@@ -11,48 +11,47 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-abstract final class Connector {
+object Connector {
 
-  object Type extends Enumeration {
+  final case class Type() extends Enumeration {
     type Type = Value
     val COMPUTER, PERIPHERAL = Value
   }
-  import Type._
 
-  var device: Device
-  var index: Int
-  var `type`: Type
-  var peer: Option[Connector]
+  final class Connector(private val device: Device,
+                        private val index: Int,
+                        private val `type`: Type) {
 
-  def this(device: Device, index: Int, `type`: Type) {
-    this
-    this.device = device
-    this.index = index
-    this.`type` = `type`
+    private val peer: Option[Connector] = Option.empty
+
+    /**
+      * Returns the device to which this connector belongs.
+      *
+      * @return the device to which this connector belongs
+      */
+    def getDevice: Device = device
+
+    /**
+      * Returns the index of this connector.
+      *
+      * @return the plug number in the connector's device
+      */
+    def getIndex: Int = index
+
+    /**
+      * Returns the type of this connector.
+      *
+      * @return the type of this connector
+      */
+    def getType: Type = `type`
+
+    /**
+      * Returns the peer of this connector.
+      *
+      * @return the other connector if any to which this connector is plugged
+      */
+    def getPeer: Option[Connector] = peer
+
   }
-
-  /**
-    * Returns the device to which this connector belongs.
-    * @return the device to which this connector belongs
-    */
-  def getDevice: Device = device
-
-  /**
-    * Returns the index of this connector.
-    * @return the plug number in the connector's device
-    */
-  def getIndex: Int = index
-
-  /**
-    * Returns the type of this connector.
-    * @return the type of this connector
-    */
-  def getType: Type = `type`
-
-  /**
-    * Returns the peer of this connector.
-    * @return the other connector if any to which this connector is plugged
-    */
-  def getPeer: Option[Connector] = peer
 
 }
