@@ -1,9 +1,6 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import java.math.BigInteger
-import java.util.{Collections, Optional}
-
-import edu.cwru.eecs293.ttf10.uxb.DeviceClass.DeviceClass
+import Connector.Connector
 
 /**
   * Represents a prototypical UXB device.
@@ -16,20 +13,43 @@ import edu.cwru.eecs293.ttf10.uxb.DeviceClass.DeviceClass
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-object AbstractDevice {
+object AbstractDevice extends Device {
 
-  abstract class Builder[T](var version: Integer)
 
-  /**
-    * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
-    * @param version the UXB version that this device supports
-    */ {
-    connectors = Collections.emptyList
-    productCode = Optional.empty
-    serialNumber = Optional.empty
-    private var productCode: Optional[Integer] = null
-    private var serialNumber: Optional[BigInteger] = null
-    private var connectors: util.List[Connector.Type] = null
+  abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builder: Builder[T]) extends Device {
+
+    private final val productCode = builder.productCode
+    private final val serialNumber = builder.serialNumber
+    private final val version = builder.version
+    private final val connectors = List[Connector]
+
+    override def getProductCode = productCode
+
+    override def getSerialNumber = serialNumber
+
+    override def getVersion = version
+
+    override def getDeviceClass = DeviceClass.UNSPECIFIED
+
+    override def getConnectorCount = connectors.size
+
+    override def getConnectors: List[Connector.Type] = {
+      null  // TODO
+    }
+
+    override def getConnector(index: Int): Connector = {
+      // TODO
+      connectors.get(index)
+    }
+
+  }
+
+
+  abstract class Builder[T](val version: Int) {
+
+    val productCode: Option[Int] = Option.empty
+    val serialNumber: Option[BigInt] = Option.empty
+    val connectors: List[Connector.Type] = _
 
     /**
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
@@ -37,7 +57,7 @@ object AbstractDevice {
       * @return { @link #getThis()}
       */
     def productCode(productCode: Integer): T = {
-      this.productCode = Optional.ofNullable(productCode)
+      this.productCode = Option.ofNullable(productCode)
       getThis
     }
 
@@ -46,8 +66,8 @@ object AbstractDevice {
       * @param serialNumber the serial number of this device
       * @return { @link #getThis()}
       */
-    def serialNumber(serialNumber: BigInteger): T = {
-      this.serialNumber = Optional.ofNullable(serialNumber)
+    def serialNumber(serialNumber: BigInt): T = {
+      this.serialNumber = Option.ofNullable(serialNumber)
       getThis
     }
 
@@ -56,8 +76,8 @@ object AbstractDevice {
       * @param connectors the type of each connector in this device
       * @return { @link #getThis()}
       */
-    def connectors(connectors: util.List[Connector.Type]): T = {
-      Collections.copy(this.connectors, connectors) // TODO check Collections.copy if exception is thrown
+    def connectors(connectors: List[Connector.Type.Type]): T = {
+      this.connectors = connectors // TODO check if works
       getThis
     }
 
@@ -67,7 +87,7 @@ object AbstractDevice {
       * Returns a copy of the connector types.
       * @return a copy of the connector types
       */
-    protected def getConnectors: util.List[Connector.Type] = connectors // TODO if mutable, might need to return a copy instead
+    protected def getConnectors: List[Connector.Type.Type] = connectors // TODO if mutable, might need to return a copy instead
 
     /**
       * Validates this builder.
@@ -75,46 +95,12 @@ object AbstractDevice {
       */
     @throws[NullPointerException]
     protected def validate() {
-      if (version == null) throw new NullPointerException("Validation failed: version number is null.")
+      if (version == null) {
+        throw new NullPointerException("Validation failed: version number is null.")
+      }
     }
+
   }
 
-}
 
-abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected(val builder: AbstractDevice.Builder[T])
-
-/**
-  * Initializes an abstract device from the given builder.
-  * @param builder a builder for initializing an abstract device
-  */
-  extends Device {
-  productCode = builder.productCode
-  serialNumber = builder.serialNumber
-  version = builder.version
-  connectors = null
-  // TODO verify type Connector versus Connector.Type
-  final private var productCode: Option[Integer] = null
-  final private var serialNumber: Option[BigInteger] = null
-  final private var version: Integer = null
-  final private var connectors: List[Connector] = null
-
-  def getProductCode: Option[Integer] = productCode
-
-  def getSerialNumber: Option[BigInteger] = serialNumber
-
-  def getVersion: Integer = version
-
-  def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.UNSPECIFIED
-
-  def getConnectorCount: Integer = connectors.size
-
-  def getConnectors: List[Connector.Type.Type] = {
-    // TODO
-    null
-  }
-
-  def getConnector(index: Int): Connector = {
-    // TODO
-    connectors.get(index)
-  }
 }
