@@ -11,7 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-object DeviceClass extends Enumeration {
+final case class DeviceClass() extends Enumeration {
 
   type DeviceClass = Value
 
