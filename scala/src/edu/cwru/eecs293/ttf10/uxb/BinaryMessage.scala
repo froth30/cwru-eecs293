@@ -11,14 +11,21 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-final case class BinaryMessage(private val value: BigInt) extends Message {
+final class BinaryMessage extends Message {
+
+  private var value = _
+
+  def this(value: BigInt) {
+    this
+    this.value = value
+  }
 
   def getValue: BigInt = value
 
   override def equals(anObject: Any): Boolean = {
     anObject != null &&
       anObject.isInstanceOf[BinaryMessage] &&
-      anObject.asInstanceOf[BinaryMessage].value == value
+      eq(anObject.asInstanceOf[BinaryMessage].value, value)
   }
 
 }
