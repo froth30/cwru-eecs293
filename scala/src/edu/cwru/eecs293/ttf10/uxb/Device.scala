@@ -1,5 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
+import Connector.Connector
+
 /**
   * Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
   *
@@ -8,15 +10,15 @@ package edu.cwru.eecs293.ttf10.uxb
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
   *
   * @see <a href="Hw2.pdf">https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4276971_1/courses/eecs293_vxl11/Hw2.pdf</a>
-  *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
 trait Device {
+
   /**
     * Returns the product code of this device.
     * @return the product code of this device. If the product code is unknown, return an empty optional.
     */
-  def getProductCode: Option[Integer]
+  def getProductCode: Option[Int]
 
   /**
     * Returns the serial number of this device.
@@ -28,7 +30,7 @@ trait Device {
     * Returns the UXB version that this device supports.
     * @return the UXB version that this device supports
     */
-  def getVersion: Integer
+  def getVersion: Int
 
   /**
     * Returns the class of this UXB device.
@@ -40,13 +42,13 @@ trait Device {
     * Returns the number of connectors that this device has.
     * @return the number of connectors that this device has
     */
-  def getConnectorCount: Integer
+  def getConnectorCount: Int
 
   /**
     * Returns the type of each connector in this device.
     * @return the type of each connector in this device
     */
-  def getConnectors: List[Connector.Type.Type]
+  def getConnectors: List[Connector.Type]  // TODO How can this be done with less involvement?
 
   /**
     * Returns the connector of this device at the given index.
