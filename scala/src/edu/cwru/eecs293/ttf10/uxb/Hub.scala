@@ -1,7 +1,5 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import edu.cwru.eecs293.ttf10.uxb.DeviceClass.DeviceClass
-
 /**
   * Represents a UXB hub, which can have multiple computer-side and peripheral-side connectors.
   *
@@ -10,6 +8,7 @@ import edu.cwru.eecs293.ttf10.uxb.DeviceClass.DeviceClass
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
   *
   * @see <a href="Hw2.pdf">https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4276971_1/courses/eecs293_vxl11/Hw2.pdf</a>
+  *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
 object Hub {
