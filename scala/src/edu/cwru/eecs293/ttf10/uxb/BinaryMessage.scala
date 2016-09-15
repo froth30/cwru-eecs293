@@ -11,7 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-final class BinaryMessage(var value: BigInt) extends Message {
+final case class BinaryMessage(private val value: BigInt) extends Message {
 
   def getValue: BigInt = value
 
