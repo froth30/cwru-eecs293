@@ -11,7 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-class Hub extends AbstractDevice {
+class Hub extends AbstractDevice[Hub#Builder] {
 
   /**
     * Initializes the hub from the given builder.
@@ -19,14 +19,14 @@ class Hub extends AbstractDevice {
     * @param builder a builder for initializing the hub
     */
   private def this(builder: Builder) = {
-    this(builder)
+    super(builder)
   }
 
   override def getDeviceClass: DeviceClass = DeviceClass.HUB
 
 
 
-  class Builder extends AbstractDevice[Builder]#Builder {
+  class Builder extends AbstractDevice#Builder[Builder] {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
