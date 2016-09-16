@@ -11,7 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-object BinaryMessage extends Message {
+final class BinaryMessage extends Message {
 
   private var value: BigInt = _
 
@@ -19,7 +19,8 @@ object BinaryMessage extends Message {
     * Initialize this message with a copy of the given value. If the value is null, the message should contain zero.
     * @param value the underlying value
     */
-  def BinaryMessage(value: BigInt) {
+  def this(value: BigInt) {
+    this
     this.value = if (value != null) value else 0
   }
 
@@ -27,8 +28,8 @@ object BinaryMessage extends Message {
 
   override def equals(anObject: Any): Boolean = {
     anObject != null &&
-      anObject.isInstanceOf[this.type] &&
-      eq(anObject.asInstanceOf[this.type].value, value)
+      anObject.isInstanceOf[BinaryMessage] &&
+      anObject.asInstanceOf[BinaryMessage].value == value
   }
 
 }
