@@ -13,17 +13,15 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 object Connector {
 
-  type Connector = this.type
-
+  type Type = Type.Value
   case object Type extends Enumeration {
     val COMPUTER, PERIPHERAL = Value
   }
-  type Type = Type.Value
 
   private final var device: Device = _
   private final var index: Int = _
   private final var `type`: Type = _
-  private var peer: Option[Connector] = _
+  private var peer: Option[this.type] = _
 
   def Connector(device: Device, index: Int, `type`: Type) {
     this.device = device
@@ -54,6 +52,6 @@ object Connector {
     * Returns the peer of this connector.
     * @return the other connector if any to which this connector is plugged
     */
-  def getPeer: Option[Connector] = peer
+  def getPeer: Option[this.type] = peer
 
 }
