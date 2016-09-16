@@ -19,7 +19,7 @@ public final class BinaryMessage implements Message {
     private final BigInteger value;
 
     public BinaryMessage(BigInteger value) {
-        this.value = value == null ? BigInteger.ZERO : value;
+        this.value = value != null ? value : BigInteger.ZERO;
     }
 
     public BigInteger getValue() {
