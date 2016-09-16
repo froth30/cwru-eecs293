@@ -13,8 +13,6 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 final case class DeviceClass() extends Enumeration {
 
-  type DeviceClass = Value
-
   val UNSPECIFIED, AUDIO, COMM, HID, PID, IMAGE, PRINTER, STORAGE, VIDEO, AV, VR, HUB = Value
 
 }
