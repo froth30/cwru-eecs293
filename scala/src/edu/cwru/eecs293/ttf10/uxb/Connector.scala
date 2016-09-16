@@ -14,44 +14,43 @@ package edu.cwru.eecs293.ttf10.uxb
 object Connector {
 
   final case class Type() extends Enumeration {
-    type Type = Value
     val COMPUTER, PERIPHERAL = Value
   }
 
-  final class Connector(private val device: Device,
-                        private val index: Int,
-                        private val `type`: Type) {
+  private final var device: Device = _
+  private final var index: Int = _
+  private final var `type`: Type = _
+  private var peer: Option[this.type] = _
 
-    private val peer: Option[Connector] = Option.empty
-
-    /**
-      * Returns the device to which this connector belongs.
-      *
-      * @return the device to which this connector belongs
-      */
-    def getDevice: Device = device
-
-    /**
-      * Returns the index of this connector.
-      *
-      * @return the plug number in the connector's device
-      */
-    def getIndex: Int = index
-
-    /**
-      * Returns the type of this connector.
-      *
-      * @return the type of this connector
-      */
-    def getType: Type = `type`
-
-    /**
-      * Returns the peer of this connector.
-      *
-      * @return the other connector if any to which this connector is plugged
-      */
-    def getPeer: Option[Connector] = peer
-
+  def Connector(device: Device, index: Int, `type`: Type) {
+    this.device = device
+    this.index = index
+    this.`type` = `type`
+    peer = Option.empty
   }
+
+  /**
+    * Returns the device to which this connector belongs.
+    * @return the device to which this connector belongs
+    */
+  def getDevice: Device = device
+
+  /**
+    * Returns the index of this connector.
+    * @return the plug number in the connector's device
+    */
+  def getIndex: Int = index
+
+  /**
+    * Returns the type of this connector.
+    * @return the type of this connector
+    */
+  def getType: Type = `type`
+
+  /**
+    * Returns the peer of this connector.
+    * @return the other connector if any to which this connector is plugged
+    */
+  def getPeer: Option[this.type] = peer
 
 }
