@@ -11,24 +11,23 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-abstract class AbstractDevice[T <: AbstractDevice[T]#Builder[T]] extends Device {
+abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
 
   private final var productCode: Option[Int] = _
   private final var serialNumber: Option[BigInt] = _
   private final var version: Int = _
-  private final var connectors: List[Connector.Type] = _  // TODO look into Map(Connector->Connector.Type)
+  private final var connectors: List[Connector.Type.Type] = _ // TODO look into Map(Connector->Connector.Type)
 
   /**
     * Initializes an abstract device from the given builder.
-    *
     * @param builder a builder for initializing an abstract device
     */
-  protected def this(builder: Builder[T]) {
-    this()
-    productCode = builder.productCode
-    serialNumber = builder.serialNumber
-    version = builder.version
-    connectors = builder.connectors
+  protected def this(builder: AbstractDevice.Builder[T]) {
+    this
+    productCode = builder.getProductCode
+    serialNumber = builder.getSerialNumber
+    version = builder.getVersion
+    connectors = builder.getConnectors
   }
 
   override def getProductCode: Option[Int] = productCode
@@ -37,50 +36,56 @@ abstract class AbstractDevice[T <: AbstractDevice[T]#Builder[T]] extends Device 
 
   override def getVersion: Int = version
 
-  override def getDeviceClass: DeviceClass = DeviceClass.UNSPECIFIED
+  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.UNSPECIFIED
 
   override def getConnectorCount: Int = connectors.size
 
-  override def getConnectors: List[Connector.Type] = connectors
+  override def getConnectors: List[Connector.Type.Type] = connectors
 
-  override def getConnector(index: Int): Connector = new Connector(this, index, connectors(index))  // TODO avoid instantiating new Connector on invocation?
+  override def getConnector(index: Int): Connector = new Connector(this, index, connectors(index)) // TODO avoid instantiating new Connector on invocation?
+
+}
 
 
+object AbstractDevice {
 
   abstract class Builder[T] {
 
-    protected[AbstractDevice] var version: Int = _
-    protected[AbstractDevice] var productCode: Option[Int] = _
-    protected[AbstractDevice] var serialNumber: Option[BigInt] = _
-    protected[AbstractDevice] var connectors: List[Connector.Type] = _
+    protected var version: Int = _
+    protected var productCode: Option[Int] = _
+    protected var serialNumber: Option[BigInt] = _
+    protected var connectors: List[Connector.Type.Type] = _
 
     /**
       * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
-      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this()
+      this
       this.version = version
-      productCode = None
-      serialNumber = None
-      connectors = Nil
+      productCode = Option.empty
+      serialNumber = Option.empty
+      connectors = List.empty
     }
+
+    def getProductCode: Option[Int] = productCode
+
+    def getSerialNumber: Option[BigInt] = serialNumber
+
+    def getVersion: Int = version
 
     /**
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
-      *
       * @param productCode the product code of this device
       * @return [[getThis]]
       */
-    def productCode(productCode: Integer): T = {
+    def productCode(productCode: Int): T = {
       this.productCode = Option(productCode)
       getThis
     }
 
     /**
       * Sets the serial number to the given value. If the serial number is null, set it to an empty optional.
-      *
       * @param serialNumber the serial number of this device
       * @return [[getThis()]]
       */
@@ -91,27 +96,24 @@ abstract class AbstractDevice[T <: AbstractDevice[T]#Builder[T]] extends Device 
 
     /**
       * Sets the connector types to a copy of the given value. If the argument is null, the device will have no connectors.
-      *
       * @param connectors the type of each connector in this device
       * @return [[getThis()]]
       */
-    def connectors(connectors: List[Connector.Type]): T = {
-      this.connectors = if (connectors != null) connectors else Nil
+    def connectors(connectors: List[Connector.Type.Type]): T = {
+      this.connectors = if (connectors != null) connectors else List.empty
       getThis
     }
 
-    protected[AbstractDevice] def getThis: T
+    protected def getThis: T
 
     /**
       * Returns a copy of the connector types.
-      *
       * @return a copy of the connector types
       */
-    protected[AbstractDevice] def getConnectors: List[Connector.Type] = connectors
+    /*protected*/ def getConnectors: List[Connector.Type.Type] = connectors
 
     /**
       * Validates this builder.
-      *
       * @throws NullPointerException if and only if the version number is null
       */
     @throws[NullPointerException]
@@ -122,6 +124,5 @@ abstract class AbstractDevice[T <: AbstractDevice[T]#Builder[T]] extends Device 
     }
 
   }
-
 
 }
