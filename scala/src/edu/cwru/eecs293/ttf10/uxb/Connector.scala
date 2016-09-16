@@ -11,24 +11,11 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-object Connector {
+final class Connector(private val device: Device,
+                      private val index: Int,
+                      private val `type`: Connector.Type.Type) {
 
-  type Type = Type.Value
-  case object Type extends Enumeration {
-    val COMPUTER, PERIPHERAL = Value
-  }
-
-  private final var device: Device = _
-  private final var index: Int = _
-  private final var `type`: Type = _
-  private var peer: Option[this.type] = _
-
-  def Connector(device: Device, index: Int, `type`: Type) {
-    this.device = device
-    this.index = index
-    this.`type` = `type`
-    peer = Option.empty
-  }
+  private val peer: Option[Connector] = Option.empty
 
   /**
     * Returns the device to which this connector belongs.
@@ -46,12 +33,22 @@ object Connector {
     * Returns the type of this connector.
     * @return the type of this connector
     */
-  def getType: Type = `type`
+  def getType: Connector.Type.Type = `type`
 
   /**
     * Returns the peer of this connector.
     * @return the other connector if any to which this connector is plugged
     */
-  def getPeer: Option[this.type] = peer
+  def getPeer: Option[Connector] = peer
+
+}
+
+
+object Connector {
+
+  case object Type extends Enumeration {
+    type Type = Value
+    val COMPUTER, PERIPHERAL = Value
+  }
 
 }
