@@ -13,11 +13,15 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 final class BinaryMessage extends Message {
 
-  private var value = _
+  private var value: BigInt = _
 
+  /**
+    * Initialize this message with a copy of the given value. If the value is null, the message should contain zero.
+    * @param value the underlying value
+    */
   def this(value: BigInt) {
-    this
-    this.value = value
+    this()
+    this.value = if (value != null) value else 0
   }
 
   def getValue: BigInt = value
