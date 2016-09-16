@@ -13,9 +13,6 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 trait Device {
 
-  type Connector = Connector.type
-  type DeviceClass = DeviceClass.Value
-
   /**
     * Returns the product code of this device.
     * @return the product code of this device. If the product code is unknown, return an empty optional.
@@ -38,7 +35,7 @@ trait Device {
     * Returns the class of this UXB device.
     * @return the class of this UXB device
     */
-  def getDeviceClass: DeviceClass
+  def getDeviceClass: DeviceClass.DeviceClass
 
   /**
     * Returns the number of connectors that this device has.
@@ -50,7 +47,7 @@ trait Device {
     * Returns the type of each connector in this device.
     * @return the type of each connector in this device
     */
-  def getConnectors: List[Connector.Type]
+  def getConnectors: List[Connector.Type.Type]
 
   /**
     * Returns the connector of this device at the given index.
