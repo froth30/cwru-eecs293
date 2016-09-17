@@ -50,8 +50,7 @@ object Main {
   private[longest_common_prefix] def longestPrefix[T](a: List[T],
                                                       b: List[T],
                                                       ord: Ordering[_ >: T]
-                                   ): List[T] =
-  {
+                                                     ): List[T] = {
     //  // How I'd normally implement this method...
     //  var len = 0
     //  while (ord.compare(a(len), b(len)) == 0) {
@@ -78,4 +77,5 @@ object Main {
 //    } while (next != null && ord.compare(next._1, next._2) == 0)
 //    a.slice(0, len)
   }
+
 }
