@@ -8,42 +8,45 @@ package edu.cwru.eecs293.ttf10.uxb
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
   *
   * @see [[https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4276971_1/courses/eecs293_vxl11/Hw2.pdf Hw2.pdf]]
-  *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-class Hub extends AbstractDevice[Hub#Builder] {
+class Hub extends AbstractDevice[Hub.Builder] {
 
   /**
     * Initializes the hub from the given builder.
-    *
     * @param builder a builder for initializing the hub
     */
-  private def this(builder: Builder) = {
-    super(builder)
+  private[Hub] def this(builder: Hub.Builder) = {
+    this
+    productCode = builder.getProductCode
+    serialNumber = builder.getSerialNumber
+    version = builder.getVersion
+    connectors = builder.getConnectors
   }
 
-  override def getDeviceClass: DeviceClass = DeviceClass.HUB
+  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.HUB
+
+}
 
 
+object Hub {
 
-  class Builder extends AbstractDevice#Builder[Builder] {
+  class Builder extends AbstractDevice.Builder[Builder] {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this()
+      this
       this.version = version
-      productCode = None
-      serialNumber = None
-      connectors = Nil
+      productCode(null)
+      serialNumber(null)
+      connectors(null)
     }
 
     /**
       * Initializes the hub with the builder’s version, product code, serial number, and connector list.
-      *
       * @return the initialized hub
       * @throws IllegalStateException if the version is null, or the hub has no computer connector, or the hub has no peripheral connector.
       */
@@ -55,13 +58,12 @@ class Hub extends AbstractDevice[Hub#Builder] {
 
     /**
       * Returns this builder.
-      *
       * @return this builder
       */
     override protected def getThis: Builder = this
 
     /**
-      *
+      * TODO
       * @throws IllegalStateException if and only if the version number is null, or if the hub has no computer connector, or if the hub has no peripheral connector
       */
     @throws[IllegalStateException]
