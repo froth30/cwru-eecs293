@@ -65,8 +65,8 @@ object AbstractDevice {
     def this(version: Int) {
       this
       this.version = version
-      productCode(null)
-      serialNumber(null)
+      productCode(null.asInstanceOf[Int])
+      serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
     }
 
@@ -117,7 +117,7 @@ object AbstractDevice {
       * @throws NullPointerException if and only if the version number is null
       */
     @throws[NullPointerException]
-    protected[AbstractDevice] def validate() {
+    protected def validate() {
       if (version == null.asInstanceOf[Int]) {
         throw new NullPointerException("Validation failed: version number is null.")
       }

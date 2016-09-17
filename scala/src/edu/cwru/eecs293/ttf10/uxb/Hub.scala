@@ -40,8 +40,8 @@ object Hub {
     def this(version: Int) {
       this
       this.version = version
-      productCode(null)
-      serialNumber(null)
+      productCode(null.asInstanceOf[Int])
+      serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
     }
 
