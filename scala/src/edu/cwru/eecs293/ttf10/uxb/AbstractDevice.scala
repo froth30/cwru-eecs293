@@ -16,7 +16,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
   private final var productCode: Option[Int] = _
   private final var serialNumber: Option[BigInt] = _
   private final var version: Int = _
-  private final var connectors: List[Connector.Type.Type] = _ // TODO look into Map(Connector->Connector.Type)
+  private final var connectors: List[Connector.Type.Type] = _  // TODO look into Map(Connector->Connector.Type)
 
   /**
     * Initializes an abstract device from the given builder.
@@ -42,7 +42,9 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
 
   override def getConnectors: List[Connector.Type.Type] = connectors
 
-  override def getConnector(index: Int): Connector = new Connector(this, index, connectors(index)) // TODO avoid instantiating new Connector on invocation?
+  override def getConnector(index: Int): Connector = {  // TODO avoid instantiating new Connector on invocation?
+    new Connector(this, index, connectors(index))
+  }
 
 }
 
@@ -63,15 +65,13 @@ object AbstractDevice {
     def this(version: Int) {
       this
       this.version = version
-      productCode = Option.empty
-      serialNumber = Option.empty
-      connectors = List.empty
+      productCode(null)
+      serialNumber(null)
+      connectors(null)
     }
 
     def getProductCode: Option[Int] = productCode
-
     def getSerialNumber: Option[BigInt] = serialNumber
-
     def getVersion: Int = version
 
     /**
