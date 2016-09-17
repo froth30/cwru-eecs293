@@ -13,10 +13,10 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
 
-  private final var productCode: Option[Int] = _
-  private final var serialNumber: Option[BigInt] = _
-  private final var version: Int = _
-  private final var connectors: List[Connector.Type.Type] = _  // TODO look into Map(Connector->Connector.Type)
+  protected final var productCode: Option[Int] = _
+  protected final var serialNumber: Option[BigInt] = _
+  protected final var version: Int = _
+  protected final var connectors: List[Connector.Type.Type] = _  // TODO look into Map(Connector->Connector.Type)
 
   /**
     * Initializes an abstract device from the given builder.
