@@ -18,20 +18,20 @@ import java.util.Optional;
  */
 public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implements Device {
 
+    private final Integer version;
     private final Optional<Integer> productCode;
     private final Optional<BigInteger> serialNumber;
-    private final Integer version;
-    private final List<Connector> connectors;
+    private final List<Connector.Type> connectors;
 
     /**
      * Initializes an abstract device from the given builder.
      * @param builder a builder for initializing an abstract device
      */
     protected AbstractDevice(Builder<T> builder) {
+        version = builder.version;
         productCode = builder.productCode;
         serialNumber = builder.serialNumber;
-        version = builder.version;
-        connectors = null;  // TODO verify type Connector versus Connector.Type
+        connectors = builder.connectors;  // TODO look into Map(Connector->Connector.Type)
     }
 
     @Override
@@ -61,14 +61,12 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
 
     @Override
     public List<Connector.Type> getConnectors() {
-        // TODO
-        return null;
+        return connectors;
     }
 
     @Override
-    public Connector getConnector(int index) {
-        // TODO
-        return connectors.get(index);
+    public Connector getConnector(int index) {  // TODO avoid instantiating new Connector on invocation?
+        return new Connector(this, index, connectors.get(index));
     }
 
 
@@ -86,9 +84,9 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
          */
         public Builder(Integer version) {
             this.version = version;
-            connectors = Collections.emptyList();
-            productCode = Optional.empty();
-            serialNumber = Optional.empty();
+            productCode(null);
+            serialNumber(null);
+            connectors(null);
         }
 
         /**
