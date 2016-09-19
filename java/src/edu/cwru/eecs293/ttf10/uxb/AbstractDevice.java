@@ -1,9 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb;
 
 import java.math.BigInteger;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Represents a prototypical UXB device.
@@ -115,7 +113,8 @@ public abstract class AbstractDevice<T extends AbstractDevice.Builder<T>> implem
          * @return {@link #getThis()}
          */
         public T connectors(List<Connector.Type> connectors) {
-            Collections.copy(this.connectors, connectors);  // TODO check Collections.copy if exception is thrown
+            connectors = connectors != null ? connectors : Collections.EMPTY_LIST;
+            this.connectors = new ArrayList<>(connectors);
             return getThis();
         }
 
