@@ -41,17 +41,6 @@ public class BuilderTest {
     }
 
     @Test
-    public void getThis() throws Exception {
-        assertTrue(validBuilder.getThis() == validBuilder);
-        assertTrue(invalidBuilder.getThis() == invalidBuilder);
-    }
-
-    @Test
-    public void validate() throws Exception {
-
-    }
-
-    @Test
     public void productCode() throws Exception {
 
     }
@@ -67,17 +56,13 @@ public class BuilderTest {
     }
 
     @Test
-    public void getThis1() throws Exception {
-
+    public void getThis() throws Exception {
+        assertTrue(validBuilder.getThis() == validBuilder);
+        assertTrue(invalidBuilder.getThis() == invalidBuilder);
     }
 
     @Test
-    public void getConnectors() throws Exception {
-
-    }
-
-    @Test
-    public void validate1() throws Exception {
+    public void validate() throws Exception {
 
     }
 
