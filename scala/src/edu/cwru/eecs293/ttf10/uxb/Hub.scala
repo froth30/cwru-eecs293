@@ -16,7 +16,7 @@ class Hub extends AbstractDevice[Hub.Builder] {
     * Initializes the hub from the given builder.
     * @param builder a builder for initializing the hub
     */
-  private[Hub] def this(builder: Hub.Builder) = {
+  private[Hub] def this(builder: Hub.Builder) {
     this
     productCode = builder.getProductCode
     serialNumber = builder.getSerialNumber
