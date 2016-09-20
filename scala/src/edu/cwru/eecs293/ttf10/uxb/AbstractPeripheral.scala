@@ -11,14 +11,14 @@ package edu.cwru.eecs293.ttf10.uxb
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder]
-  extends AbstractDevice[AbstractPeripheral.Builder] {
+abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
+  extends AbstractDevice[AbstractPeripheral.Builder[T]] {
 
   /**
     * Initializes the abstract peripheral from the given builder.
     * @param builder a builder for initializing the abstract peripheral
     */
-  protected def this(builder: AbstractPeripheral.Builder) {
+  protected def this(builder: AbstractPeripheral.Builder[T]) {
     this
     productCode = builder.getProductCode
     serialNumber = builder.getSerialNumber
@@ -35,7 +35,7 @@ abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder]
 
 object AbstractPeripheral {
 
-  abstract class Builder extends AbstractDevice.Builder[Builder] {
+  abstract class Builder[T] extends AbstractDevice.Builder[Builder[T]] {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
