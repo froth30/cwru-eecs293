@@ -29,8 +29,6 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
     }
   }  //TODO supposed to invoke parent constructor... why can't I??
 
-  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
-
 }
 
 
