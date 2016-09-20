@@ -1,7 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
 /**
-  * Represents a UXB peripheral. Similar to hubs, abstract peripherals extend abstract devices.
+  * Represents a prototypical UXB peripheral.
   *
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
