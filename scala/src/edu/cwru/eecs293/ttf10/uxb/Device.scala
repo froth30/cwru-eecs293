@@ -47,7 +47,7 @@ trait Device {
     * Returns the type of each connector in this device.
     * @return the type of each connector in this device
     */
-  def getConnectors: List[Connector.Type.Type]
+  def getConnectors: List[Connector]
 
   /**
     * Returns the connector of this device at the given index.

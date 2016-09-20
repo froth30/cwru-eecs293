@@ -22,7 +22,11 @@ class Hub extends AbstractDevice[Hub.Builder] {
     productCode = builder.getProductCode
     serialNumber = builder.getSerialNumber
     version = builder.getVersion
-    connectors = builder.getConnectors
+    val connectorTypes = builder.getConnectors
+    connectors = List.empty
+    for (index <- connectorTypes.indices) {
+      connectors ::= new Connector(this, index, connectorTypes(index))  // TODO ::= might not work... consider :::
+    }
   }
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.HUB

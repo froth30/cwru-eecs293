@@ -16,7 +16,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
   protected final var productCode: Option[Int] = _
   protected final var serialNumber: Option[BigInt] = _
   protected final var version: Int = _
-  protected final var connectors: List[Connector.Type.Type] = _  // TODO look into Map(Connector->Connector.Type)
+  protected final var connectors: List[Connector] = _
 
   /**
     * Initializes an abstract device from the given builder.
@@ -27,7 +27,11 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
     productCode = builder.getProductCode
     serialNumber = builder.getSerialNumber
     version = builder.getVersion
-    connectors = builder.getConnectors
+    val connectorTypes = builder.getConnectors
+    connectors = List.empty
+    for (index <- connectorTypes.indices) {
+      connectors ::= new Connector(this, index, connectorTypes(index))  // TODO ::= might not work... consider :::
+    }
   }
 
   override def getProductCode: Option[Int] = productCode
@@ -40,11 +44,9 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
 
   override def getConnectorCount: Int = connectors.size
 
-  override def getConnectors: List[Connector.Type.Type] = connectors
+  override def getConnectors: List[Connector] = connectors
 
-  override def getConnector(index: Int): Connector = {  // TODO avoid instantiating new Connector on invocation?
-    new Connector(this, index, connectors(index))
-  }
+  override def getConnector(index: Int): Connector = connectors(index)
 
 }
 
