@@ -3,10 +3,9 @@ package edu.cwru.eecs293.ttf10.uxb;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigInteger;
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by theof_000 on 9/19/2016.
