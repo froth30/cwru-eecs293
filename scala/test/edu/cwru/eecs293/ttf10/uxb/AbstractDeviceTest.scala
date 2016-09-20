@@ -4,7 +4,7 @@ import org.junit.Assert._
 import org.junit.{Before, Test}
 
 /**
-  * Class for testing methods in <tt>Hub.Builder</tt> and other underlying functionality thereof.
+  * Class for testing methods in [[edu.cwru.eecs293.ttf10.uxb.AbstractDevice AbstractDevice]] and other underlying functionality thereof. Since the <tt>AbstractDevice</tt> class is obviously abstract, test cases employ concrete subclass [[Hub]] to allow for actualization and access of the superceding functionality in question.
   *
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
@@ -14,7 +14,7 @@ import org.junit.{Before, Test}
   *
   * @author Theodore Frohlich <ttf10@case.edu>
   */
-class BuilderTest {
+class AbstractDeviceTest {
 
   private var validBuilder: Hub.Builder = _
   private var validVersion: Int = _
