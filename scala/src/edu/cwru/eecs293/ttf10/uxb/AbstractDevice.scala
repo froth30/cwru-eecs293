@@ -80,7 +80,9 @@ object AbstractDevice {
       * @return [[getThis]]
       */
     def productCode(productCode: Int): T = {
-      this.productCode = Option(productCode)
+      this.productCode =  // Must perform null check since Int is not a nullable type
+        if (productCode != null.asInstanceOf[Int]) Option(productCode)
+        else Option.empty
       getThis
     }
 
@@ -90,7 +92,7 @@ object AbstractDevice {
       * @return [[getThis()]]
       */
     def serialNumber(serialNumber: BigInt): T = {
-      this.serialNumber = Option(serialNumber)
+      this.serialNumber = Option(serialNumber)  // BigInt is a nullable type (see counterexample above)
       getThis
     }
 
