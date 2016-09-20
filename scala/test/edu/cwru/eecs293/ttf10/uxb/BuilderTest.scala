@@ -30,24 +30,24 @@ class BuilderTest {
   def build() {
     val validHub = validBuilder.build()
     assertTrue(validHub.getVersion equals validVersion)
-    assertEquals(validHub.getProductCode, Some(0))  // TODO this should be 'None', right?
-    assertEquals(validHub.getSerialNumber, None)
+    assertEquals(validHub.getProductCode, Option.empty)
+    assertEquals(validHub.getSerialNumber, Option.empty)
     assertEquals(validHub.getConnectors, validConnectors)
   }
 
   @Test
   @throws[Exception]
-  def productCode$() {
+  def productCode() {
   }
 
   @Test
   @throws[Exception]
-  def serialNumber$() {
+  def serialNumber() {
   }
 
   @Test
   @throws[Exception]
-  def connectors$() {
+  def connectors() {
   }
 
   @Test
