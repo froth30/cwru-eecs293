@@ -1,8 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-/**
+/** <p>
   * Represents a concrete UXB printer.
-  *
+  * <p>
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
   * Programming Assignment 3  |  Due at beginning of discussion on Wednesday, September 21, 2016

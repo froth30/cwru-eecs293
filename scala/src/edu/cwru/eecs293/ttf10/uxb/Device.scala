@@ -1,8 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-/**
+/** <p>
   * Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
-  *
+  * <p>
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
