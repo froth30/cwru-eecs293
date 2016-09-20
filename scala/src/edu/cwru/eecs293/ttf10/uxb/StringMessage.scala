@@ -41,4 +41,30 @@ final class StringMessage extends Message {
       anObject.asInstanceOf[StringMessage].string.equals(string)
   }
 
+  // METHODS DELEGATED TO THE UNDERLYING STRING...
+
+  def length: Int = string.length()
+
+  def charAt(index: Int): Char = string.charAt(index)
+
+  def contains(s: CharSequence): Boolean = string.contains(s)
+
+  def endsWith(suffix: String): Boolean = string.endsWith(suffix)
+
+  def startsWith(prefix: String): Boolean = string.startsWith(prefix)
+
+  def indexOf(ch: Int): Int = string.indexOf(ch)
+  def indexOf(ch: Int, fromIndex: Int): Int = string.indexOf(ch, fromIndex)
+  def indexOf(str: String): Int = string.indexOf(str)
+  def indexOf(str: String, fromIndex: Int): Int = string.indexOf(str, fromIndex)
+
+  def lastIndexOf(ch: Int): Int = string.lastIndexOf(ch)
+  def lastIndexOf(ch: Int, fromIndex: Int): Int = string.lastIndexOf(ch, fromIndex)
+  def lastIndexOf(str: String): Int = string.lastIndexOf(str)
+  def lastIndexOf(str: String, fromIndex: Int): Int = string.lastIndexOf(str, fromIndex)
+
+  def isEmpty: Boolean = string.isEmpty
+
+  override def hashCode: Int = string.hashCode
+
 }
