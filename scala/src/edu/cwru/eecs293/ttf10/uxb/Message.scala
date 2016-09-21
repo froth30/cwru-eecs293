@@ -18,6 +18,8 @@ trait Message {
     * @param device the device receiving this message
     * @param connector the connector from which this message came
     */
-  def reach(device: Device, connector: Connector): Unit
+  def reach(device: Device, connector: Connector) {
+    //TODO
+  }
 
 }
