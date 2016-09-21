@@ -33,8 +33,13 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     * Signifies the arrival of a message at the given connector in the device.
     * @param message the string message being received
     * @param connector the connector at which the message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
+    super.recv(message, connector)
     println("[Log] >>  " + "Cannon printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> UXB version number: " + version)
   }
@@ -43,14 +48,17 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     * Signifies the arrival of a message at the given connector in the device.
     * @param message the binary message being received
     * @param connector the connector at which the message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
+    super.recv(message, connector)
     val result: BigInt = message.getValue *
       (if (serialNumber.nonEmpty) serialNumber.get else 1)
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
-
-  // TODO: In all these methods, if either argument is null, a NullPointerException is thrown and if the connector does not belong to this device, an IllegalArgumentException is thrown. (Refer to section on "Communication" in Hw3.pdf)
 
 }
 
