@@ -41,6 +41,14 @@ final class Connector(private val device: Device,
     */
   def getPeer: Option[Connector] = peer
 
+  /**
+    * Makes sure that the message reaches the connector's device.
+    * @param message the message reaching the device
+    */
+  def recv(message: Message) {
+    message.reach(device, this)
+  }
+
 }
 
 
