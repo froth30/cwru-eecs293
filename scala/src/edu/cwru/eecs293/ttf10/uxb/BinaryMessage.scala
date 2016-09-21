@@ -26,6 +26,14 @@ final class BinaryMessage extends Message {
 
   def getValue: BigInt = value
 
+  /** Signifies that this <tt>BinaryMessage</tt> has reached the given device coming from the given connector.
+    * @param device the device receiving this message
+    * @param connector the connector at which this message arrived
+    */
+  override def reach(device: Device, connector: Connector) {
+    device.recv(this, connector)
+  }
+
   override def equals(anObject: Any): Boolean = {
     anObject != null &&
       anObject.isInstanceOf[BinaryMessage] &&

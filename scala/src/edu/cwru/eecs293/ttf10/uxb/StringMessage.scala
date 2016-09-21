@@ -30,6 +30,14 @@ final class StringMessage extends Message {
     */
   def getString: String = string
 
+  /** Signifies that this <tt>StringMessage</tt> has reached the given device coming from the given connector.
+    * @param device the device receiving this message
+    * @param connector the connector at which this message arrived
+    */
+  override def reach(device: Device, connector: Connector) {
+    device.recv(this, connector)
+  }
+
   /**
     * Compares this string message to the specified object.
     * @param anObject the object to compare this <tt>StringMessage</tt> against
