@@ -56,6 +56,22 @@ trait Device {
     */
   def getConnector(index: Int): Connector
 
-  // TODO In future assignments, additional methods will be defined on the Device interface.
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the string message being received
+    * @param connector the connector at which the message arrived
+    */
+  def recv(message: StringMessage, connector: Connector) {
+    message.reach(this, connector)
+  }
+
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the binary message being received
+    * @param connector the connector at which the message arrived
+    */
+  def recv(message: BinaryMessage, connector: Connector) {
+    message.reach(this, connector)
+  }
 
 }
