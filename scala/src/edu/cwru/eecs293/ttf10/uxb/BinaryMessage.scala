@@ -29,7 +29,11 @@ final class BinaryMessage extends Message {
   /** Signifies that this <tt>BinaryMessage</tt> has reached the given device coming from the given connector.
     * @param device the device receiving this message
     * @param connector the connector at which this message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to the device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   override def reach(device: Device, connector: Connector) {
     device.recv(this, connector)
   }
