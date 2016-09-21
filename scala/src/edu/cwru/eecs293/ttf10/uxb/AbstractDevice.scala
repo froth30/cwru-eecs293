@@ -1,8 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-/**
+/** <p>
   * Represents a prototypical UXB device.
-  *
+  * <p>
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
   * Programming Assignment 2  |  Due at beginning of discussion on Wednesday, September 7, 2016
@@ -30,7 +30,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  // TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
     }
   }
 

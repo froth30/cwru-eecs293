@@ -1,8 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-/**
+/** <p>
   * Represents a prototypical UXB printer.
-  *
+  * <p>
   * Case Western Reserve University
   * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
   * Programming Assignment 3  |  Due at beginning of discussion on Wednesday, September 21, 2016
@@ -26,9 +26,9 @@ abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  //TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
     }
-  }  //TODO supposed to invoke parent constructor... why can't I??
+  }  // TODO: supposed to invoke parent constructor... why can't I??
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
 
@@ -49,7 +49,7 @@ object AbstractPrinter {
       productCode(null.asInstanceOf[Int])
       serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
-    }  //TODO supposed to invoke parent method... why can't I?
+    }  // TODO: supposed to invoke parent method... why can't I?
 
   }
 

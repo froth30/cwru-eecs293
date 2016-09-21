@@ -25,9 +25,9 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  //TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
     }
-  }  //TODO supposed to invoke parent constructor... why can't I??
+  }  // TODO: supposed to invoke parent constructor... why can't I??
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -77,7 +77,7 @@ object CannonPrinter {
       productCode(null.asInstanceOf[Int])
       serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
-    }  //TODO supposed to invoke parent method... why can't I?
+    }  // TODO: supposed to invoke parent method... why can't I?
 
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.

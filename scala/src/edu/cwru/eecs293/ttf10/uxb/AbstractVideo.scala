@@ -26,9 +26,9 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]]
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  //TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
     }
-  }  //TODO supposed to invoke parent constructor... why can't I??
+  }  // TODO: supposed to invoke parent constructor... why can't I??
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.VIDEO
 
@@ -49,7 +49,7 @@ object AbstractVideo {
       productCode(null.asInstanceOf[Int])
       serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
-    }  //TODO supposed to invoke parent method... why can't I?
+    }  // TODO: supposed to invoke parent method... why can't I?
 
   }
 

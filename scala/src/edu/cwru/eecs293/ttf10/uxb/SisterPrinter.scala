@@ -25,9 +25,9 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  //TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
     }
-  }  //TODO supposed to invoke parent constructor... why can't I??
+  }  // TODO: supposed to invoke parent constructor... why can't I??
 
   /**
     * Signifies the arrival of a message at the given connector in the device.

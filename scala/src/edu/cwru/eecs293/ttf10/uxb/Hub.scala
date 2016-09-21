@@ -25,7 +25,8 @@ class Hub extends AbstractDevice[Hub.Builder] {
     val connectorTypes = builder.getConnectors
     connectors = List.empty
     for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))  // TODO ::= might not work... consider :::
+      connectors ::= new Connector(this, index, connectorTypes(index))
+      // TODO: "::=" might not work; consider ":::"
     }
   }
 
@@ -96,7 +97,7 @@ object Hub {
     override protected def getThis: Builder = this
 
     /**
-      * TODO
+      * Validates this builder.
       * @throws IllegalStateException if and only if the version number is null, or if the hub has no computer connector, or if the hub has no peripheral connector
       */
     @throws[IllegalStateException]
