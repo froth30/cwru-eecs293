@@ -29,6 +29,16 @@ class GoAmateur extends AbstractVideo[GoAmateur.Builder] {
     }
   } //TODO supposed to invoke parent constructor... why can't I??
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the string message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: StringMessage, connector: Connector) {
+    println("[Log] >>  " + "GoAmateur does not understand string messages: " + message.getString)
+    println("          " + "  -> connector index: " + connector.getIndex)
+  }
+
 }
 
 

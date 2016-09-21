@@ -31,6 +31,15 @@ class Hub extends AbstractDevice[Hub.Builder] {
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.HUB
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the string message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: StringMessage, connector: Connector) {
+    println("[Log] >>  " + "recv not yet supported")
+  }
+
 }
 
 
