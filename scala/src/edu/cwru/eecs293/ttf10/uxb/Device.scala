@@ -72,7 +72,6 @@ trait Device {
     if (connector.getDevice != this) {
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
     }
-    message.reach(this, connector)
   }
 
   /**
