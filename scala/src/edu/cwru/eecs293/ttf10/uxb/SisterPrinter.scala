@@ -35,8 +35,8 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
     * @param connector the connector at which the message arrived
     */
   override def recv(message: StringMessage, connector: Connector) {
-    println("[Log] >>  " + "Sister printer has printed the string: " + message.getString)
-    println("          " + "  -> printer serial number: " + serialNumber)
+    println("[Log] >>  " + "Sister printer has printed the string: \"" + message.getString + "\"")
+    println("          " + "  -> printer serial number: " + serialNumber.get)
   }
 
   /**
@@ -45,7 +45,8 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
     * @param connector the connector at which the message arrived
     */
   override def recv(message: BinaryMessage, connector: Connector) {
-    val result: BigInt = message.getValue + productCode.get  //TODO
+    val result: BigInt = message.getValue +
+      (if (productCode.nonEmpty) productCode.get else 0)
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
 

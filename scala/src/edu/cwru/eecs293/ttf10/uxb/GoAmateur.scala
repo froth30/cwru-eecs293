@@ -35,7 +35,7 @@ class GoAmateur extends AbstractVideo[GoAmateur.Builder] {
     * @param connector the connector at which the message arrived
     */
   override def recv(message: StringMessage, connector: Connector) {
-    println("[Log] >>  " + "GoAmateur does not understand string messages: " + message.getString)
+    println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
 

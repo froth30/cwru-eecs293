@@ -35,7 +35,7 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     * @param connector the connector at which the message arrived
     */
   override def recv(message: StringMessage, connector: Connector) {
-    println("[Log] >>  " + "Cannon printer has printed the string: " + message.getString)
+    println("[Log] >>  " + "Cannon printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> UXB version number: " + version)
   }
 
@@ -45,7 +45,8 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     * @param connector the connector at which the message arrived
     */
   override def recv(message: BinaryMessage, connector: Connector) {
-    val result: BigInt = message.getValue + serialNumber.get  //TODO
+    val result: BigInt = message.getValue *
+      (if (serialNumber.nonEmpty) serialNumber.get else 1)
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
 
