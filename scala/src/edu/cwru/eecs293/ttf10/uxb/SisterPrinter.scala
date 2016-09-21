@@ -56,7 +56,7 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
   override def recv(message: BinaryMessage, connector: Connector) {
     super.recv(message, connector)
     val result: BigInt = message.getValue +
-      (if (productCode.nonEmpty) productCode.get else 0)
+      (if (productCode.isDefined) productCode.get else 0)  // TODO: simplify by using Option.getOrElse
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
 

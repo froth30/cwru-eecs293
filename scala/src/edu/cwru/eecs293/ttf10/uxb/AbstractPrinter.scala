@@ -37,21 +37,6 @@ abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
 
 object AbstractPrinter {
 
-  abstract class Builder[T] extends AbstractPeripheral.Builder[Builder[T]] {
-
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      * @param version the UXB version that this device supports
-      */
-    def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    }  // TODO: supposed to invoke parent method... why can't I?
-
-  }
-
+  abstract class Builder[T] extends AbstractPeripheral.Builder[Builder[T]]
 
 }

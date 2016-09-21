@@ -12,7 +12,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * @author Theodore Frohlich <ttf10@case.edu>
   */
 abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
-  extends AbstractDevice[AbstractPeripheral.Builder[T]] {
+  extends AbstractDevice[T] {  // TODO:
 
   /**
     * Initializes the abstract peripheral from the given builder.
@@ -23,7 +23,7 @@ abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
     productCode = builder.getProductCode
     serialNumber = builder.getSerialNumber
     version = builder.getVersion
-    val connectorTypes = builder.getConnectors
+    val connectorTypes = builder.getConnectors  // TODO: n^2 complexity; use foreach
     connectors = List.empty
     for (index <- connectorTypes.indices) {
       connectors ::= new Connector(this, index, connectorTypes(index))

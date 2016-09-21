@@ -56,7 +56,7 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
   override def recv(message: BinaryMessage, connector: Connector) {
     super.recv(message, connector)
     val result: BigInt = message.getValue *
-      (if (serialNumber.nonEmpty) serialNumber.get else 1)
+      (if (serialNumber.isDefined) serialNumber.get else 1)  // TODO: simplify by using Option.getOrElse
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
 

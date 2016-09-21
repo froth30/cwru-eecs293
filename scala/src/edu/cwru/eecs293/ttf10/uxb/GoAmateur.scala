@@ -39,7 +39,7 @@ class GoAmateur extends AbstractVideo[GoAmateur.Builder] {
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)
+    super.recv(message, connector)  // TODO: recv$ (validate)
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }

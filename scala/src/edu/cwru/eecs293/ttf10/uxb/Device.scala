@@ -65,14 +65,13 @@ trait Device {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  private def recv$(message: Message, connector: Connector) {
+  private def recv$(message: Message, connector: Connector) {  // TODO: validate receive
     if (message == null || connector == null) {
       throw new NullPointerException("Message not received: null argument.")
-    }
-    if (connector.getDevice != this) {
+    } else if (connector.getDevice != this) {
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
     }
-  }
+  } // TODO: Move implementation to AbstractDevice
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -85,7 +84,7 @@ trait Device {
   @throws[IllegalArgumentException]
   def recv(message: StringMessage, connector: Connector) {
     recv$(message, connector)
-  }
+  } // TODO: Move implementation to AbstractDevice
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -98,6 +97,6 @@ trait Device {
   @throws[IllegalArgumentException]
   def recv(message: BinaryMessage, connector: Connector) {
     recv$(message, connector)
-  }
+  } // TODO: Move implementation to AbstractDevice
 
 }

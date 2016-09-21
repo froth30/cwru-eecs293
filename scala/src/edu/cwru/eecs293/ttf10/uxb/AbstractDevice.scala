@@ -108,7 +108,7 @@ object AbstractDevice {
       getThis
     }
 
-    protected def getThis: T
+    protected def getThis: T  // TODO: = this.asInstanceOf[T]
 
     /**
       * Returns a copy of the connector types.
