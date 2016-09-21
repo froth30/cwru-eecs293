@@ -39,6 +39,16 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
     println("          " + "  -> printer serial number: " + serialNumber)
   }
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the binary message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: BinaryMessage, connector: Connector) {
+    val result: BigInt = message.getValue + productCode.get  //TODO
+    println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
+  }
+
 }
 
 

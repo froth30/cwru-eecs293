@@ -39,6 +39,16 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     println("          " + "  -> UXB version number: " + version)
   }
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the binary message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: BinaryMessage, connector: Connector) {
+    val result: BigInt = message.getValue + serialNumber.get  //TODO
+    println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
+  }
+
 }
 
 

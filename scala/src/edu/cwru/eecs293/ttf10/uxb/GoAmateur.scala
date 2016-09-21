@@ -39,6 +39,15 @@ class GoAmateur extends AbstractVideo[GoAmateur.Builder] {
     println("          " + "  -> connector index: " + connector.getIndex)
   }
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the binary message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: BinaryMessage, connector: Connector) {
+    println("[Log] >>  " + "GoAmateur is not yet active: " + message.getValue)
+  }
+
 }
 
 

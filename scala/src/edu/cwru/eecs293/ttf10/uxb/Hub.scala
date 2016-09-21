@@ -40,6 +40,15 @@ class Hub extends AbstractDevice[Hub.Builder] {
     println("[Log] >>  " + "recv not yet supported")
   }
 
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    * @param message the binary message being received
+    * @param connector the connector at which the message arrived
+    */
+  override def recv(message: BinaryMessage, connector: Connector) {
+    println("[Log] >>  " + "recv not yet supported")
+  }
+
 }
 
 
