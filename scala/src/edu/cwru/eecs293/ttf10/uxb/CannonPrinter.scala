@@ -49,6 +49,8 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
 
+  // TODO: In all these methods, if either argument is null, a NullPointerException is thrown and if the connector does not belong to this device, an IllegalArgumentException is thrown. (Refer to section on "Communication" in Hw3.pdf)
+
 }
 
 
