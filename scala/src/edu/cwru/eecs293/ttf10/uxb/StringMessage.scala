@@ -1,15 +1,15 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-/** <p>
-  * Represents a string message carried between devices via UXB cable.
-  * <p>
-  * Case Western Reserve University
-  * EECS 293  |  Software Craftsmanship  |  2016 Fall Semester
-  * Programming Assignment 3  |  Due at beginning of discussion on Wednesday, September 21, 2016
+/**
+  * <p> Represents a string message carried between devices via UXB cable.
   *
-  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/courses/eecs293_vxl11/Hw3%283%29.pdf Hw3.pdf]]
-  *
-  * @author Theodore Frohlich <ttf10@case.edu>
+  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
+  * @since Programming Assignment 3
+  * <br> <i>
+  * <br> Case Western Reserve University
+  * <br> EECS 293: Software Craftsmanship
+  * <br> 2016 Fall Semester
+  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 final class StringMessage extends Message {
 
