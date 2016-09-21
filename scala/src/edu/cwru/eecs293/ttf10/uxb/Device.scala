@@ -58,20 +58,47 @@ trait Device {
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
+    * @param message the message being received
+    * @param connector the connector at which the message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
+    */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  private def recv$(message: Message, connector: Connector) {
+    if (message == null || connector == null) {
+      throw new NullPointerException("Message not received: null argument.")
+    }
+    if (connector.getDevice != this) {
+      throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
+    }
+    message.reach(this, connector)
+  }
+
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
     * @param message the string message being received
     * @param connector the connector at which the message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   def recv(message: StringMessage, connector: Connector) {
-    message.reach(this, connector)
+    recv$(message, connector)
   }
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
     * @param message the binary message being received
     * @param connector the connector at which the message arrived
+    * @throws NullPointerException if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   def recv(message: BinaryMessage, connector: Connector) {
-    message.reach(this, connector)
+    recv$(message, connector)
   }
 
 }
