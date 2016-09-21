@@ -22,7 +22,39 @@ class Broadcast {
 
   @Before
   def setUp() {
-    // TODO: set up devices and messages
+    // Create common zero connector singleton list
+    val zcon = List(Connector.Type.PERIPHERAL)
+
+    // Initialize device list
+    devices = List(
+      new Hub.Builder(2016)
+        .connectors(zcon)
+        .build(),
+      new SisterPrinter.Builder(2016)
+        .serialNumber(1234567890)
+        .productCode(293)
+        .connectors(zcon)
+        .asInstanceOf[SisterPrinter.Builder]
+        .build(),
+      new CannonPrinter.Builder(2016)
+        .serialNumber(1234567890)
+        .connectors(zcon)
+        .asInstanceOf[CannonPrinter.Builder]
+        .build(),
+      new GoAmateur.Builder(2016)
+        .connectors(zcon)
+        .asInstanceOf[GoAmateur.Builder]
+        .build()
+    )
+
+    // Create message list
+    messages = List(
+      new BinaryMessage(0),
+      new BinaryMessage(1),
+      new StringMessage("Hello, world!"),
+      new StringMessage("My name is Ted."),
+      new StringMessage("")
+    )
   }
 
   @Test
