@@ -16,35 +16,50 @@ package edu.cwru.eecs293.ttf10.uxb
 final class Connector private (private val device: Device,
                                private val index: Int,
                                private val `type`: Connector.Type) {
-
+  
   private val peer: Option[Connector] = Option.empty
-
+  
+  /**
+    * Creates a new connector with the given device, index, and type, and no peer.
+    *
+    * @param device the device to which the connector belongs
+    * @param index  the plug number in the connector's device
+    * @param `type` the type of this connector
+    * @return the constructed connector
+    */
+  def this(device: Device, index: Int, `type`: Connector.Type) = this(device, index, `type`)
+  
   /**
     * Returns the device to which this connector belongs.
+    *
     * @return the device to which this connector belongs
     */
   def getDevice: Device = device
-
+  
   /**
     * Returns the index of this connector.
+    *
     * @return the plug number in the connector's device
     */
   def getIndex: Int = index
-
+  
   /**
     * Returns the type of this connector.
+    *
     * @return the type of this connector
     */
   def getType: Connector.Type = `type`
-
+  
   /**
     * Returns the peer of this connector.
+    *
     * @return the other connector if any to which this connector is plugged
     */
   def getPeer: Option[Connector] = peer
-
+  
   /**
     * Makes sure that the message reaches the connector's device.
+    *
     * @param message the message reaching the device
     * @throws NullPointerException     if either the message or connector's device is null
     * @throws IllegalArgumentException if the connector does not belong to the device
@@ -54,32 +69,17 @@ final class Connector private (private val device: Device,
   def recv(message: Message) {
     message.reach(device, this)
   }
-
+  
 }
 
 
 object Connector {
   
-  /*
-    TODO[DIS] => Although not the conventional way to implement an enumeration in Scala, approaches like this are suggested in Scala Cookbook 10.26  ((keep this if okay with Andrew))
-  */
   case object Type extends Enumeration {
     val COMPUTER, PERIPHERAL = Value
   }
-  type Type = Type.Value
-  
-  /**
-    * Creates a new connector with the given device, index, and type, and no peer.
-    * @param device the device to which the connector belongs
-    * @param index  the plug number in the connector's device
-    * @param `type` the type of this connector
-    * @return the constructed connector
-    */
-  /*
-    TODO[DIS] Scala Cookbook 6.8 suggests defining an 'apply' method in the companion object with the desire constructor signature; "Scala code looks cleaner when you don't always have to use the 'new' keyword to create a new instance of a class..."  ((this method is redundant of the primary class constructor))
+  type Type = Type.Value  /*
+  TODO[DIS] => Although not the conventional way to implement an enumeration in Scala, approaches like this are suggested in Scala Cookbook 10.26  ((keep this if okay with Andrew))
   */
-  def apply(device: Device, index: Int, `type`: Type): Connector = {
-    new Connector(device, index, `type`)
-  }
 
 }
