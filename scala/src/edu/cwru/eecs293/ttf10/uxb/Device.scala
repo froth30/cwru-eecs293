@@ -1,5 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
+import DeviceClass._
+
 /**
   * <p> Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
   *
@@ -13,91 +15,79 @@ package edu.cwru.eecs293.ttf10.uxb
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 trait Device {
-
+  
   /**
     * Returns the product code of this device.
+    *
     * @return the product code of this device. If the product code is unknown, return an empty optional.
     */
   def getProductCode: Option[Int]
-
+  
   /**
     * Returns the serial number of this device.
+    *
     * @return the serial number of this device. If the serial number is unknown, return an empty optional.
     */
   def getSerialNumber: Option[BigInt]
-
+  
   /**
     * Returns the UXB version that this device supports.
+    *
     * @return the UXB version that this device supports
     */
   def getVersion: Int
-
+  
   /**
     * Returns the class of this UXB device.
+    *
     * @return the class of this UXB device
     */
-  def getDeviceClass: DeviceClass.DeviceClass
-
+  def getDeviceClass: DeviceClass
+  
   /**
     * Returns the number of connectors that this device has.
+    *
     * @return the number of connectors that this device has
     */
   def getConnectorCount: Int
-
+  
   /**
     * Returns the type of each connector in this device.
+    *
     * @return the type of each connector in this device
     */
   def getConnectors: List[Connector]
-
+  
   /**
     * Returns the connector of this device at the given index.
+    *
     * @param index the plug number of the connector in this device
     * @return the connector of this device at the given index
     */
   def getConnector(index: Int): Connector
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the message being received
+    *
+    * @param message   the string message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  private def recv$(message: Message, connector: Connector) {  // TODO: validate receive
-    if (message == null || connector == null) {
-      throw new NullPointerException("Message not received: null argument.")
-    } else if (connector.getDevice != this) {
-      throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
-    }
-  } // TODO: Move implementation to AbstractDevice
-
+  def recv(message: StringMessage, connector: Connector)
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the string message being received
+    *
+    * @param message   the binary message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  def recv(message: StringMessage, connector: Connector) {
-    recv$(message, connector)
-  } // TODO: Move implementation to AbstractDevice
-
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    * @param message the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
-  def recv(message: BinaryMessage, connector: Connector) {
-    recv$(message, connector)
-  } // TODO: Move implementation to AbstractDevice
-
+  def recv(message: BinaryMessage, connector: Connector)
+  
 }
