@@ -13,15 +13,11 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-final class Connector(private val device: Device,
-                      private val index: Int,
-                      private val `type`: Connector.Type) {
+final class Connector private (private val device: Device,
+                               private val index: Int,
+                               private val `type`: Connector.Type) {
 
   private val peer: Option[Connector] = Option.empty
-  
-  def this(device: Device, index: Int, `type`: Connector.Type) {
-    this(device, index, `type`)
-  }
 
   /**
     * Returns the device to which this connector belongs.
@@ -50,7 +46,7 @@ final class Connector(private val device: Device,
   /**
     * Makes sure that the message reaches the connector's device.
     * @param message the message reaching the device
-    * @throws NullPointerException if either the message or connector's device is null
+    * @throws NullPointerException     if either the message or connector's device is null
     * @throws IllegalArgumentException if the connector does not belong to the device
     */
   @throws[NullPointerException]
@@ -63,10 +59,27 @@ final class Connector(private val device: Device,
 
 
 object Connector {
-
+  
+  /*
+    TODO[DIS] => Although not the conventional way to implement an enumeration in Scala, approaches like this are suggested in Scala Cookbook 10.26  ((keep this if okay with Andrew))
+  */
   case object Type extends Enumeration {
     val COMPUTER, PERIPHERAL = Value
   }
-  type Type = Type.Value  // TODO: (temp comment) => Although not the conventional way to implement an enum, this approach is suggested by _Scala Cookbook_ @ safaribooksonline.com
+  type Type = Type.Value
+  
+  /**
+    * Creates a new connector with the given device, index, and type, and no peer.
+    * @param device the device to which the connector belongs
+    * @param index  the plug number in the connector's device
+    * @param `type` the type of this connector
+    * @return the constructed connector
+    */
+  /*
+    TODO[DIS] Scala Cookbook 6.8 suggests defining an 'apply' method in the companion object with the desire constructor signature; "Scala code looks cleaner when you don't always have to use the 'new' keyword to create a new instance of a class..."  ((this method is redundant of the primary class constructor))
+  */
+  def apply(device: Device, index: Int, `type`: Type): Connector = {
+    new Connector(device, index, `type`)
+  }
 
 }
