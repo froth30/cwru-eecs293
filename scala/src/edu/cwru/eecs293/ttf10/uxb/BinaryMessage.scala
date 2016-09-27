@@ -12,18 +12,13 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-final class BinaryMessage extends Message {
-
-  private var value: BigInt = _
+final class BinaryMessage private (private val value: BigInt) extends Message {
 
   /**
     * Initialize this message with a copy of the given value. If the value is null, the message should contain zero.
     * @param value the underlying value
     */
-  def this(value: BigInt) {
-    this
-    this.value = if (value != null) value else 0
-  }
+  def this(value: BigInt) = this(value)
 
   def getValue: BigInt = value
 
