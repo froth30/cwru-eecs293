@@ -18,7 +18,7 @@ final class BinaryMessage private (private val value: BigInt) extends Message {
     * Initialize this message with a copy of the given value. If the value is null, the message should contain zero.
     * @param value the underlying value
     */
-  def this(value: BigInt) = this(value)
+  def this(value: BigInt) = this(if (value != null) value else 0)
 
   def getValue: BigInt = value
 
