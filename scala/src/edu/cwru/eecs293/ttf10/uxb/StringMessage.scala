@@ -11,18 +11,13 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-final class StringMessage extends Message {
-
-  private var string: String = _
+final class StringMessage private (private val string: String) extends Message {
 
   /**
     * Initialize this message with the given string. If the string is null, the message should contain an empty non-null string.
     * @param string the underlying string
     */
-  def this(string: String) {
-    this
-    this.string = if (string != null) string else ""
-  }
+  def this(string: String) = this(if(string != null) string else "")
 
   /**
     * Returns the underlying string.
@@ -31,9 +26,9 @@ final class StringMessage extends Message {
   def getString: String = string
 
   /** Signifies that this <tt>StringMessage</tt> has reached the given device coming from the given connector.
-    * @param device the device receiving this message
+    * @param device    the device receiving this message
     * @param connector the connector at which this message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to the device
     */
   @throws[NullPointerException]
