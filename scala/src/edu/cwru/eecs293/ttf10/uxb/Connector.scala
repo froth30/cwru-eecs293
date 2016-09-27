@@ -15,9 +15,13 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 final class Connector(private val device: Device,
                       private val index: Int,
-                      private val `type`: Connector.Type.Type) {
+                      private val `type`: Connector.Type) {
 
   private val peer: Option[Connector] = Option.empty
+  
+  def this(device: Device, index: Int, `type`: Connector.Type) {
+    this(device, index, `type`)
+  }
 
   /**
     * Returns the device to which this connector belongs.
@@ -35,7 +39,7 @@ final class Connector(private val device: Device,
     * Returns the type of this connector.
     * @return the type of this connector
     */
-  def getType: Connector.Type.Type = `type`
+  def getType: Connector.Type = `type`
 
   /**
     * Returns the peer of this connector.
@@ -46,7 +50,11 @@ final class Connector(private val device: Device,
   /**
     * Makes sure that the message reaches the connector's device.
     * @param message the message reaching the device
+    * @throws NullPointerException if either the message or connector's device is null
+    * @throws IllegalArgumentException if the connector does not belong to the device
     */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
   def recv(message: Message) {
     message.reach(device, this)
   }
@@ -57,8 +65,8 @@ final class Connector(private val device: Device,
 object Connector {
 
   case object Type extends Enumeration {
-    type Type = Value
     val COMPUTER, PERIPHERAL = Value
   }
+  type Type = Type.Value  // TODO: (temp comment) => Although not the conventional way to implement an enum, this approach is suggested by _Scala Cookbook_ @ safaribooksonline.com
 
 }
