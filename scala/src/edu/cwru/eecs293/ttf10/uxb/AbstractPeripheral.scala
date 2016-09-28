@@ -11,33 +11,19 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]] protected
-(override protected val productCode: Option[Int],
- override protected val serialNumber: Option[BigInt],
- override protected val version: Int,
- override protected val connectors: List[Connector]
-) extends AbstractDevice[T](productCode, serialNumber, version, connectors) {
-  
-  /**
-    * Initializes the abstract peripheral from the given builder.
-    *
-    * @param builder a builder for initializing the abstract peripheral
-    */
-  protected def apply(builder: AbstractPeripheral.Builder[T]): AbstractPeripheral[T] = this(builder)
-  
-}
+abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
+(private val builder: AbstractPeripheral.Builder[T]) extends AbstractDevice(builder)
 
 
 object AbstractPeripheral {
   
-  abstract class Builder[T] extends AbstractDevice.Builder[Builder[T]] {
-    
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    def apply(version: Int): Builder[T] = this(version)
+  /**
+    * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+    *
+    * @param version the UXB version that this device supports
+    */
+  abstract class Builder[+T <: AbstractPeripheral.Builder[T]]
+  (override protected val version: Int) extends AbstractDevice.Builder(version) {
     
     /**
       * Validates this builder.

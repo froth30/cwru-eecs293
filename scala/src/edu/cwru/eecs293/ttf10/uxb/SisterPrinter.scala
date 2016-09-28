@@ -11,19 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class SisterPrinter protected
-(override protected val productCode: Option[Int],
- override protected val serialNumber: Option[BigInt],
- override protected val version: Int,
- override protected val connectors: List[Connector]
-) extends AbstractPrinter[SisterPrinter.Builder](productCode, serialNumber, version, connectors) {
-
-  /**
-    * Initializes the sister printer from the given builder.
-    *
-    * @param builder a builder for initializing the sister printer
-    */
-  protected def apply(builder: SisterPrinter.Builder): SisterPrinter = this(builder)
+class SisterPrinter(private val builder: SisterPrinter.Builder) extends AbstractPrinter(builder) {
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -63,16 +51,12 @@ class SisterPrinter protected
 
 object SisterPrinter {
   
-  private def apply(builder: Builder): SisterPrinter = this(builder)
-
-  class Builder extends AbstractPrinter.Builder[Builder] {
-
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    override def apply(version: Int): Builder = this(version)
+  /**
+    * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+    *
+    * @param version the UXB version that this device supports
+    */
+  class Builder(override protected val version: Int) extends AbstractPrinter.Builder(version) {
 
     /**
       * Initializes the sister printer with the builder’s version, product code, serial number, and connector list.
@@ -83,7 +67,7 @@ object SisterPrinter {
     @throws[IllegalStateException]
     def build(): SisterPrinter = {
       validate()
-      SisterPrinter(this)
+      new SisterPrinter(this)
     }
 
   }

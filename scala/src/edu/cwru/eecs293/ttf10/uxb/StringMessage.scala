@@ -11,14 +11,19 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-final class StringMessage private (private val string: String) extends Message {
+final class StringMessage extends Message {
+  
+  private var string: String = ""
   
   /**
     * Initialize this message with the given string. If the string is null, the message should contain an empty non-null string.
     *
     * @param string the underlying string
     */
-  def apply(string: String): StringMessage = this(if (string != null) string else "")
+  def this(string: String) {
+    this
+    if (string != null) this.string = string
+  }
   
   /**
     * Returns the underlying string.

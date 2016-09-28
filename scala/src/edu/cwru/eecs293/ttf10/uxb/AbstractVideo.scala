@@ -11,12 +11,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractVideo[T <: AbstractVideo.Builder[T]] protected
-(override protected val productCode: Option[Int],
- override protected val serialNumber: Option[BigInt],
- override protected val version: Int,
- override protected val connectors: List[Connector]
-) extends AbstractPeripheral[T](productCode, serialNumber, version, connectors) {
+abstract class AbstractVideo[T <: AbstractVideo.Builder[T]]
+(private val builder: AbstractVideo.Builder[T]) extends AbstractPeripheral(builder) {
 
   /**
     * Initializes the video device from the given builder.
@@ -32,15 +28,7 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]] protected
 
 object AbstractVideo {
 
-  abstract class Builder[T] extends AbstractPeripheral.Builder[Builder[T]] {
-
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    override def apply(version: Int) = super.apply(version)
-
-  }
+  abstract class Builder[+T <: AbstractVideo.Builder[T]]
+  (override protected val version: Int) extends AbstractPeripheral.Builder(version)
 
 }

@@ -29,15 +29,19 @@ class Broadcast {
     devices = List(
       new Hub.Builder(2016)
         .connectors(Connector.Type.COMPUTER :: cons)
+        .asInstanceOf[Hub.Builder]
         .build(),
       new SisterPrinter.Builder(2016)
         .serialNumber(13579)
+        .asInstanceOf[SisterPrinter.Builder]
         .productCode(293)
+        .asInstanceOf[SisterPrinter.Builder]
         .connectors(cons)
         .asInstanceOf[SisterPrinter.Builder]
         .build(),
       new CannonPrinter.Builder(2016)
         .serialNumber(24680)
+        .asInstanceOf[CannonPrinter.Builder]
         .connectors(cons)
         .asInstanceOf[CannonPrinter.Builder]
         .build(),

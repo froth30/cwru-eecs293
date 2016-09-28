@@ -13,22 +13,11 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-final class Connector private (private val device: Device,
-                               private val index: Int,
-                               private val `type`: Connector.Type) {
+final class Connector(private val device: Device,
+                      private val index: Int,
+                      private val `type`: Connector.Type) {
   
   private val peer: Option[Connector] = Option.empty
-  
-  /**
-    * Creates a new connector with the given device, index, and type, and no peer.
-    *
-    * @param device the device to which the connector belongs
-    * @param index  the plug number in the connector's device
-    * @param `type` the type of this connector
-    * @return the constructed connector
-    */
-  def apply(device: Device, index: Int, `type`: Connector.Type): Connector =
-  new Connector(device, index, `type`)
   
   /**
     * Returns the device to which this connector belongs.
@@ -82,5 +71,5 @@ object Connector {
   type Type = Type.Value  /*
   TODO[DIS] => Although not the conventional way to implement an enumeration in Scala, approaches like this are suggested in Scala Cookbook 10.26  ((keep this if okay with Andrew))
   */
-
+  
 }

@@ -12,22 +12,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class GoAmateur protected
-(override protected val productCode: Option[Int],
- override protected val serialNumber: Option[BigInt],
- override protected val version: Int,
- override protected val connectors: List[Connector]
-) extends AbstractVideo[GoAmateur.Builder](productCode, serialNumber, version, connectors) {
-
-  /**
-    * Initializes the GoAmateur from the given builder.
-    *
-    * @param builder a builder for initializing the GoAmateur
-    */
-  protected def this(builder: GoAmateur.Builder) {
-    this(version)
-  }
-
+class GoAmateur(private val builder: GoAmateur.Builder) extends AbstractVideo(builder) {
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -43,7 +29,7 @@ class GoAmateur protected
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -58,23 +44,19 @@ class GoAmateur protected
     super.recv(message, connector)
     println("[Log] >>  " + "GoAmateur is not yet active: " + message.getValue)
   }
-
+  
 }
 
 
 object GoAmateur {
-
-  class Builder extends AbstractVideo.Builder[Builder] {
-
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    def this(version: Int) {
-      this(version)
-    }
-
+  
+  /**
+    * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+    *
+    * @param version the UXB version that this device supports
+    */
+  class Builder(override protected val version: Int) extends AbstractVideo.Builder(version) {
+  
     /**
       * Initializes the GoAmateur with the builder’s version, product code, serial number, and connector list.
       *
@@ -86,7 +68,7 @@ object GoAmateur {
       validate()
       new GoAmateur(this)
     }
-
+  
   }
-
+  
 }

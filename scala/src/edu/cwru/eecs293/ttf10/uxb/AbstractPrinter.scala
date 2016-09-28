@@ -11,19 +11,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]] protected
-(override protected val productCode: Option[Int],
- override protected val serialNumber: Option[BigInt],
- override protected val version: Int,
- override protected val connectors: List[Connector]
-) extends AbstractPeripheral[T](productCode, serialNumber, version, connectors) {
-  
-  /**
-    * Initializes the abstract printer from the given builder.
-    *
-    * @param builder a builder for initializing the abstract printer
-    */
-  protected def apply(builder: AbstractPrinter.Builder[T]): AbstractPrinter[T] = this(builder)
+abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
+(private val builder: AbstractPrinter.Builder[T]) extends AbstractPeripheral(builder) {
   
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
   
@@ -32,6 +21,7 @@ abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]] protected
 
 object AbstractPrinter {
   
-  abstract class Builder[T] extends AbstractPeripheral.Builder[Builder[T]]
+  abstract class Builder[+T <: AbstractPrinter.Builder[T]]
+  (override protected val version: Int) extends AbstractPeripheral.Builder(version)
   
 }

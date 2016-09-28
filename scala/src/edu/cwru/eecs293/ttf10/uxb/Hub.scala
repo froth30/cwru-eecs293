@@ -1,5 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
+import DeviceClass._
+
 /**
   * <p> Represents a UXB hub, which can have multiple computer-side and peripheral-side connectors.
   *
@@ -12,18 +14,9 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class Hub extends AbstractDevice[Hub.Builder] {
+class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
 
-  /**
-    * Initializes the hub from the given builder.
-    *
-    * @param builder a builder for initializing the hub
-    */
-  private[Hub] def this(builder: Hub.Builder) {
-    this(builder)
-  }
-
-  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.HUB
+  override def getDeviceClass: DeviceClass = DeviceClass.HUB
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -59,17 +52,13 @@ class Hub extends AbstractDevice[Hub.Builder] {
 
 
 object Hub {
-
-  class Builder extends AbstractDevice.Builder[Builder] {
-
-    /**
-      * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    def this(version: Int) {
-      this(version)
-    }
+  
+  /**
+    * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+    *
+    * @param version the UXB version that this device supports
+    */
+  class Builder(override protected val version: Int) extends AbstractDevice.Builder(version) {
 
     /**
       * Initializes the hub with the builder’s version, product code, serial number, and connector list.
