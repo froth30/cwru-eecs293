@@ -27,15 +27,15 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] private
     *
     * @param builder a builder for initializing an abstract device
     */
-  protected def AbstractBuilder(builder: AbstractDevice.Builder[T]) {
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
+  protected def this(builder: AbstractDevice.Builder[T]) {
+    this(builder.getProductCode, builder.getSerialNumber, builder.getVersion, {
+      val connectorTypes = builder.getConnectors
+      var connectors = List.empty
+      for (index <- connectorTypes.indices) {
+        connectors ::= new Connector(this, index, connectorTypes(index))
+      }
+      connectors
+    })
   }
   
   override def getProductCode: Option[Int] = productCode
