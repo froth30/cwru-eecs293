@@ -23,9 +23,7 @@ abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]] protected
     *
     * @param builder a builder for initializing the abstract printer
     */
-  protected def this(builder: AbstractPrinter.Builder[T]) {
-    this(builder)
-  }
+  protected def apply(builder: AbstractPrinter.Builder[T]): AbstractPrinter[T] = this(builder)
   
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
   

@@ -18,7 +18,7 @@ final class StringMessage private (private val string: String) extends Message {
     *
     * @param string the underlying string
     */
-  def this(string: String) = this(if (string != null) string else "")
+  def apply(string: String): StringMessage = this(if (string != null) string else "")
   
   /**
     * Returns the underlying string.

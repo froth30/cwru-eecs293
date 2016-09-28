@@ -19,7 +19,7 @@ final class BinaryMessage private (private val value: BigInt) extends Message {
     *
     * @param value the underlying value
     */
-  def this(value: BigInt) = this(if (value != null) value else 0)
+  def apply(value: BigInt): BinaryMessage = this(if (value != null) value else 0)
   
   def getValue: BigInt = value
   

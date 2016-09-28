@@ -23,9 +23,7 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]] protected
     *
     * @param builder a builder for initializing the video device
     */
-  protected def this(builder: AbstractVideo.Builder[T]) {
-    this(builder)
-  }
+  protected def apply(builder: AbstractVideo.Builder[T]): AbstractVideo[T] = this(builder)
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.VIDEO
 
@@ -41,9 +39,7 @@ object AbstractVideo {
       *
       * @param version the UXB version that this device supports
       */
-    def this(version: Int) {
-      this(version)
-    }
+    override def apply(version: Int) = super.apply(version)
 
   }
 

@@ -27,7 +27,8 @@ final class Connector private (private val device: Device,
     * @param `type` the type of this connector
     * @return the constructed connector
     */
-  def this(device: Device, index: Int, `type`: Connector.Type) = this(device, index, `type`)
+  def apply(device: Device, index: Int, `type`: Connector.Type): Connector =
+  new Connector(device, index, `type`)
   
   /**
     * Returns the device to which this connector belongs.
