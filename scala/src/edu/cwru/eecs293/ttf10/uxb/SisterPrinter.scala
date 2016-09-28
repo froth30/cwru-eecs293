@@ -11,29 +11,28 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
+class SisterPrinter protected
+(override protected val productCode: Option[Int],
+ override protected val serialNumber: Option[BigInt],
+ override protected val version: Int,
+ override protected val connectors: List[Connector]
+) extends AbstractPrinter[SisterPrinter.Builder](productCode, serialNumber, version, connectors) {
 
   /**
     * Initializes the sister printer from the given builder.
+    *
     * @param builder a builder for initializing the sister printer
     */
   protected def this(builder: SisterPrinter.Builder) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
-  }  // TODO: supposed to invoke parent constructor... why can't I??
+    this(builder)
+  }
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the string message being received
+    *
+    * @param message   the string message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -46,9 +45,10 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the binary message being received
+    *
+    * @param message   the binary message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -56,7 +56,7 @@ class SisterPrinter extends AbstractPrinter[SisterPrinter.Builder] {
   override def recv(message: BinaryMessage, connector: Connector) {
     super.recv(message, connector)
     val result: BigInt = message.getValue +
-      (if (productCode.isDefined) productCode.get else 0)  // TODO: simplify by using Option.getOrElse
+      (if (productCode.isDefined) productCode.get else 0) // TODO: simplify by using Option.getOrElse
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
 
@@ -69,6 +69,7 @@ object SisterPrinter {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
@@ -77,10 +78,11 @@ object SisterPrinter {
       productCode(null.asInstanceOf[Int])
       serialNumber(null.asInstanceOf[BigInt])
       connectors(null)
-    }  //TODO supposed to invoke parent method... why can't I?
+    } //TODO supposed to invoke parent method... why can't I?
 
     /**
       * Initializes the sister printer with the builder’s version, product code, serial number, and connector list.
+      *
       * @return the initialized sister printer
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
@@ -90,13 +92,6 @@ object SisterPrinter {
       new SisterPrinter(this)
     }
 
-    /**
-      * Returns this builder.
-      * @return this builder
-      */
-    override protected def getThis: Builder = this
-
   }
-
 
 }

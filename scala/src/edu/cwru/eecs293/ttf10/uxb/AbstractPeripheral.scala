@@ -11,47 +11,42 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
-  extends AbstractDevice[T] {  // TODO:
-
+abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]] protected
+(override protected val productCode: Option[Int],
+ override protected val serialNumber: Option[BigInt],
+ override protected val version: Int,
+ override protected val connectors: List[Connector]
+) extends AbstractDevice[T](productCode, serialNumber, version, connectors) {
+  
   /**
     * Initializes the abstract peripheral from the given builder.
+    *
     * @param builder a builder for initializing the abstract peripheral
     */
   protected def this(builder: AbstractPeripheral.Builder[T]) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors  // TODO: n^2 complexity; use foreach
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
-  }  // TODO: supposed to invoke parent constructor... why can't I??
-
+    this(builder)
+  }
+  
 }
 
 
 object AbstractPeripheral {
-
+  
   abstract class Builder[T] extends AbstractDevice.Builder[Builder[T]] {
-
+    
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    }  // TODO: supposed to invoke parent method... why can't I?
-
+      this(version)
+    }
+    
     /**
       * Validates this builder.
-      * @throws NullPointerException if and only if the version number is null
+      *
+      * @throws NullPointerException  if and only if the version number is null
       * @throws IllegalStateException if and only if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
     @throws[NullPointerException]
@@ -68,8 +63,8 @@ object AbstractPeripheral {
         throw new IllegalStateException("Validation failed: all connectors must be of type peripheral.")
       }
     }
-
+    
   }
-
-
+  
+  
 }

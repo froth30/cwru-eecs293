@@ -12,44 +12,44 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class GoAmateur extends AbstractVideo[GoAmateur.Builder] {
+class GoAmateur protected
+(override protected val productCode: Option[Int],
+ override protected val serialNumber: Option[BigInt],
+ override protected val version: Int,
+ override protected val connectors: List[Connector]
+) extends AbstractVideo[GoAmateur.Builder](productCode, serialNumber, version, connectors) {
 
   /**
     * Initializes the GoAmateur from the given builder.
+    *
     * @param builder a builder for initializing the GoAmateur
     */
   protected def this(builder: GoAmateur.Builder) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
-  } // TODO: supposed to invoke parent constructor... why can't I??
+    this(version)
+  }
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the string message being received
+    *
+    * @param message   the string message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)  // TODO: recv$ (validate)
+    super.recv(message, connector) // TODO: recv$ (validate)
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the binary message being received
+    *
+    * @param message   the binary message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -68,18 +68,16 @@ object GoAmateur {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    } // TODO: supposed to invoke parent method... why can't I?
+      this(version)
+    }
 
     /**
       * Initializes the GoAmateur with the builder’s version, product code, serial number, and connector list.
+      *
       * @return the initialized GoAmateur
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
@@ -89,13 +87,6 @@ object GoAmateur {
       new GoAmateur(this)
     }
 
-    /**
-      * Returns this builder.
-      * @return this builder
-      */
-    override protected def getThis: Builder = this
-
   }
-
 
 }

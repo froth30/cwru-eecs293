@@ -13,9 +13,10 @@ package edu.cwru.eecs293.ttf10.uxb
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 trait Message {
-
+  
   /**
     * Signifies that the <tt>Message</tt> has reached the given device coming from the given connector.
+    *
     * @param device    the device receiving this message
     * @param connector the connector at which this message arrived
     * @throws NullPointerException     if either argument is null
@@ -24,5 +25,5 @@ trait Message {
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   def reach(device: Device, connector: Connector)
-
+  
 }

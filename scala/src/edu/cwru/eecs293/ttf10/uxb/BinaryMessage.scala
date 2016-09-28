@@ -13,19 +13,21 @@ package edu.cwru.eecs293.ttf10.uxb
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 final class BinaryMessage private (private val value: BigInt) extends Message {
-
+  
   /**
     * Initialize this message with a copy of the given value. If the value is null, the message should contain zero.
+    *
     * @param value the underlying value
     */
   def this(value: BigInt) = this(if (value != null) value else 0)
-
+  
   def getValue: BigInt = value
-
+  
   /** Signifies that this <tt>BinaryMessage</tt> has reached the given device coming from the given connector.
-    * @param device the device receiving this message
+    *
+    * @param device    the device receiving this message
     * @param connector the connector at which this message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to the device
     */
   @throws[NullPointerException]
@@ -33,11 +35,11 @@ final class BinaryMessage private (private val value: BigInt) extends Message {
   override def reach(device: Device, connector: Connector) {
     device.recv(this, connector)
   }
-
+  
   override def equals(anObject: Any): Boolean = {
     anObject != null &&
       anObject.isInstanceOf[BinaryMessage] &&
       anObject.asInstanceOf[BinaryMessage].value == value
   }
-
+  
 }

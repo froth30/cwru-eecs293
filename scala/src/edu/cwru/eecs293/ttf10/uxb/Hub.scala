@@ -16,28 +16,21 @@ class Hub extends AbstractDevice[Hub.Builder] {
 
   /**
     * Initializes the hub from the given builder.
+    *
     * @param builder a builder for initializing the hub
     */
   private[Hub] def this(builder: Hub.Builder) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-      // TODO: "::=" might not work; consider ":::"
-    }
+    this(builder)
   }
 
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.HUB
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the string message being received
+    *
+    * @param message   the string message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -49,9 +42,10 @@ class Hub extends AbstractDevice[Hub.Builder] {
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the binary message being received
+    *
+    * @param message   the binary message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -70,18 +64,16 @@ object Hub {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
+      this(version)
     }
 
     /**
       * Initializes the hub with the builder’s version, product code, serial number, and connector list.
+      *
       * @return the initialized hub
       * @throws IllegalStateException if the version is null, or the hub has no computer connector, or the hub has no peripheral connector.
       */
@@ -92,13 +84,8 @@ object Hub {
     }
 
     /**
-      * Returns this builder.
-      * @return this builder
-      */
-    override protected def getThis: Builder = this
-
-    /**
       * Validates this builder.
+      *
       * @throws IllegalStateException if and only if the version number is null, or if the hub has no computer connector, or if the hub has no peripheral connector
       */
     @throws[IllegalStateException]
@@ -120,6 +107,5 @@ object Hub {
     }
 
   }
-
 
 }

@@ -11,32 +11,29 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
-  extends AbstractPeripheral[AbstractPrinter.Builder[T]] {
-
+abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]] protected
+(override protected val productCode: Option[Int],
+ override protected val serialNumber: Option[BigInt],
+ override protected val version: Int,
+ override protected val connectors: List[Connector]
+) extends AbstractPeripheral[T](productCode, serialNumber, version, connectors) {
+  
   /**
     * Initializes the abstract printer from the given builder.
+    *
     * @param builder a builder for initializing the abstract printer
     */
   protected def this(builder: AbstractPrinter.Builder[T]) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
-  }  // TODO: supposed to invoke parent constructor... why can't I??
-
+    this(builder)
+  }
+  
   override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
-
+  
 }
 
 
 object AbstractPrinter {
-
+  
   abstract class Builder[T] extends AbstractPeripheral.Builder[Builder[T]]
-
+  
 }

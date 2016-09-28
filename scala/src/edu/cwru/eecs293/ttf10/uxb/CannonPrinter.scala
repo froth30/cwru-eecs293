@@ -11,29 +11,28 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
+class CannonPrinter protected
+(override protected val productCode: Option[Int],
+ override protected val serialNumber: Option[BigInt],
+ override protected val version: Int,
+ override protected val connectors: List[Connector]
+) extends AbstractPrinter[CannonPrinter.Builder](productCode, serialNumber, version, connectors) {
 
   /**
     * Initializes the cannon printer from the given builder.
+    *
     * @param builder a builder for initializing the cannon printer
     */
   protected def this(builder: CannonPrinter.Builder) {
-    this
-    productCode = builder.getProductCode
-    serialNumber = builder.getSerialNumber
-    version = builder.getVersion
-    val connectorTypes = builder.getConnectors
-    connectors = List.empty
-    for (index <- connectorTypes.indices) {
-      connectors ::= new Connector(this, index, connectorTypes(index))
-    }
-  }  // TODO: supposed to invoke parent constructor... why can't I??
+    this(builder)
+  }
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the string message being received
+    *
+    * @param message   the string message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -46,9 +45,10 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
-    * @param message the binary message being received
+    *
+    * @param message   the binary message being received
     * @param connector the connector at which the message arrived
-    * @throws NullPointerException if either argument is null
+    * @throws NullPointerException     if either argument is null
     * @throws IllegalArgumentException if the connector does not belong to this device
     */
   @throws[NullPointerException]
@@ -56,7 +56,7 @@ class CannonPrinter extends AbstractPrinter[CannonPrinter.Builder] {
   override def recv(message: BinaryMessage, connector: Connector) {
     super.recv(message, connector)
     val result: BigInt = message.getValue *
-      (if (serialNumber.isDefined) serialNumber.get else 1)  // TODO: simplify by using Option.getOrElse
+      (if (serialNumber.isDefined) serialNumber.get else 1) // TODO: simplify by using Option.getOrElse
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
 
@@ -69,18 +69,16 @@ object CannonPrinter {
 
     /**
       * Creates a new builder with the given UXB version, no connectors, and with empty product code and serial number.
+      *
       * @param version the UXB version that this device supports
       */
     def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    }  // TODO: supposed to invoke parent method... why can't I?
+      this(version)
+    }
 
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.
+      *
       * @return the initialized cannon printer
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
@@ -90,13 +88,6 @@ object CannonPrinter {
       new CannonPrinter(this)
     }
 
-    /**
-      * Returns this builder.
-      * @return this builder
-      */
-    override protected def getThis: Builder = this
-
   }
-
 
 }

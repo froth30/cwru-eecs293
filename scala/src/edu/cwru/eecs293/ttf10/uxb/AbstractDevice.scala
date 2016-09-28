@@ -14,12 +14,13 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] extends Device {
+abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] private
+(protected val productCode: Option[Int],
+ protected val serialNumber: Option[BigInt],
+ protected val version: Int,
+ protected val connectors: List[Connector]
+) extends Device {
   
-  protected var productCode: Option[Int] = _
-  protected var serialNumber: Option[BigInt] = _
-  protected var version: Int = _
-  protected var connectors: List[Connector] = _
   
   /**
     * Initializes an abstract device from the given builder.
@@ -114,7 +115,8 @@ object AbstractDevice {
       *
       * @param version the UXB version that this device supports
       */
-    def Builder(version: Int) {
+    def this(version: Int) {
+      this
       this.version = version
       productCode(null.asInstanceOf[Int])
       serialNumber(null.asInstanceOf[BigInt])
@@ -126,6 +128,10 @@ object AbstractDevice {
     def getSerialNumber: Option[BigInt] = serialNumber
     
     def getVersion: Int = version
+    
+    def getConnectors: List[Connector.Type] = connectors
+  
+    protected def getThis: T = this.asInstanceOf[T]
     
     /**
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
@@ -160,15 +166,6 @@ object AbstractDevice {
       this.connectors = if (connectors != null) connectors else List.empty
       getThis
     }
-    
-    protected def getThis: T = this.asInstanceOf[T]
-    
-    /**
-      * Returns a copy of the connector types.
-      *
-      * @return a copy of the connector types
-      */
-    /*protected*/ def getConnectors: List[Connector.Type] = connectors
     
     /**
       * Validates this builder.
