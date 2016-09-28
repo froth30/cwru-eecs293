@@ -23,9 +23,7 @@ abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]] protected
     *
     * @param builder a builder for initializing the abstract peripheral
     */
-  protected def this(builder: AbstractPeripheral.Builder[T]) {
-    this(builder)
-  }
+  protected def apply(builder: AbstractPeripheral.Builder[T]): AbstractPeripheral[T] = this(builder)
   
 }
 
@@ -39,9 +37,7 @@ object AbstractPeripheral {
       *
       * @param version the UXB version that this device supports
       */
-    def this(version: Int) {
-      this(version)
-    }
+    def apply(version: Int): Builder[T] = this(version)
     
     /**
       * Validates this builder.
