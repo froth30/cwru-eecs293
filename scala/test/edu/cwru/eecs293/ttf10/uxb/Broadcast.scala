@@ -29,7 +29,7 @@ class Broadcast {
     devices = List(
       new Hub.Builder(2016)
         .connectors(Connector.Type.COMPUTER :: cons)
-        .asInstanceOf[Hub.Builder]
+        .asInstanceOf[Hub.Builder]  // TODO: using this every other line is gross...
         .build(),
       new SisterPrinter.Builder(2016)
         .serialNumber(13579)
