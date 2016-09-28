@@ -23,9 +23,7 @@ class SisterPrinter protected
     *
     * @param builder a builder for initializing the sister printer
     */
-  protected def this(builder: SisterPrinter.Builder) {
-    this(builder)
-  }
+  protected def apply(builder: SisterPrinter.Builder): SisterPrinter = this(builder)
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -64,6 +62,8 @@ class SisterPrinter protected
 
 
 object SisterPrinter {
+  
+  private def apply(builder: Builder): SisterPrinter = this(builder)
 
   class Builder extends AbstractPrinter.Builder[Builder] {
 
@@ -72,13 +72,7 @@ object SisterPrinter {
       *
       * @param version the UXB version that this device supports
       */
-    def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    } //TODO supposed to invoke parent method... why can't I?
+    override def apply(version: Int): Builder = this(version)
 
     /**
       * Initializes the sister printer with the builder’s version, product code, serial number, and connector list.
@@ -89,7 +83,7 @@ object SisterPrinter {
     @throws[IllegalStateException]
     def build(): SisterPrinter = {
       validate()
-      new SisterPrinter(this)
+      SisterPrinter(this)
     }
 
   }

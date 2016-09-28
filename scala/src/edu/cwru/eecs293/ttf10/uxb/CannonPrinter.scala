@@ -23,9 +23,7 @@ class CannonPrinter protected
     *
     * @param builder a builder for initializing the cannon printer
     */
-  protected def this(builder: CannonPrinter.Builder) {
-    this(builder)
-  }
+  protected def apply(builder: CannonPrinter.Builder): CannonPrinter = this(builder)
 
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -64,6 +62,8 @@ class CannonPrinter protected
 
 
 object CannonPrinter {
+  
+  private def apply(builder: Builder): CannonPrinter = this(builder)
 
   class Builder extends AbstractPrinter.Builder[Builder] {
 
@@ -72,9 +72,7 @@ object CannonPrinter {
       *
       * @param version the UXB version that this device supports
       */
-    def this(version: Int) {
-      this(version)
-    }
+    override def apply(version: Int): Builder = this(version)
 
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.
@@ -85,7 +83,7 @@ object CannonPrinter {
     @throws[IllegalStateException]
     def build(): CannonPrinter = {
       validate()
-      new CannonPrinter(this)
+      CannonPrinter(this)
     }
 
   }
