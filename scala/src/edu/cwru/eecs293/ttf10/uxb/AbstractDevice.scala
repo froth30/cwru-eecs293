@@ -14,28 +14,19 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected
-(protected val productCode: Option[Int],
- protected val serialNumber: Option[BigInt],
- protected val version: Int,
- protected val connectors: List[Connector]
-) extends Device {
+abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected (private val builder: AbstractDevice.Builder[T])
+  extends Device {
   
-  
-  /**
-    * Initializes an abstract device from the given builder.
-    *
-    * @param builder a builder for initializing an abstract device
-    */
-  protected def this(builder: AbstractDevice.Builder[T]) {
-    this(builder.getProductCode, builder.getSerialNumber, builder.getVersion, {
-      val connectorTypes = builder.getConnectors
-      var connectors = List.empty
-      for (index <- connectorTypes.indices) {
-        connectors ::= new Connector(this, index, connectorTypes(index))
-      }
-      connectors
-    })
+  protected val productCode: Option[Int] = builder.getProductCode
+  protected val serialNumber: Option[BigInt] = builder.getSerialNumber
+  protected val version: Int = builder.getVersion
+  protected val connectors: List[Connector] = {
+    val connectorTypes = builder.getConnectors
+    var connectors: List[Connector] = List.empty
+    for (index <- connectorTypes.indices) {
+      connectors ::= Connector(this, index, connectorTypes(index))
+    }
+    connectors
   }
   
   override def getProductCode: Option[Int] = productCode
@@ -103,25 +94,17 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected
 
 object AbstractDevice {
   
-  abstract class Builder[T] {
+  
+  /**
+    * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
+    *
+    * @param version the UXB version that this device supports
+    */
+  abstract class Builder[T] (protected var version: Int) {
     
-    protected var version: Int = _
-    protected var productCode: Option[Int] = _
-    protected var serialNumber: Option[BigInt] = _
-    protected var connectors: List[Connector.Type] = _
-    
-    /**
-      * Creates a new builder with the given UXB version, no connectors, empty product code, and empty serial number.
-      *
-      * @param version the UXB version that this device supports
-      */
-    def this(version: Int) {
-      this
-      this.version = version
-      productCode(null.asInstanceOf[Int])
-      serialNumber(null.asInstanceOf[BigInt])
-      connectors(null)
-    }
+    protected var productCode: Option[Int] = Option.empty
+    protected var serialNumber: Option[BigInt] = Option.empty
+    protected var connectors: List[Connector.Type] = List.empty
     
     def getProductCode: Option[Int] = productCode
     
