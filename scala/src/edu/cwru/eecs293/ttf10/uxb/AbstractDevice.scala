@@ -14,7 +14,7 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] private
+abstract class AbstractDevice[T <: AbstractDevice.Builder[T]] protected
 (protected val productCode: Option[Int],
  protected val serialNumber: Option[BigInt],
  protected val version: Int,
