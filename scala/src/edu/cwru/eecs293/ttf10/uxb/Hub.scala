@@ -15,9 +15,9 @@ import DeviceClass._
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
-
+  
   override def getDeviceClass: DeviceClass = DeviceClass.HUB
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -32,7 +32,7 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
     super.recv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -47,7 +47,7 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
     super.recv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
-
+  
 }
 
 
@@ -59,7 +59,9 @@ object Hub {
     * @param version the UXB version that this device supports
     */
   class Builder(override protected val version: Int) extends AbstractDevice.Builder(version) {
-
+  
+    override protected def getThis: Builder = this
+  
     /**
       * Initializes the hub with the builder’s version, product code, serial number, and connector list.
       *
@@ -71,7 +73,7 @@ object Hub {
       validate()
       new Hub(this)
     }
-
+  
     /**
       * Validates this builder.
       *
@@ -94,7 +96,7 @@ object Hub {
         throw new IllegalStateException("Validation failed: hub has no peripheral connector.")
       }
     }
-
+  
   }
-
+  
 }

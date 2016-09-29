@@ -57,6 +57,8 @@ object GoAmateur {
     */
   class Builder(override protected val version: Int) extends AbstractVideo.Builder(version) {
   
+    override protected def getThis: Builder = this
+  
     /**
       * Initializes the GoAmateur with the builder’s version, product code, serial number, and connector list.
       *

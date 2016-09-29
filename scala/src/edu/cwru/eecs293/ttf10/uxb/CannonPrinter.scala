@@ -58,6 +58,8 @@ object CannonPrinter {
     */
   class Builder(override protected val version: Int) extends AbstractPrinter.Builder(version) {
   
+    override protected def getThis: Builder = this
+  
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.
       *

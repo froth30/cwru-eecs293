@@ -12,7 +12,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
 class SisterPrinter(private val builder: SisterPrinter.Builder) extends AbstractPrinter(builder) {
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -28,7 +28,7 @@ class SisterPrinter(private val builder: SisterPrinter.Builder) extends Abstract
     println("[Log] >>  " + "Sister printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> printer serial number: " + serialNumber.get)
   }
-
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -45,7 +45,7 @@ class SisterPrinter(private val builder: SisterPrinter.Builder) extends Abstract
       (if (productCode.isDefined) productCode.get else 0) // TODO: simplify by using Option.getOrElse
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
-
+  
 }
 
 
@@ -57,7 +57,9 @@ object SisterPrinter {
     * @param version the UXB version that this device supports
     */
   class Builder(override protected val version: Int) extends AbstractPrinter.Builder(version) {
-
+  
+    override protected def getThis: Builder = this
+  
     /**
       * Initializes the sister printer with the builder’s version, product code, serial number, and connector list.
       *
@@ -69,7 +71,7 @@ object SisterPrinter {
       validate()
       new SisterPrinter(this)
     }
-
+  
   }
-
+  
 }

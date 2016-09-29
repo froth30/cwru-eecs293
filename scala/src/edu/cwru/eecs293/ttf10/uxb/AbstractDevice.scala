@@ -99,7 +99,7 @@ object AbstractDevice {
     *
     * @param version the UXB version that this device supports
     */
-  abstract class Builder[+T <: AbstractDevice.Builder[T]] (protected val version: Int) {
+  abstract class Builder[+T <: AbstractDevice.Builder[T]](protected val version: Int) {
     
     protected var productCode: Option[Int] = Option.empty
     protected var serialNumber: Option[BigInt] = Option.empty
@@ -113,7 +113,7 @@ object AbstractDevice {
     
     def getConnectors: List[Connector.Type] = connectors
   
-    protected def getThis: T = this.asInstanceOf[T]
+    protected def getThis: T
     
     /**
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
