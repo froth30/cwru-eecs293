@@ -54,7 +54,7 @@ final class StringMessage extends Message {
   override def equals(anObject: Any): Boolean = {
     anObject != null &&
       anObject.isInstanceOf[StringMessage] &&
-      anObject.asInstanceOf[StringMessage].string.equals(string)
+      anObject.asInstanceOf[StringMessage].string == string
   }
   
   // METHODS DELEGATED TO THE UNDERLYING STRING...
@@ -87,6 +87,6 @@ final class StringMessage extends Message {
   
   def isEmpty: Boolean = string.isEmpty
   
-  override def hashCode: Int = string.hashCode
+  override def hashCode: Int = string.hashCode()
   
 }
