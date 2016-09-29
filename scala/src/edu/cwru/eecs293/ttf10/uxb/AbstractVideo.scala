@@ -1,5 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
+import DeviceClass._
+
 /**
   * <p> Represents a prototypical UXB video peripheral device.
   *
@@ -13,22 +15,22 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 abstract class AbstractVideo[T <: AbstractVideo.Builder[T]]
 (private val builder: AbstractVideo.Builder[T]) extends AbstractPeripheral(builder) {
-
+  
   /**
     * Initializes the video device from the given builder.
     *
     * @param builder a builder for initializing the video device
     */
   protected def apply(builder: AbstractVideo.Builder[T]): AbstractVideo[T] = this(builder)
-
-  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.VIDEO
-
+  
+  override def getDeviceClass: DeviceClass = DeviceClass.VIDEO
+  
 }
 
 
 object AbstractVideo {
-
+  
   abstract class Builder[+T <: AbstractVideo.Builder[T]]
   (override protected val version: Int) extends AbstractPeripheral.Builder(version)
-
+  
 }

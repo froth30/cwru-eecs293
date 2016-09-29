@@ -1,5 +1,7 @@
 package edu.cwru.eecs293.ttf10.uxb
 
+import DeviceClass._
+
 /**
   * <p> Represents a prototypical UXB printer.
   *
@@ -14,7 +16,7 @@ package edu.cwru.eecs293.ttf10.uxb
 abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
 (private val builder: AbstractPrinter.Builder[T]) extends AbstractPeripheral(builder) {
   
-  override def getDeviceClass: DeviceClass.DeviceClass = DeviceClass.PRINTER
+  override def getDeviceClass: DeviceClass = DeviceClass.PRINTER
   
 }
 
