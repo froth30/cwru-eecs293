@@ -22,8 +22,8 @@ object AbstractPeripheral {
     *
     * @param version the UXB version that this device supports
     */
-  abstract class Builder[+T <: AbstractPeripheral.Builder[T]]
-  (override protected val version: Int) extends AbstractDevice.Builder(version) {
+  abstract class Builder[T <: AbstractPeripheral.Builder[T]](override protected val version: Int)
+    extends AbstractDevice.Builder[Builder[T]](version) {
     
     /**
       * Validates this builder.

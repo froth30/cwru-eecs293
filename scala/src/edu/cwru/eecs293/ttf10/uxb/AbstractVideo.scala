@@ -13,15 +13,8 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractVideo[T <: AbstractVideo.Builder[T]]
-(private val builder: AbstractVideo.Builder[T]) extends AbstractPeripheral(builder) {
-  
-  /**
-    * Initializes the video device from the given builder.
-    *
-    * @param builder a builder for initializing the video device
-    */
-  protected def apply(builder: AbstractVideo.Builder[T]): AbstractVideo[T] = this(builder)
+abstract class AbstractVideo[T <: AbstractVideo.Builder[T]](private val builder: AbstractVideo.Builder[T])
+  extends AbstractPeripheral(builder) {
   
   override def getDeviceClass: DeviceClass = DeviceClass.VIDEO
   
@@ -30,7 +23,7 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]]
 
 object AbstractVideo {
   
-  abstract class Builder[+T <: AbstractVideo.Builder[T]]
-  (override protected val version: Int) extends AbstractPeripheral.Builder(version)
+  abstract class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
+    extends AbstractPeripheral.Builder[Builder[T]](version)
   
 }
