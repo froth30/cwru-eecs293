@@ -12,7 +12,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class GoAmateur[T <: AbstractVideo[T]](private val builder: GoAmateur.Builder[T])
+class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Builder[T])
   extends AbstractVideo[GoAmateur.Builder[T]](builder) {
   
   /**
@@ -56,7 +56,7 @@ object GoAmateur {
     *
     * @param version the UXB version that this device supports
     */
-  class Builder[T <: AbstractVideo[T]](override protected val version: Int)
+  class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
     extends AbstractVideo.Builder[Builder[T]](version) {
   
     override protected def getThis = this
@@ -70,7 +70,7 @@ object GoAmateur {
     @throws[IllegalStateException]
     def build(): GoAmateur[T] = {
       validate()
-      new GoAmateur(this)
+      new GoAmateur[T](this)
     }
   
   }
