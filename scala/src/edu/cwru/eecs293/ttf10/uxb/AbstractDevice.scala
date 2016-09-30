@@ -14,8 +14,8 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractDevice[T <: AbstractDevice.Builder[T]]
-(private val builder: AbstractDevice.Builder[T]) extends Device {
+abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builder: AbstractDevice.Builder[T])
+  extends Device {
   
   protected val productCode: Option[Int] = builder.getProductCode
   protected val serialNumber: Option[BigInt] = builder.getSerialNumber
@@ -99,7 +99,7 @@ object AbstractDevice {
     *
     * @param version the UXB version that this device supports
     */
-  abstract class Builder[+T <: AbstractDevice.Builder[T]](protected val version: Int) {
+  abstract class Builder[T <: AbstractDevice.Builder[T]](protected val version: Int) {
     
     protected var productCode: Option[Int] = Option.empty
     protected var serialNumber: Option[BigInt] = Option.empty

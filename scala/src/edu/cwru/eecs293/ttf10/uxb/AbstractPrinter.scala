@@ -13,8 +13,8 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
-(private val builder: AbstractPrinter.Builder[T]) extends AbstractPeripheral(builder) {
+abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]](private val builder: AbstractPrinter.Builder[T])
+  extends AbstractPeripheral(builder) {
   
   override def getDeviceClass: DeviceClass = DeviceClass.PRINTER
   
@@ -23,7 +23,7 @@ abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]]
 
 object AbstractPrinter {
   
-  abstract class Builder[+T <: AbstractPrinter.Builder[T]]
-  (override protected val version: Int) extends AbstractPeripheral.Builder(version)
+  abstract class Builder[T <: AbstractPrinter.Builder[T]](override protected val version: Int)
+    extends AbstractPeripheral.Builder[Builder[T]](version)
   
 }

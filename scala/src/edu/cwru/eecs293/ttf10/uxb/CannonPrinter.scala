@@ -11,7 +11,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
   */
-class CannonPrinter(private val builder: CannonPrinter.Builder) extends AbstractPrinter(builder) {
+class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: CannonPrinter.Builder[T])
+  extends AbstractPrinter(builder) {
   
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -56,9 +57,10 @@ object CannonPrinter {
     *
     * @param version the UXB version that this device supports
     */
-  class Builder(override protected val version: Int) extends AbstractPrinter.Builder(version) {
+  class Builder[T <: AbstractPrinter.Builder[T]](override protected val version: Int)
+    extends AbstractPrinter.Builder[Builder[T]](version) {
   
-    override protected def getThis: Builder = this
+    override protected def getThis = this
   
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.
@@ -67,7 +69,7 @@ object CannonPrinter {
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
     @throws[IllegalStateException]
-    def build(): CannonPrinter = {
+    def build(): CannonPrinter[T] = {
       validate()
       new CannonPrinter(this)
     }
