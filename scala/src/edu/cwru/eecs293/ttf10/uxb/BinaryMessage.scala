@@ -37,6 +37,7 @@ final class BinaryMessage extends Message {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
+  @deprecated("Message communication simplified to elimate intermediary call in Message class", "hw4")
   override def reach(device: Device, connector: Connector) {
     device.recv(this, connector)
   }
