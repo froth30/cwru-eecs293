@@ -24,7 +24,6 @@ trait Message {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  @deprecated("Message communication simplified to elimate intermediary call in Message class", "hw4")
   def reach(device: Device, connector: Connector)
   
 }
