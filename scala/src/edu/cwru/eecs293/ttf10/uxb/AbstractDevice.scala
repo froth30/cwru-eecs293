@@ -1,6 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import DeviceClass._
+import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
+
+import scala.collection.mutable
 
 /**
   * Represents a prototypical UXB device.
@@ -49,19 +51,45 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     devices
   }
   
-  def reachableDevices: Set[Device] = reachableDevices(this)
-  
-  private def reachableDevices(root: Device): Set[Device] = {
-    ???
+  override def reachableDevices: Set[Device] = {
+    val queue: mutable.Queue[Device] = mutable.Queue(this)
+    val traversed: mutable.Set[Device] = mutable.Set(this)
+    acquireTargets(queue, traversed)
   }
   
-  private def reachableDevices(node: Device, depth: Int): Set[Device] = {
-    ???
+  override def isReachable(device: Device): Boolean = search(this, device)
+  
+  sealed override def search(origin: Device, target: Device): Boolean = {
+    val queue: mutable.Queue[Device] = mutable.Queue(origin)
+    val traversed: mutable.Set[Device] = mutable.Set(origin)
+    targetAcquired(queue, traversed, target)
   }
   
-  def reachableDevices(depth: Int): Set[Device] = ???
+  sealed override def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device] = {
+    while (queue.nonEmpty) {
+      val node = queue.dequeue()
+      enqueuePeers(queue, traversed, node)
+    }
+    traversed.toSet
+  }
   
-  def isReachable(device: Device): Boolean = ???
+  sealed override def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean = {
+    while (queue.nonEmpty) {
+      val node = queue.dequeue()
+      if (node == target) return true
+      enqueuePeers(queue, traversed, node)
+    }
+    false
+  }
+  
+  sealed override def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device) {
+    node.peerDevices
+      .diff(traversed)
+      .foreach(peer => {
+        traversed += peer
+        queue += peer
+      })
+  }
   
   /**
     * Signifies the arrival of a message at the given connector in the device.

@@ -2,6 +2,8 @@ package edu.cwru.eecs293.ttf10.uxb
 
 import DeviceClass._
 
+import scala.collection.mutable
+
 /**
   * <p> Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
   *
@@ -80,20 +82,6 @@ trait Device {
     */
   def reachableDevices: Set[Device]
   
-  /*TODO*/
-  protected def reachableDevices(root: Device): Set[Device]
-  
-  /*TODO*/
-  protected def reachableDevices(node: Device, depth: Int): Set[Device]
-  
-  /**
-    * Finds a set of devices reachable from this device at the given tree-depth from this root device.
-    *
-    * @param depth the number of connections from this device to others of interest
-    * @return devices that are reachable from this device at the specified depth
-    */
-  def reachableDevices(depth: Int): Set[Device]
-  
   /**
     * Determines whether the given device is reachable from this device.
     *
@@ -102,7 +90,15 @@ trait Device {
     */
   def isReachable(device: Device): Boolean
   
-  /**
+  protected def search(origin: Device, target: Device): Boolean
+  
+  protected def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device]
+  
+  protected def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean
+  
+  protected def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device)
+    
+    /**
     * Signifies the arrival of a message at the given connector in the device.
     *
     * @param message   the string message being received
