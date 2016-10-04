@@ -24,7 +24,13 @@ object AbstractPeripheral {
     */
   abstract class Builder[T <: AbstractPeripheral.Builder[T]](override protected val version: Int)
     extends AbstractDevice.Builder[Builder[T]](version) {
-    
+  
+    override def productCode(productCode: Int): T = super.productCode(productCode).asInstanceOf[T]
+  
+    override def serialNumber(serialNumber: BigInt): T = super.serialNumber(serialNumber).asInstanceOf[T]
+  
+    override def connectors(connectors: List[Connector.Type]): T = super.connectors(connectors).asInstanceOf[T]
+  
     /**
       * Validates this builder.
       *

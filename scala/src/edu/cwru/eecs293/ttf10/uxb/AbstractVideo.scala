@@ -24,6 +24,14 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]](private val builder:
 object AbstractVideo {
   
   abstract class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
-    extends AbstractPeripheral.Builder[Builder[T]](version)
+    extends AbstractPeripheral.Builder[Builder[T]](version) {
+  
+    override def productCode(productCode: Int): T = super.productCode(productCode).asInstanceOf[T]
+  
+    override def serialNumber(serialNumber: BigInt): T = super.serialNumber(serialNumber).asInstanceOf[T]
+  
+    override def connectors(connectors: List[Connector.Type]): T = super.connectors(connectors).asInstanceOf[T]
+    
+  }
   
 }
