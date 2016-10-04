@@ -52,12 +52,15 @@ final class Connector(private val device: Device,
   def setPeer(peer: Connector) {
     if (peer == null)
       throw new NullPointerException("Couldn't connect to peer: peer is null.")
-      
+    
     if (this.peer.nonEmpty)
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_BUSY)
-      
+    
     if (peer.getType == peer.getType)
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_MISMATCH)
+    
+    if (peer.isReachable(this.peer.get.device))
+      throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTION_CYCLE)
     
     this.peer = Option(peer)
   }
