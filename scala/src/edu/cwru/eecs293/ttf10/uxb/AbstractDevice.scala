@@ -59,13 +59,14 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   
   override def isReachable(device: Device): Boolean = search(this, device)
   
-  sealed override def search(origin: Device, target: Device): Boolean = {
+  private[AbstractDevice] override def search(origin: Device, target: Device): Boolean = {
     val queue: mutable.Queue[Device] = mutable.Queue(origin)
     val traversed: mutable.Set[Device] = mutable.Set(origin)
     targetAcquired(queue, traversed, target)
   }
   
-  sealed override def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device] = {
+  private[AbstractDevice] override def acquireTargets(queue: mutable.Queue[Device],
+                                                      traversed: mutable.Set[Device]): Set[Device] = {
     while (queue.nonEmpty) {
       val node = queue.dequeue()
       enqueuePeers(queue, traversed, node)
@@ -73,7 +74,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     traversed.toSet
   }
   
-  sealed override def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean = {
+  private[AbstractDevice] override def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean = {
     while (queue.nonEmpty) {
       val node = queue.dequeue()
       if (node == target) return true
@@ -82,7 +83,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     false
   }
   
-  sealed override def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device) {
+  private[AbstractDevice] override def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device) {
     node.peerDevices
       .diff(traversed)
       .foreach(peer => {
