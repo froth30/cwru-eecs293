@@ -80,6 +80,20 @@ trait Device {
     */
   def reachableDevices: Set[Device]
   
+  /*TODO*/
+  protected def reachableDevices(root: Device): Set[Device]
+  
+  /*TODO*/
+  protected def reachableDevices(node: Device, depth: Int): Set[Device]
+  
+  /**
+    * Finds a set of devices reachable from this device at the given tree-depth from this root device.
+    *
+    * @param depth the number of connections from this device to others of interest
+    * @return devices that are reachable from this device at the specified depth
+    */
+  def reachableDevices(depth: Int): Set[Device]
+  
   /**
     * Determines whether the given device is reachable from this device.
     *
