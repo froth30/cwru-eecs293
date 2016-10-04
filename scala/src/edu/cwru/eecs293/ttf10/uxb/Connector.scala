@@ -63,6 +63,14 @@ final class Connector(private val device: Device,
   }
   
   /**
+    * Determines whether the given device is reachable from this connector's device.
+    *
+    * @param device the device in question
+    * @return <tt>true</tt> if the given device is reachable from this connector's device, <tt>false</tt> otherwise
+    */
+  def isReachable(device: Device): Boolean = this.device.isReachable(device)
+  
+  /**
     * Makes sure that the message reaches the connector's device.
     *
     * @param message the message reaching the device
