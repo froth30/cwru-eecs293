@@ -67,6 +67,13 @@ trait Device {
   def getConnector(index: Int): Connector
   
   /**
+    * Returns the devices to which this device is connected directly through one of its connectors.
+    *
+    * @return a set of peer devices
+    */
+  def peerDevices: Set[Device]
+  
+  /**
     * Signifies the arrival of a message at the given connector in the device.
     *
     * @param message   the string message being received
