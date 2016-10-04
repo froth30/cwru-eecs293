@@ -74,6 +74,21 @@ trait Device {
   def peerDevices: Set[Device]
   
   /**
+    * Determines whether the given device is reachable from this device.
+    *
+    * @param device the device in question
+    * @return <tt>true</tt> if the argument is connected directly or indirectly to this device, <tt>false</tt> otherwise
+    */
+  def isReachable(device: Device): Boolean
+  
+  /**
+    * Finds a set of all devices reachable from this device.
+    *
+    * @return all devices that are reachable either directly (the <tt>peerDevices</tt>) or indirectly from this device
+    */
+  def reachableDevices: Set[Device]
+  
+  /**
     * Signifies the arrival of a message at the given connector in the device.
     *
     * @param message   the string message being received
