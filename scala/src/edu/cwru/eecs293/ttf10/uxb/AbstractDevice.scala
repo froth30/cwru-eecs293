@@ -43,6 +43,12 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   
   override def getConnector(index: Int): Connector = connectors(index)
   
+  override def peerDevices: Set[Device] = {
+    var devices = Set.empty[Device]
+    connectors.foreach(con => devices += con.getDevice)
+    devices
+  }
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
