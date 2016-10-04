@@ -17,7 +17,7 @@ final class Connector(private val device: Device,
                       private val index: Int,
                       private val `type`: Connector.Type) {
   
-  private val peer: Option[Connector] = Option.empty
+  private var peer: Option[Connector] = Option.empty
   
   /**
     * Returns the device to which this connector belongs.
@@ -46,6 +46,15 @@ final class Connector(private val device: Device,
     * @return the other connector if any to which this connector is plugged
     */
   def getPeer: Option[Connector] = peer
+  
+  @throws[ConnectionException]
+  @throws[NullPointerException]
+  def setPeer(peer: Connector) {
+    if (peer == null) {
+      throw new NullPointerException
+    }
+    this.peer = Option(peer)
+  }
   
   /**
     * Makes sure that the message reaches the connector's device.
