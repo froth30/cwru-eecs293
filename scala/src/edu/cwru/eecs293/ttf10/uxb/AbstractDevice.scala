@@ -49,6 +49,20 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     devices
   }
   
+  def reachableDevices: Set[Device] = reachableDevices(this)
+  
+  private def reachableDevices(root: Device): Set[Device] = {
+    ???
+  }
+  
+  private def reachableDevices(node: Device, depth: Int): Set[Device] = {
+    ???
+  }
+  
+  def reachableDevices(depth: Int): Set[Device] = ???
+  
+  def isReachable(device: Device): Boolean = ???
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
