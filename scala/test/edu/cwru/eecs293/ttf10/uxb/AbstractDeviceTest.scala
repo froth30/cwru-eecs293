@@ -42,7 +42,8 @@ class AbstractDeviceTest {
     assertEquals(validHub.getVersion, validVersion)
     assertEquals(validHub.getProductCode, Option.empty)
     assertEquals(validHub.getSerialNumber, Option.empty)
-    assertEquals(validHub.getConnectors, validConnectors)
+    val cons = validHub.getConnectors
+    cons foreach(con => assertEquals(con.getType, validConnectors(con.getIndex)))
   }
 
   @Test
