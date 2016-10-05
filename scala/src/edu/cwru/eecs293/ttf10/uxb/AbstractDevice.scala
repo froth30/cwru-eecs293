@@ -46,9 +46,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   def getConnector(index: Int): Connector = connectors(index)
   
   def peerDevices: Set[Device] = {
-    var devices = Set.empty[Device]
-    connectors.foreach(con => devices += con.getDevice)
-    devices
+    connectors.map(connector => connector.getDevice).toSet
   }
   
   def reachableDevices: Set[Device] = {
