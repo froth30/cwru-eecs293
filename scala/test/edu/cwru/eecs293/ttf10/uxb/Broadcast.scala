@@ -15,8 +15,8 @@ string message.
   */
 class Broadcast {
 
-  protected var devices: List[Device] = _
-  protected var messages: List[Message] = _
+  private var devices: List[Device] = _
+  private var messages: List[Message] = _
 
   @Before
   def setUp() {
