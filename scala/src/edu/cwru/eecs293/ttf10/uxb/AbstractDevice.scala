@@ -101,40 +101,12 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  private def validate_recv(message: Message, connector: Connector) {
+  protected def validate_recv(message: Message, connector: Connector) {
     if (message == null || connector == null) {
       throw new NullPointerException("Message not received: null argument.")
     } else if (connector.getDevice != this) {
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
     }
-  }
-  
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the string message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
-  def recv(message: StringMessage, connector: Connector) {
-    validate_recv(message, connector)
-  }
-  
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
-  def recv(message: BinaryMessage, connector: Connector) {
-    validate_recv(message, connector)
   }
   
 }
