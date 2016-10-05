@@ -12,7 +12,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-final class BinaryMessage extends Message {
+final case class BinaryMessage() extends Message {
   
   private var value: BigInt = 0
   

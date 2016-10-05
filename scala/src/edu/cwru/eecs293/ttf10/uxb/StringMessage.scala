@@ -11,7 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-final class StringMessage extends Message {
+final case class StringMessage() extends Message {
   
   private var string: String = ""
   
