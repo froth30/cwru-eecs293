@@ -82,8 +82,9 @@ final class Connector(private val device: Device,
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  def recv(message: Message) {
-    message.reach(device, this)
+  def recv(message: Message) = message match {
+    case bm: BinaryMessage => device.recv(bm, this)
+    case sm: StringMessage => device.recv(sm, this)
   }
   
 }
