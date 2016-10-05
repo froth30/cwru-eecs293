@@ -26,7 +26,7 @@ class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Bu
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector) // TODO: recv$ (validate)
+    validate_recv(message, connector)
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
@@ -42,7 +42,7 @@ class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Bu
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "GoAmateur is not yet active: " + message.getValue)
   }
   

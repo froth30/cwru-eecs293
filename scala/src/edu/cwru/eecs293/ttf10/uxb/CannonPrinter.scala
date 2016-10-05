@@ -25,7 +25,7 @@ class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Cannon
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "Cannon printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> UXB version number: " + version)
   }
@@ -41,7 +41,7 @@ class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Cannon
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     val result: BigInt = message.getValue * serialNumber.getOrElse(1)
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
