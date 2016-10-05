@@ -11,13 +11,13 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 final class Connector(private val device: Device,
                       private val index: Int,
                       private val `type`: Connector.Type) {
   
-  private val peer: Option[Connector] = Option.empty
+  private var peer: Option[Connector] = Option.empty
   
   /**
     * Returns the device to which this connector belongs.
@@ -47,6 +47,32 @@ final class Connector(private val device: Device,
     */
   def getPeer: Option[Connector] = peer
   
+  @throws[ConnectionException]
+  @throws[NullPointerException]
+  def setPeer(peer: Connector) {
+    if (peer == null)
+      throw new NullPointerException("Couldn't connect to peer: peer is null.")
+    
+    if (this.peer.nonEmpty)
+      throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_BUSY)
+    
+    if (peer.getType == getType)
+      throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_MISMATCH)
+    
+    if (peer.isReachable(getDevice))
+      throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTION_CYCLE)
+    
+    this.peer = Option(peer)
+  }
+  
+  /**
+    * Determines whether the given device is reachable from this connector's device.
+    *
+    * @param device the device in question
+    * @return <tt>true</tt> if the given device is reachable from this connector's device, <tt>false</tt> otherwise
+    */
+  def isReachable(device: Device): Boolean = this.device.isReachable(device)
+  
   /**
     * Makes sure that the message reaches the connector's device.
     *
@@ -56,8 +82,9 @@ final class Connector(private val device: Device,
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  def recv(message: Message) {
-    message.reach(device, this)
+  def recv(message: Message) = message match {
+    case bm: BinaryMessage => device.recv(bm, this)
+    case sm: StringMessage => device.recv(sm, this)
   }
   
 }

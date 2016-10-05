@@ -9,7 +9,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: CannonPrinter.Builder[T])
   extends AbstractPrinter(builder) {
@@ -25,7 +25,7 @@ class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Cannon
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "Cannon printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> UXB version number: " + version)
   }
@@ -41,9 +41,8 @@ class CannonPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Cannon
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
-    val result: BigInt = message.getValue *
-      (if (serialNumber.isDefined) serialNumber.get else 1) // TODO: simplify by using Option.getOrElse
+    validate_recv(message, connector)
+    val result: BigInt = message.getValue * serialNumber.getOrElse(1)
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
   }
   

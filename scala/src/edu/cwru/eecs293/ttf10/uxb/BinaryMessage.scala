@@ -10,9 +10,9 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
-final class BinaryMessage extends Message {
+final case class BinaryMessage() extends Message {
   
   private var value: BigInt = 0
   
@@ -37,7 +37,7 @@ final class BinaryMessage extends Message {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  @deprecated("Message communication simplified to elimate intermediary call in Message class", "hw4")
+  @deprecated("Method chain Connector.recv >> Message.reach >> Device.recv no longer requires middleman", "hw4")
   override def reach(device: Device, connector: Connector) {
     device.recv(this, connector)
   }

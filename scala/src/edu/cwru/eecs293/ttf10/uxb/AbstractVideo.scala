@@ -11,7 +11,7 @@ import DeviceClass._
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 abstract class AbstractVideo[T <: AbstractVideo.Builder[T]](private val builder: AbstractVideo.Builder[T])
   extends AbstractPeripheral(builder) {
@@ -24,6 +24,14 @@ abstract class AbstractVideo[T <: AbstractVideo.Builder[T]](private val builder:
 object AbstractVideo {
   
   abstract class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
-    extends AbstractPeripheral.Builder[Builder[T]](version)
+    extends AbstractPeripheral.Builder[Builder[T]](version) {
+  
+    override def productCode(productCode: Int): T = super.productCode(productCode).asInstanceOf[T]
+  
+    override def serialNumber(serialNumber: BigInt): T = super.serialNumber(serialNumber).asInstanceOf[T]
+  
+    override def connectors(connectors: List[Connector.Type]): T = super.connectors(connectors).asInstanceOf[T]
+    
+  }
   
 }

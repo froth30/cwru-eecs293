@@ -9,7 +9,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: SisterPrinter.Builder[T])
   extends AbstractPrinter(builder) {
@@ -25,7 +25,7 @@ class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Sister
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "Sister printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> printer serial number: " + serialNumber.get)
   }
@@ -41,9 +41,8 @@ class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Sister
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
-    val result: BigInt = message.getValue +
-      (if (productCode.isDefined) productCode.get else 0) // TODO: simplify by using Option.getOrElse
+    validate_recv(message, connector)
+    val result: BigInt = message.getValue + productCode.getOrElse[Int](0)
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
   

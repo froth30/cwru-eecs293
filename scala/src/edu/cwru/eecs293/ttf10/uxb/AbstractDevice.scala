@@ -1,6 +1,8 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import DeviceClass._
+import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
+
+import scala.collection.mutable
 
 /**
   * Represents a prototypical UXB device.
@@ -12,7 +14,7 @@ import DeviceClass._
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builder: AbstractDevice.Builder[T])
   extends Device {
@@ -26,7 +28,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     for (index <- connectorTypes.indices) {
       connectors ::= new Connector(this, index, connectorTypes(index))
     }
-    connectors
+    connectors.reverse
   }
   
   override def getProductCode: Option[Int] = productCode
@@ -43,6 +45,52 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   
   override def getConnector(index: Int): Connector = connectors(index)
   
+  override def peerDevices: Set[Device] = {
+    var devices = Set.empty[Device]
+    connectors.foreach(con => devices += con.getDevice)
+    devices
+  }
+  
+  override def reachableDevices: Set[Device] = {
+    val queue: mutable.Queue[Device] = mutable.Queue(this)
+    val traversed: mutable.Set[Device] = mutable.Set(this)
+    acquireTargets(queue, traversed)
+  }
+  
+  override def isReachable(device: Device): Boolean = search(this, device)
+  
+  protected override def search(origin: Device, target: Device): Boolean = {
+    val queue: mutable.Queue[Device] = mutable.Queue(origin)
+    val traversed: mutable.Set[Device] = mutable.Set(origin)
+    targetAcquired(queue, traversed, target)
+  }
+  
+  protected override def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device] = {
+    while (queue.nonEmpty) {
+      val node = queue.dequeue()
+      enqueuePeers(queue, traversed, node)
+    }
+    traversed.toSet
+  }
+  
+  protected override def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean = {
+    while (queue.nonEmpty) {
+      val node = queue.dequeue()
+      if (node == target) return true
+      enqueuePeers(queue, traversed, node)
+    }
+    false
+  }
+  
+  protected override def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device) {
+    node.peerDevices
+      .diff(traversed)
+      .foreach(peer => {
+        traversed += peer
+        queue += peer
+      })
+  }
+  
   /**
     * Signifies the arrival of a message at the given connector in the device.
     *
@@ -53,40 +101,12 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  private def validate_recv(message: Message, connector: Connector) {
+  protected def validate_recv(message: Message, connector: Connector) {
     if (message == null || connector == null) {
       throw new NullPointerException("Message not received: null argument.")
     } else if (connector.getDevice != this) {
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
     }
-  }
-  
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the string message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
-  def recv(message: StringMessage, connector: Connector) {
-    validate_recv(message, connector)
-  }
-  
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
-  def recv(message: BinaryMessage, connector: Connector) {
-    validate_recv(message, connector)
   }
   
 }

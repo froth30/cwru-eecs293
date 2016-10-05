@@ -10,7 +10,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Builder[T])
   extends AbstractVideo[GoAmateur.Builder[T]](builder) {
@@ -26,7 +26,7 @@ class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Bu
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector) // TODO: recv$ (validate)
+    validate_recv(message, connector)
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
@@ -42,7 +42,7 @@ class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Bu
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "GoAmateur is not yet active: " + message.getValue)
   }
   

@@ -12,7 +12,7 @@ import DeviceClass._
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) extends AbstractDevice(builder) {
   
@@ -29,7 +29,7 @@ class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) e
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
@@ -44,7 +44,7 @@ class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) e
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    super.recv(message, connector)
+    validate_recv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
