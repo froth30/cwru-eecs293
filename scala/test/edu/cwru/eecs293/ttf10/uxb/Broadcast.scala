@@ -1,6 +1,5 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import org.junit.Assert._
 import org.junit.{Before, Test}
 
 /** <p>
