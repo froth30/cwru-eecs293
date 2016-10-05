@@ -9,7 +9,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: SisterPrinter.Builder[T])
   extends AbstractPrinter(builder) {

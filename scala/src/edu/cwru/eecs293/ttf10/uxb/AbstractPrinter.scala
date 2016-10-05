@@ -11,7 +11,7 @@ import DeviceClass._
   * <br> Case Western Reserve University
   * <br> EECS 293: Software Craftsmanship
   * <br> 2016 Fall Semester
-  * @author Theodore Frohlich &lt;ttf10@case.edu&gt;
+  * @author Ted Frohlich < ttf10@case.edu >
   */
 abstract class AbstractPrinter[T <: AbstractPrinter.Builder[T]](private val builder: AbstractPrinter.Builder[T])
   extends AbstractPeripheral(builder) {
