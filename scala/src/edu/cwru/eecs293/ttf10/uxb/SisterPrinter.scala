@@ -42,8 +42,7 @@ class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Sister
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
     super.recv(message, connector)
-    val result: BigInt = message.getValue +
-      (if (productCode.isDefined) productCode.get else 0) // TODO: simplify by using Option.getOrElse
+    val result: BigInt = message.getValue + productCode.getOrElse(0)
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }
   
