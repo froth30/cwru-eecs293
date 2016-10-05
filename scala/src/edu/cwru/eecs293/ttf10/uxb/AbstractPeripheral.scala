@@ -40,13 +40,10 @@ object AbstractPeripheral {
     @throws[NullPointerException]
     @throws[IllegalStateException]
     override protected def validate() {
-      // Check if the version number is null
-      try {
-        super.validate()
-      } catch {
-        case e: NullPointerException => throw new IllegalStateException(e)
-      }
-      // Check if one of the connectors is _not_ of type peripheral
+      // Check the version
+      super.validate()
+      
+      // Check that all connectors are of type peripheral
       if (getConnectors.exists(_ != Connector.Type.PERIPHERAL)) {
         throw new IllegalStateException("Validation failed: all connectors must be of type peripheral.")
       }
