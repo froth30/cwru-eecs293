@@ -95,8 +95,6 @@ object Connector {
   case object Type extends Enumeration {
     val COMPUTER, PERIPHERAL = Value
   }
-  type Type = Type.Value  /*
-  TODO[DIS] => Although not the conventional way to implement an enumeration in Scala, approaches like this are suggested in Scala Cookbook 10.26  ((keep this if okay with Andrew))
-  */
+  type Type = Type.Value
   
 }
