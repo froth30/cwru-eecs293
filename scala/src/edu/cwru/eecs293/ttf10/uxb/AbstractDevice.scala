@@ -28,7 +28,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     for (index <- connectorTypes.indices) {
       connectors ::= new Connector(this, index, connectorTypes(index))
     }
-    connectors
+    connectors.reverse
   }
   
   override def getProductCode: Option[Int] = productCode
