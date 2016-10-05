@@ -41,6 +41,7 @@ final class StringMessage extends Message {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
+  @deprecated("Method chain Connector.recv >> Message.reach >> Device.recv no longer requires middleman", "hw4")
   override def reach(device: Device, connector: Connector) {
     device.recv(this, connector)
   }

@@ -24,6 +24,7 @@ trait Message {
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
+  @deprecated("Method chain Connector.recv >> Message.reach >> Device.recv no longer requires middleman", "hw4")
   def reach(device: Device, connector: Connector)
   
 }
