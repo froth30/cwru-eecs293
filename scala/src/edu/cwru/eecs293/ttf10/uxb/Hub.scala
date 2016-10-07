@@ -14,7 +14,7 @@ import DeviceClass._
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) extends AbstractDevice(builder) {
+class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
   
   override def getDeviceClass: DeviceClass = DeviceClass.HUB
   
@@ -56,8 +56,7 @@ object Hub {
     *
     * @param version the UXB version that this device supports
     */
-  class Builder[T <: AbstractDevice.Builder[T]](override protected val version: Int)
-    extends AbstractDevice.Builder[Builder[T]](version) {
+  class Builder(override protected val version: Int) extends AbstractDevice.Builder[Builder](version) {
   
     protected def getThis = this
   
@@ -68,7 +67,7 @@ object Hub {
       * @throws IllegalStateException if the version is null, or the hub has no computer connector, or the hub has no peripheral connector.
       */
     @throws[IllegalStateException]
-    def build(): Hub[T] = {
+    def build(): Hub = {
       validate()
       new Hub(this)
     }
