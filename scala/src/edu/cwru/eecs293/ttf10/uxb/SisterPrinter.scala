@@ -25,7 +25,7 @@ class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Sister
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    validate_recv(message, connector)
+    validateRecv(message, connector)
     println("[Log] >>  " + "Sister printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> printer serial number: " + serialNumber.get)
   }
@@ -41,7 +41,7 @@ class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: Sister
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    validate_recv(message, connector)
+    validateRecv(message, connector)
     val result: BigInt = message.getValue + productCode.getOrElse[Int](0)
     println("[Log] >>  " + "Sister printer has printed the binary message: " + result)
   }

@@ -29,7 +29,7 @@ class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) e
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: StringMessage, connector: Connector) {
-    validate_recv(message, connector)
+    validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
@@ -44,7 +44,7 @@ class Hub[T <: AbstractDevice.Builder[T]](private val builder: Hub.Builder[T]) e
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
-    validate_recv(message, connector)
+    validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
