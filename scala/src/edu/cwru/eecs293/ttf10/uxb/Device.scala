@@ -85,6 +85,14 @@ trait Device {
                                      hithertoReachableDevices: Set[Device]): Set[Device]
   
   /**
+    * Maps a set of all devices reachable from this device until the target device is found.
+    *
+    * @param target an optional device parameter that terminates this function when found
+    * @return a set of all devices reachable from this device, or <tt>null</tt> if the target was found
+    */
+  protected def reachableDevicesUntil(target: Device = null): Set[Device]
+  
+  /**
     * Maps a set of all devices reachable from this device.
     *
     * @return all devices that are reachable either directly (the <tt>peerDevices</tt>) or indirectly from this device
