@@ -15,33 +15,17 @@ package edu.cwru.eecs293.ttf10.uxb
 class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Builder[T])
   extends AbstractVideo[GoAmateur.Builder[T]](builder) {
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the string message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: StringMessage, connector: Connector) {
+  def recv(message: StringMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "GoAmateur does not understand string messages: \"" + message.getString + "\"")
     println("          " + "  -> connector index: " + connector.getIndex)
   }
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: BinaryMessage, connector: Connector) {
+  def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
     // Respond by sending on all of this device's connectors the binary message 293.
     connectors.foreach(con => con.recv(BinaryMessage(293)))
@@ -62,7 +46,7 @@ object GoAmateur {
   class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
     extends AbstractVideo.Builder[Builder[T]](version) {
   
-    override protected def getThis = this
+    protected def getThis = this
   
     /**
       * Initializes the GoAmateur with the builder’s version, product code, serial number, and connector list.
