@@ -44,30 +44,30 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   def getConnector(index: Int): Connector = connectors(index)
   
   def peerDevices: Set[Device] = {
-    connectors.map(connector => connector.getDevice).toSet
+    connectors.map(_.getDevice).toSet
   }
   
-  protected def nextReachableDevices(previousReachableDevices: Set[Device],
-                                     hithertoReachableDevices: Set[Device]): Set[Device] = {
-    previousReachableDevices.flatMap(prev => prev.peerDevices -- hithertoReachableDevices)
+  protected def nextReachableDevices(lastLevelVisited: Set[Device],
+                                     allLevelsVisited: Set[Device]): Set[Device] = {
+    lastLevelVisited.flatMap(_.peerDevices -- allLevelsVisited)
   }
   
   protected def reachableDevicesUntil(target: Device = null): Set[Device] = {
-    var previous: Set[Device] = Set(this)
-    var hitherto: Set[Device] = Set.empty
-    var next: Set[Device] = Set.empty
+    var lastLevelVisited: Set[Device] = Set(this)
+    var allLevelsVisited: Set[Device] = lastLevelVisited
+    var nextLevelToVisit: Set[Device] = Set.empty
     do {
-      next = nextReachableDevices(previous, hitherto)
-      if (next.contains(target)) return null  // return null set to indicate that the target was found
-      hitherto ++= previous
-      previous = next
-    } while (next.nonEmpty)
-    hitherto
+      nextLevelToVisit = nextReachableDevices(lastLevelVisited, allLevelsVisited)
+      allLevelsVisited ++= nextLevelToVisit
+      if (nextLevelToVisit.contains(target)) return allLevelsVisited  // return set early if the target was found
+      lastLevelVisited = nextLevelToVisit
+    } while (nextLevelToVisit.nonEmpty)
+    allLevelsVisited
   }
   
   def reachableDevices: Set[Device] = reachableDevicesUntil()
   
-  def isReachable(device: Device): Boolean = reachableDevicesUntil(device) == null
+  def isReachable(device: Device): Boolean = reachableDevicesUntil(device).contains(device)
   
   /**
     * Signifies the arrival of a message at the given connector in the device.
