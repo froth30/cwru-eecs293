@@ -15,11 +15,11 @@ import org.junit.{Before, Test}
   */
 class AbstractDeviceTest {
 
-  private var validBuilder: Hub.Builder[Nothing] = _
+  private var validBuilder: Hub.Builder = _
   private var validVersion: Int = _
   private var validConnectors: List[Connector.Type] = _
 
-  private var invalidBuilder: Hub.Builder[Nothing] = _
+  private var invalidBuilder: Hub.Builder = _
 
   @Before
   def setUp() {

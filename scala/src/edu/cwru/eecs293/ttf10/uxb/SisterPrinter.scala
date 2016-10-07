@@ -11,8 +11,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-class SisterPrinter[T <: AbstractPrinter.Builder[T]](private val builder: SisterPrinter.Builder[T])
-  extends AbstractPrinter(builder) {
+class SisterPrinter(private val builder: SisterPrinter.Builder) extends AbstractPrinter(builder) {
   
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -56,8 +55,7 @@ object SisterPrinter {
     *
     * @param version the UXB version that this device supports
     */
-  class Builder[T <: AbstractPrinter.Builder[T]](override protected val version: Int)
-    extends AbstractPrinter.Builder[Builder[T]](version) {
+  class Builder(override protected val version: Int) extends AbstractPrinter.Builder[Builder](version) {
   
     override protected def getThis = this
   
@@ -68,7 +66,7 @@ object SisterPrinter {
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
     @throws[IllegalStateException]
-    def build(): SisterPrinter[T] = {
+    def build(): SisterPrinter = {
       validate()
       new SisterPrinter(this)
     }

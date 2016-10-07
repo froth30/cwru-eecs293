@@ -12,8 +12,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Builder[T])
-  extends AbstractVideo[GoAmateur.Builder[T]](builder) {
+class GoAmateur(private val builder: GoAmateur.Builder) extends AbstractVideo[GoAmateur.Builder](builder) {
   
   /**
     * Signifies the arrival of a message at the given connector in the device.
@@ -56,8 +55,7 @@ object GoAmateur {
     *
     * @param version the UXB version that this device supports
     */
-  class Builder[T <: AbstractVideo.Builder[T]](override protected val version: Int)
-    extends AbstractVideo.Builder[Builder[T]](version) {
+  class Builder(override protected val version: Int) extends AbstractVideo.Builder[Builder](version) {
   
     override protected def getThis = this
   
@@ -68,9 +66,9 @@ object GoAmateur {
       * @throws IllegalStateException if the version number is null, or if one of the connectors is <i>not</i> of type peripheral
       */
     @throws[IllegalStateException]
-    def build(): GoAmateur[T] = {
+    def build(): GoAmateur = {
       validate()
-      new GoAmateur[T](this)
+      new GoAmateur(this)
     }
   
   }
