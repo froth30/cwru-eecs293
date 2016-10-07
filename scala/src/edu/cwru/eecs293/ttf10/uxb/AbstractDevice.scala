@@ -2,8 +2,6 @@ package edu.cwru.eecs293.ttf10.uxb
 
 import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
 
-import scala.collection.mutable
-
 /**
   * Represents a prototypical UXB device.
   *
@@ -49,44 +47,34 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     connectors.map(connector => connector.getDevice).toSet
   }
   
+  protected def nextReachableDevices(previousReachableDevices: Set[Device],
+                                     hithertoReachableDevices: Set[Device]): Set[Device] = {
+    previousReachableDevices.flatMap(prev => prev.peerDevices -- hithertoReachableDevices)
+  }
+  
   def reachableDevices: Set[Device] = {
-    val queue: mutable.Queue[Device] = mutable.Queue(this)
-    val traversed: mutable.Set[Device] = mutable.Set(this)
-    acquireTargets(queue, traversed)
+    var previous: Set[Device] = Set(this)
+    var hitherto: Set[Device] = Set.empty
+    var next: Set[Device] = Set.empty
+    do {
+      next = nextReachableDevices(previous, hitherto)
+      hitherto ++= previous
+      previous = next
+    } while (next.nonEmpty)
+    hitherto
   }
   
-  def isReachable(device: Device): Boolean = search(this, device)
-  
-  protected def search(origin: Device, target: Device): Boolean = {
-    val queue: mutable.Queue[Device] = mutable.Queue(origin)
-    val traversed: mutable.Set[Device] = mutable.Set(origin)
-    targetAcquired(queue, traversed, target)
-  }
-  
-  protected def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device] = {
-    while (queue.nonEmpty) {
-      val node = queue.dequeue()
-      enqueuePeers(queue, traversed, node)
-    }
-    traversed.toSet
-  }
-  
-  protected def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean = {
-    while (queue.nonEmpty) {
-      val node = queue.dequeue()
-      if (node == target) return true
-      enqueuePeers(queue, traversed, node)
-    }
+  def isReachable(device: Device): Boolean = {
+    var previous: Set[Device] = Set(this)
+    var hitherto: Set[Device] = Set.empty
+    var next: Set[Device] = Set.empty
+    do {
+      next = nextReachableDevices(previous, hitherto)
+      if (next.contains(device)) return true
+      hitherto ++= previous
+      previous = next
+    } while (next.nonEmpty)
     false
-  }
-  
-  protected def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device) {
-    node.peerDevices
-      .diff(traversed)
-      .foreach(peer => {
-        traversed += peer
-        queue += peer
-      })
   }
   
   /**
@@ -99,12 +87,11 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  protected def validate_recv(message: Message, connector: Connector) {
-    if (message == null || connector == null) {
+  protected def validateRecv(message: Message, connector: Connector) {
+    if (message == null || connector == null)
       throw new NullPointerException("Message not received: null argument.")
-    } else if (connector.getDevice != this) {
+    if (connector.getDevice != this)
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
-    }
   }
   
 }
