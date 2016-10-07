@@ -43,7 +43,10 @@ class GoAmateur[T <: AbstractVideo.Builder[T]](private val builder: GoAmateur.Bu
   @throws[IllegalArgumentException]
   override def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
-    println("[Log] >>  " + "GoAmateur is not yet active: " + message.getValue)
+    // Respond by sending on all of this device's connectors the binary message 293.
+    connectors.foreach(con => con.recv(BinaryMessage(293)))
+    println("[Log] >>  " + "GoAmateur has responded to the binary message: " + message.getValue)
+    println("          " + "by sending on all of its connectors the binary message: 293")
   }
   
 }
