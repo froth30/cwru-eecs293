@@ -19,29 +19,21 @@ final class Connector(private val device: Device, private val index: Int, privat
   private var peer: Option[Connector] = Option.empty
   
   /**
-    * Returns the device to which this connector belongs.
-    *
     * @return the device to which this connector belongs
     */
   def getDevice: Device = device
   
   /**
-    * Returns the index of this connector.
-    *
     * @return the plug number in the connector's device
     */
   def getIndex: Int = index
   
   /**
-    * Returns the type of this connector.
-    *
     * @return the type of this connector
     */
   def getType: Connector.Type = `type`
   
   /**
-    * Returns the peer of this connector.
-    *
     * @return the other connector if any to which this connector is plugged
     */
   def getPeer: Option[Connector] = peer
@@ -52,7 +44,7 @@ final class Connector(private val device: Device, private val index: Int, privat
     if (peer == null)
       throw new NullPointerException("Couldn't connect to peer: peer is null.")
     
-    if (this.peer.nonEmpty)
+    if (getPeer.nonEmpty)
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_BUSY)
     
     if (peer.getType == getType)
