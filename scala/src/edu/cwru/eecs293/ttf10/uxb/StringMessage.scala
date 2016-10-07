@@ -11,19 +11,11 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-final case class StringMessage() extends Message {
-  
-  private var string: String = ""
-  
+final case class StringMessage(private var string: String) extends Message {
   /**
     * Initialize this message with the given string. If the string is null, the message should contain an empty non-null string.
-    *
-    * @param string the underlying string
     */
-  def this(string: String) {
-    this
-    if (string != null) this.string = string
-  }
+  string = Option(string).getOrElse("")
   
   /**
     * Returns the underlying string.
