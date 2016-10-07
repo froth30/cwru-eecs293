@@ -18,32 +18,16 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
   
   override def getDeviceClass: DeviceClass = DeviceClass.HUB
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the string message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: StringMessage, connector: Connector) {
+  def recv(message: StringMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: BinaryMessage, connector: Connector) {
+  def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
@@ -60,7 +44,7 @@ object Hub {
     */
   class Builder(override protected val version: Int) extends AbstractDevice.Builder[Builder](version) {
   
-    override protected def getThis = this
+    protected def getThis = this
   
     /**
       * Initializes the hub with the builder’s version, product code, serial number, and connector list.
