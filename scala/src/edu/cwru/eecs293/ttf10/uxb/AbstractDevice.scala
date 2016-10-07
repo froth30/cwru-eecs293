@@ -2,6 +2,8 @@ package edu.cwru.eecs293.ttf10.uxb
 
 import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
 
+import scala.collection.immutable.HashMap
+
 /**
   * Represents a prototypical UXB device.
   *
@@ -28,6 +30,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     }
     connectors.reverse
   }
+  val messageMap: HashMap[Message, (Message, Connector) => Unit]  // TODO: figure out how to do this
   
   def getProductCode: Option[Int] = productCode
   
@@ -52,7 +55,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     lastLevelVisited.flatMap(_.peerDevices -- allLevelsVisited)
   }
   
-  protected def reachableDevicesUntil(target: Device = null): Set[Device] = {
+  protected def reachableDevicesUntil(target: Device = null): Set[Device] = {  // TODO: make target optional
     var lastLevelVisited: Set[Device] = Set(this)
     var allLevelsVisited: Set[Device] = lastLevelVisited
     var nextLevelToVisit: Set[Device] = Set.empty
