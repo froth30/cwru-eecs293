@@ -1,13 +1,12 @@
 package edu.cwru.eecs293.ttf10.uxb
 
-import DeviceClass._
-
-import scala.collection.mutable
+import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
 
 /**
   * <p> Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
   *
-  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
+  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1385161-dt-content-rid-4331066_1/courses/eecs293_vxl11/Hw4.pdf Hw4.pdf]]
+  * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
   * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4287477_1/xid-4287477_1 Hw2.pdf]]
   * @since Programming Assignment 2
   * <br> <i>
@@ -69,14 +68,24 @@ trait Device {
   def getConnector(index: Int): Connector
   
   /**
-    * Returns the devices to which this device is connected directly through one of its connectors.
+    * Maps the set of devices to which this device is connected directly through one of its connectors.
     *
     * @return a set of peer devices
     */
   def peerDevices: Set[Device]
   
   /**
-    * Finds a set of all devices reachable from this device.
+    * Maps the next level of reachable devices in the device tree from the previously mapped level, given a set of all reachable devices mapped hitherto.
+    *
+    * @param previousReachableDevices a set of devices from the previous level in the device tree
+    * @param hithertoReachableDevices a set of all devices in the device tree so far
+    * @return a set of devices in the next level of the device tree
+    */
+  protected def nextReachableDevices(previousReachableDevices: Set[Device],
+                                     hithertoReachableDevices: Set[Device]): Set[Device]
+  
+  /**
+    * Maps a set of all devices reachable from this device.
     *
     * @return all devices that are reachable either directly (the <tt>peerDevices</tt>) or indirectly from this device
     */
@@ -89,14 +98,6 @@ trait Device {
     * @return <tt>true</tt> if the argument is connected directly or indirectly to this device, <tt>false</tt> otherwise
     */
   def isReachable(device: Device): Boolean
-  
-  protected def search(origin: Device, target: Device): Boolean
-  
-  protected def acquireTargets(queue: mutable.Queue[Device], traversed: mutable.Set[Device]): Set[Device]
-  
-  protected def targetAcquired(queue: mutable.Queue[Device], traversed: mutable.Set[Device], target: Device): Boolean
-  
-  protected def enqueuePeers(queue: mutable.Queue[Device], traversed: mutable.Set[Device], node: Device)
     
     /**
     * Signifies the arrival of a message at the given connector in the device.
