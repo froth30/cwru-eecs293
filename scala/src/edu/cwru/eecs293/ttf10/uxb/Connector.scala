@@ -55,13 +55,18 @@ final class Connector(private val device: Device, private val index: Int, privat
     if (this.peer.nonEmpty)
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_BUSY)
     
-    if (peer.getType == getType)
+    if (peer.`type` == `type`)
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTOR_MISMATCH)
     
-    if (peer.isReachable(getDevice))
+    if (peer.isReachable(device))
       throw new ConnectionException(this, ConnectionException.ErrorCode.CONNECTION_CYCLE)
     
+    if (peer.peer.nonEmpty)
+      throw new ConnectionException(peer, ConnectionException.ErrorCode.CONNECTOR_BUSY)
+    // TODO:                         ^ or `this`?
+    
     this.peer = Option(peer)
+    peer.peer = Option(this)
   }
   
   /**
