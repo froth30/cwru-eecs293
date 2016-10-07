@@ -4,7 +4,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <p> Represents one of multiple <i>connectors</i> belonging to a UXB device.
   * <p> Each connector is a physical plug that enables the user to insert a cable for connecting the device to a computer or to a UXB hub. Connectors are of two types: <i>computer-side</i> and <i>peripheral-side</i>. A computer-side connector is an outlet that is installed in a computer and a peripheral-side connector is a plug that is installed in a peripheral device. A UXB <i>cable</i> always runs from a peripheral to a computer but never from a computer to a computer or from a peripheral to a peripheral. A computer can have multiple computer-side connectors so that multiple peripherals can be added. A peripheral can have multiple peripheral-side connectors so that the peripheral can be added to multiple computers. A UXB hub can have multiple computer-side and peripheral-side connectors.
   *
-  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
+  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1385161-dt-content-rid-4331066_1/courses/eecs293_vxl11/Hw4.pdf Hw4.pdf]]
+  * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
   * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4287477_1/xid-4287477_1 Hw2.pdf]]
   * @since Programming Assignment 2
   * <br> <i>
@@ -13,9 +14,7 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-final class Connector(private val device: Device,
-                      private val index: Int,
-                      private val `type`: Connector.Type) {
+final class Connector(private val device: Device, private val index: Int, private val `type`: Connector.Type) {
   
   private var peer: Option[Connector] = Option.empty
   

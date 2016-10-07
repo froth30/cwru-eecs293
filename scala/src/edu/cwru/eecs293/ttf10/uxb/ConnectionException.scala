@@ -3,7 +3,7 @@ package edu.cwru.eecs293.ttf10.uxb
 /**
   * <p> A <tt>ConnectionException</tt> will be used to signal problems when attempting to interconnect device.
   *
-  * @see TODO
+  * @see [[https://blackboard.case.edu/bbcswebdav/pid-1385161-dt-content-rid-4331066_1/courses/eecs293_vxl11/Hw4.pdf Hw4.pdf]]
   * @since Programming Assignment 4
   * <br> <i>
   * <br> Case Western Reserve University

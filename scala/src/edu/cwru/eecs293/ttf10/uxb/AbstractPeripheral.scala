@@ -11,8 +11,8 @@ package edu.cwru.eecs293.ttf10.uxb
   * <br> 2016 Fall Semester
   * @author Ted Frohlich < ttf10@case.edu >
   */
-abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]]
-(private val builder: AbstractPeripheral.Builder[T]) extends AbstractDevice(builder)
+abstract class AbstractPeripheral[T <: AbstractPeripheral.Builder[T]](private val builder: AbstractPeripheral.Builder[T])
+  extends AbstractDevice(builder)
 
 
 object AbstractPeripheral {
