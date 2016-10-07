@@ -13,33 +13,17 @@ package edu.cwru.eecs293.ttf10.uxb
   */
 class CannonPrinter(private val builder: CannonPrinter.Builder) extends AbstractPrinter(builder) {
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the string message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: StringMessage, connector: Connector) {
+  def recv(message: StringMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "Cannon printer has printed the string: \"" + message.getString + "\"")
     println("          " + "  -> UXB version number: " + version)
   }
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the binary message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
   @throws[NullPointerException]
   @throws[IllegalArgumentException]
-  override def recv(message: BinaryMessage, connector: Connector) {
+  def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
     val result: BigInt = message.getValue * serialNumber.getOrElse(1)
     println("[Log] >>  " + "Cannon printer has printed the binary message: " + result)
@@ -57,7 +41,7 @@ object CannonPrinter {
     */
   class Builder(override protected val version: Int) extends AbstractPrinter.Builder[Builder](version) {
   
-    override protected def getThis = this
+    protected def getThis = this
   
     /**
       * Initializes the cannon printer with the builder’s version, product code, serial number, and connector list.
