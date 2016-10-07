@@ -77,12 +77,12 @@ trait Device {
   /**
     * Maps the next level of reachable devices in the device tree from the previously mapped level, given a set of all reachable devices mapped hitherto.
     *
-    * @param previousReachableDevices a set of devices from the previous level in the device tree
-    * @param hithertoReachableDevices a set of all devices in the device tree so far
+    * @param lastLevelVisited a set of devices from the last-visited level in the device tree
+    * @param allLevelsVisited a set of devices from all levels of the device tree visited so far
     * @return a set of devices in the next level of the device tree
     */
-  protected def nextReachableDevices(previousReachableDevices: Set[Device],
-                                     hithertoReachableDevices: Set[Device]): Set[Device]
+  protected def nextReachableDevices(lastLevelVisited: Set[Device],
+                                     allLevelsVisited: Set[Device]): Set[Device]
   
   /**
     * Maps a set of all devices reachable from this device until the target device is found.
