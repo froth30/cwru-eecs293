@@ -52,30 +52,22 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     previousReachableDevices.flatMap(prev => prev.peerDevices -- hithertoReachableDevices)
   }
   
-  def reachableDevices: Set[Device] = {
+  protected def reachableDevicesUntil(target: Device = null): Set[Device] = {
     var previous: Set[Device] = Set(this)
     var hitherto: Set[Device] = Set.empty
     var next: Set[Device] = Set.empty
     do {
       next = nextReachableDevices(previous, hitherto)
+      if (next.contains(target)) return null  // return null set to indicate that the target was found
       hitherto ++= previous
       previous = next
     } while (next.nonEmpty)
     hitherto
   }
   
-  def isReachable(device: Device): Boolean = {
-    var previous: Set[Device] = Set(this)
-    var hitherto: Set[Device] = Set.empty
-    var next: Set[Device] = Set.empty
-    do {
-      next = nextReachableDevices(previous, hitherto)
-      if (next.contains(device)) return true
-      hitherto ++= previous
-      previous = next
-    } while (next.nonEmpty)
-    false
-  }
+  def reachableDevices: Set[Device] = reachableDevicesUntil()
+  
+  def isReachable(device: Device): Boolean = reachableDevicesUntil(device) == null
   
   /**
     * Signifies the arrival of a message at the given connector in the device.
