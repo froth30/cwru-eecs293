@@ -43,7 +43,7 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
     */
   private def send(message: Message, connector: Connector) {
     (connectors.toSet - connector)
-      .foreach(con => con.recv(message))
+      .foreach(_.recv(message))
   }
   
 }
