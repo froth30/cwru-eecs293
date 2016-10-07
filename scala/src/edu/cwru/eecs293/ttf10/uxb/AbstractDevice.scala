@@ -119,7 +119,7 @@ object AbstractDevice {
       * Sets the product code to the given value. If the <tt>productCode</tt> is null, set it to an empty optional.
       *
       * @param productCode the product code of this device
-      * @return [[getThis]]
+      * @return this device
       */
     def productCode(productCode: Int): T = {
       this.productCode = // Must perform null check since Int is not a nullable type
@@ -131,7 +131,7 @@ object AbstractDevice {
       * Sets the serial number to the given value. If the serial number is null, set it to an empty optional.
       *
       * @param serialNumber the serial number of this device
-      * @return [[getThis()]]
+      * @return this device
       */
     def serialNumber(serialNumber: BigInt): T = {
       this.serialNumber = Option(serialNumber) // BigInt is a nullable type (see counterexample above)
@@ -142,7 +142,7 @@ object AbstractDevice {
       * Sets the connector types to a copy of the given value. If the argument is null, the device will have no connectors.
       *
       * @param connectors the type of each connector in this device
-      * @return [[getThis()]]
+      * @return this device
       */
     def connectors(connectors: List[Connector.Type]): T = {
       this.connectors = if (connectors != null) connectors else List.empty
