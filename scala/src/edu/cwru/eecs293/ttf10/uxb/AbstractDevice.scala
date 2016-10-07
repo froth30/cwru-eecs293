@@ -30,7 +30,7 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     }
     connectors.reverse
   }
-  val messageMap: HashMap[Message, (Message, Connector) => Unit]  // TODO: figure out how to do this
+  // val messageMap: HashMap[Message, (Message, Connector) => Unit]  // TODO: figure out how to do this
   
   def getProductCode: Option[Int] = productCode
   
