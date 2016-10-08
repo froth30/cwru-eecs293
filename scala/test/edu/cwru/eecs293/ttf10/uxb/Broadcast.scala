@@ -15,34 +15,33 @@ string message.
   */
 class Broadcast {
 
-  private var devices: List[Device] = _
+  private var devices: Set[Device] = _
   private var messages: List[Message] = _
 
   @Before
   def setUp() {
-    // Create peripheral connector doubleton list to add to each device
-    val cons = List(Connector.Type.PERIPHERAL, Connector.Type.PERIPHERAL)
-
-    // Initialize device list
-    devices = List(
+    
+    // Instantiate device set
+    val conList = List(Connector.Type.PERIPHERAL)
+    devices = Set(
       new Hub.Builder(2016)
-        .connectors(Connector.Type.COMPUTER :: cons)
+        .connectors(Connector.Type.COMPUTER :: conList)
         .build(),
       new SisterPrinter.Builder(2016)
         .serialNumber(13579)
         .productCode(293)
-        .connectors(cons)
+        .connectors(conList)
         .build(),
       new CannonPrinter.Builder(2016)
         .serialNumber(24680)
-        .connectors(cons)
+        .connectors(conList)
         .build(),
       new GoAmateur.Builder(2016)
-        .connectors(cons)
+        .connectors(conList)
         .build()
     )
 
-    // Create message list
+    // Initialize message list
     messages = List(
       StringMessage("Hello, world!"),
       StringMessage("My name is Ted."),
