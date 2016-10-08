@@ -33,7 +33,6 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
     send(message, connector)
     println("[Log] >>  " + "Hub has forwarded on the binary message: " + message.getValue)
   }
-  // TODO: recv methods too similar? --write hubRecv helper method?
   
   /**
     * Forwards the received message on all its connectors except the one from which the message was received.
@@ -41,9 +40,8 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
     * @param message   the received message
     * @param connector the connector from which the message was received
     */
-  private def send(message: Message, connector: Connector) {
-    (connectors.toSet - connector)
-      .foreach(_.recv(message))
+  protected def send(message: Message, connector: Connector) {
+    send(message, connectors diff List(connector))
   }
   
 }
