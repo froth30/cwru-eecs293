@@ -26,8 +26,7 @@ class GoAmateur(private val builder: GoAmateur.Builder) extends AbstractVideo[Go
   @throws[IllegalArgumentException]
   def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
-    // Respond by sending on all of this device's connectors the binary message 293.
-    connectors.foreach(_.recv(BinaryMessage(293)))
+    send(BinaryMessage(293), connectors)  // respond by broadcasting the binary message: 293
     println("[Log] >>  " + "GoAmateur has responded to the binary message: " + message.getValue)
     println("          " + "by sending on all of its connectors the binary message: 293")
   }
