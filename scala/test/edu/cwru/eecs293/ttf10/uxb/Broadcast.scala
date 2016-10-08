@@ -44,11 +44,11 @@ class Broadcast {
 
     // Create message list
     messages = List(
-      new StringMessage("Hello, world!"),
-      new StringMessage("My name is Ted."),
-      new StringMessage(""),
-      new BinaryMessage(0),
-      new BinaryMessage(1)
+      StringMessage("Hello, world!"),
+      StringMessage("My name is Ted."),
+      StringMessage(""),
+      BinaryMessage(0),
+      BinaryMessage(1)
     )
   }
 
