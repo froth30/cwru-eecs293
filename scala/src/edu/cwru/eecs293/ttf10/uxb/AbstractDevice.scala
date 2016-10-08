@@ -86,6 +86,17 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
   }
   
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  protected def send(message: Message, connectors: List[Connector]) {
+    if (message == null || connectors == null || connectors.contains(null))
+      throw new NullPointerException("Message not sent: null argument")
+    if (connectors.exists(_.getDevice != this))
+      throw new IllegalArgumentException("Message not sent: connector does not belong to this device")
+    connectors.foreach(_.getPeer
+      .foreach(_.recv(message)))  // `foreach` passes over an undefined optional value
+  }
+  
 }
 
 

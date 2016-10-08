@@ -131,4 +131,16 @@ trait Device {
   @throws[IllegalArgumentException]
   def recv(message: BinaryMessage, connector: Connector)
   
+  /**
+    * Sends a message on the specified (sub)list of connectors belonging to this device.
+    *
+    * @param message    the message
+    * @param connectors the connectors on which the message will be sent
+    * @throws NullPointerException     if either argument is null, or if <tt>connectors</tt> contains a null connector
+    * @throws IllegalArgumentException if any of the connectors do not belong to this device
+    */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  protected def send(message: Message, connectors: List[Connector])
+  
 }
