@@ -10,8 +10,6 @@ package edu.cwru.eecs293.ttf10.uxb
 
 import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
 
-import scala.collection.immutable.HashMap
-
 /**
   * Represents a prototypical UXB device.
   *
@@ -34,7 +32,6 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
     }
     connectors.reverse
   }
-  // val messageMap: HashMap[Message, (Message, Connector) => Unit]  // TODO: figure out how to do this
   
   def getProductCode: Option[Int] = productCode
   
@@ -76,16 +73,6 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   
   def isReachable(device: Device): Boolean = reachableDevicesUntil(device).contains(device)
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
   protected def validateRecv(message: Message, connector: Connector) {
     if (message == null || connector == null)
       throw new NullPointerException("Message not received: null argument.")

@@ -22,15 +22,11 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
   
   override def getDeviceClass: DeviceClass = DeviceClass.HUB
   
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
   def recv(message: StringMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")
   }
   
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
   def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
     println("[Log] >>  " + "recv not yet supported")

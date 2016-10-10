@@ -92,14 +92,14 @@ trait Device {
     * Maps a set of all devices reachable from this device until the target device is found.
     *
     * @param target an optional device parameter that terminates this function when found
-    * @return a set of all devices reachable from this device, or <tt>null</tt> if the target was found
+    * @return a set of all devices reachable from this device, or `null` if the target was found
     */
   protected def reachableDevicesUntil(target: Device = null): Set[Device]
   
   /**
     * Maps a set of all devices reachable from this device.
     *
-    * @return all devices that are reachable either directly (the <tt>peerDevices</tt>) or indirectly from this device
+    * @return all devices that are reachable either directly (the `peerDevices`) or indirectly from this device
     */
   def reachableDevices: Set[Device]
   
@@ -107,9 +107,21 @@ trait Device {
     * Determines whether the given device is reachable from this device.
     *
     * @param device the device in question
-    * @return <tt>true</tt> if the argument is connected directly or indirectly to this device, <tt>false</tt> otherwise
+    * @return `true` if the argument is connected directly or indirectly to this device, `false` otherwise
     */
   def isReachable(device: Device): Boolean
+  
+  /**
+    * Signifies the arrival of a message at the given connector in the device.
+    *
+    * @param message   the message being received
+    * @param connector the connector at which the message arrived
+    * @throws NullPointerException     if either argument is null
+    * @throws IllegalArgumentException if the connector does not belong to this device
+    */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  protected def validateRecv(message: Message, connector: Connector)
     
     /**
     * Signifies the arrival of a message at the given connector in the device.
