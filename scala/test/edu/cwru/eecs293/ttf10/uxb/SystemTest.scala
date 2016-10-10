@@ -57,22 +57,37 @@ class SystemTest {
     printer2 = sisterPrinterBuilder.build()
   }
   
+  /**
+    * Tests the scenario in which a string message is broadcast from a hub.
+    *
+    * @throws Exception if the test fails
+    */
   @Test
   @throws[Exception]
   def broadcastStringMessage() {
-    
+    hub1.broadcast(StringMessage("A string message is broadcast from a hub."))
   }
   
+  /**
+    * Tests the scenario in which a binary message is sent from a hub along a connector that links the hub to a Webcam.
+    *
+    * @throws Exception if the test fails
+    */
   @Test
   @throws[Exception]
   def sendBinaryMessage() {
-    
+    hub1.sendTo(BinaryMessage(132), hub1.getConnector(0))
   }
   
+  /**
+    * Tests the scenario in which a binary message is broadcast from a hub.
+    *
+    * @throws Exception if the test fails
+    */
   @Test
   @throws[Exception]
   def broadcastBinaryMessage() {
-    
+    hub2.broadcast(BinaryMessage(132465798))
   }
   
 }

@@ -73,16 +73,6 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
   
   def isReachable(device: Device): Boolean = reachableDevicesUntil(device).contains(device)
   
-  /**
-    * Signifies the arrival of a message at the given connector in the device.
-    *
-    * @param message   the message being received
-    * @param connector the connector at which the message arrived
-    * @throws NullPointerException     if either argument is null
-    * @throws IllegalArgumentException if the connector does not belong to this device
-    */
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
   protected def validateRecv(message: Message, connector: Connector) {
     if (message == null || connector == null)
       throw new NullPointerException("Message not received: null argument.")
@@ -90,8 +80,6 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
       throw new IllegalArgumentException("Message not received: connector does not belong to this device.")
   }
   
-  @throws[NullPointerException]
-  @throws[IllegalArgumentException]
   protected def send(message: Message, connectors: List[Connector]) {
     if (message == null || connectors == null || connectors.contains(null))
       throw new NullPointerException("Message not sent: null argument")
@@ -99,6 +87,10 @@ abstract class AbstractDevice[T <: AbstractDevice.Builder[T]](private val builde
       throw new IllegalArgumentException("Message not sent: connector does not belong to this device")
     connectors.foreach(_.getPeer
       .foreach(_.recv(message)))  // `foreach` passes over an undefined optional value
+  }
+  
+  def broadcast(message: Message) {
+    send(message, connectors)
   }
   
 }
