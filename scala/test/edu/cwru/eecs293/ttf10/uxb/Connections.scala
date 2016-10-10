@@ -1,3 +1,11 @@
+/*                                                                      *\
+**                    Case Western Reserve University                   **
+**                                                                      **
+**                               EECS 293                               **
+**                        Software Craftsmanship                        **
+**                          2016 Fall Semester                          **
+\*                                                                      */
+
 package edu.cwru.eecs293.ttf10.uxb
 
 import org.junit.{Before, Test}
@@ -7,11 +15,7 @@ import org.junit.{Before, Test}
   *
   * @see [[https://blackboard.case.edu/bbcswebdav/pid-1385161-dt-content-rid-4331066_1/courses/eecs293_vxl11/Hw4.pdf Hw4.pdf]]
   * @since Programming Assignment 4
-  * <br> <i>
-  * <br> Case Western Reserve University
-  * <br> EECS 293: Software Craftsmanship
-  * <br> 2016 Fall Semester
-  * @author Ted Frohlich < ttf10@case.edu >
+  * @author Ted Frohlich
   */
 class Connections {
   
