@@ -24,12 +24,38 @@ class Hub(private val builder: Hub.Builder) extends AbstractDevice(builder) {
   
   def recv(message: StringMessage, connector: Connector) {
     validateRecv(message, connector)
-    println("[Log] >>  " + "recv not yet supported")
+    sendFrom(message, connector)
+    println("[Log] >>  " + "Hub has forwarded on the string message: " + message.getString)
   }
   
   def recv(message: BinaryMessage, connector: Connector) {
     validateRecv(message, connector)
-    println("[Log] >>  " + "recv not yet supported")
+    sendFrom(message, connector)
+    println("[Log] >>  " + "Hub has forwarded on the binary message: " + message.getValue)
+  }
+  
+  /**
+    * Forwards the received message on all connectors except the one from which the message was received.
+    *
+    * @param message   the received message
+    * @param connector the connector from which the message was received
+    */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  private def sendFrom(message: Message, connector: Connector) {
+    send(message, connectors diff List(connector))
+  }
+  
+  /**
+    * Sends a message from this hub along one of its connectors.
+    *
+    * @param message   the message to send
+    * @param connector the connector to which the message is being sent
+    */
+  @throws[NullPointerException]
+  @throws[IllegalArgumentException]
+  def sendTo(message: Message, connector: Connector) {
+    send(message, List(connector))
   }
   
 }
