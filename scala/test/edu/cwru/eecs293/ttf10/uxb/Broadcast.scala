@@ -1,17 +1,20 @@
+/*                                                                      *\
+**                    Case Western Reserve University                   **
+**                                                                      **
+**                               EECS 293                               **
+**                        Software Craftsmanship                        **
+**                          2016 Fall Semester                          **
+\*                                                                      */
+
 package edu.cwru.eecs293.ttf10.uxb
 
 import org.junit.{Before, Test}
 
-/** <p>
-  * A test that, given a <tt>List[Device]</tt> and a <tt>List[Message]</tt>, delivers all messages to all devices on their zero connector (if any). The device list should contain at least one device of each type, and the message list should contain at least one binary and at least one
-string message.
+/**
+  * A test that, given a <tt>List[Device]</tt> and a <tt>List[Message]</tt>, delivers all messages to all devices on their zero connector (if any). The device list should contain at least one device of each type, and the message list should contain at least one binary and at least one string message.
   *
   * @since Programming Assignment 2
-  * <br> <i>
-  * <br> Case Western Reserve University
-  * <br> EECS 293: Software Craftsmanship
-  * <br> 2016 Fall Semester
-  * @author Ted Frohlich < ttf10@case.edu >
+  * @author Ted Frohlich
   */
 class Broadcast {
 
@@ -20,7 +23,6 @@ class Broadcast {
 
   @Before
   def setUp() {
-    
     // Instantiate device set
     val conList = List(Connector.Type.PERIPHERAL)
     devices = Set(
@@ -40,7 +42,6 @@ class Broadcast {
         .connectors(conList)
         .build()
     )
-
     // Initialize message list
     messages = List(
       StringMessage("Hello, world!"),
@@ -54,11 +55,9 @@ class Broadcast {
   @Test
   @throws[Exception]
   def broadcast() {
-    for (device <- devices) {
-      for (message <- messages) {
-        device.getConnector(0).recv(message)
-      }
-    }
+    devices.foreach(device =>
+      messages.foreach(message =>
+        device.getConnector(0).recv(message)))
   }
 
 }

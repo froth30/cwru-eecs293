@@ -1,17 +1,21 @@
+/*                                                                      *\
+**                    Case Western Reserve University                   **
+**                                                                      **
+**                               EECS 293                               **
+**                        Software Craftsmanship                        **
+**                          2016 Fall Semester                          **
+\*                                                                      */
+
 package edu.cwru.eecs293.ttf10.uxb
 
 import org.junit.Assert._
 import org.junit.{Before, Test}
 
-/** <p>
-  * Class for testing methods in [[edu.cwru.eecs293.ttf10.uxb.AbstractDevice AbstractDevice]] and other underlying functionality thereof. Since the <tt>AbstractDevice</tt> class is obviously abstract, test cases employ concrete subclass [[edu.cwru.eecs293.ttf10.uxb.Hub Hub]] to allow for actualization and access of the superceding functionality in question.
-  * <p>
+/**
+  * Class for testing methods in [[edu.cwru.eecs293.ttf10.uxb.AbstractDevice AbstractDevice]] and other underlying functionality thereof. Since the `AbstractDevice` class is obviously abstract, test cases employ concrete subclass [[edu.cwru.eecs293.ttf10.uxb.Hub Hub]] to allow for actualization and access of the superceding functionality in question.
+  *
   * @since Programming Assignment 2
-  * <br> <i>
-  * <br> Case Western Reserve University
-  * <br> EECS 293: Software Craftsmanship
-  * <br> 2016 Fall Semester
-  * @author Ted Frohlich < ttf10@case.edu >
+  * @author Ted Frohlich
   */
 class AbstractDeviceTest {
 
