@@ -1,17 +1,21 @@
+/*                                                                      *\
+**                    Case Western Reserve University                   **
+**                                                                      **
+**                               EECS 293                               **
+**                        Software Craftsmanship                        **
+**                          2016 Fall Semester                          **
+\*                                                                      */
+
 package edu.cwru.eecs293.ttf10.uxb
 
 import DeviceClass._
 
 /**
-  * <p> Represents a prototypical UXB video peripheral device.
+  * Represents a prototypical UXB video peripheral device.
   *
   * @see [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
   * @since Programming Assignment 3
-  * <br> <i>
-  * <br> Case Western Reserve University
-  * <br> EECS 293: Software Craftsmanship
-  * <br> 2016 Fall Semester
-  * @author Ted Frohlich < ttf10@case.edu >
+  * @author Ted Frohlich
   */
 abstract class AbstractVideo[T <: AbstractVideo.Builder[T]](private val builder: AbstractVideo.Builder[T])
   extends AbstractPeripheral(builder) {

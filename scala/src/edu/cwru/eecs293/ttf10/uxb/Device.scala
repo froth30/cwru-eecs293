@@ -1,19 +1,23 @@
+/*                                                                      *\
+**                    Case Western Reserve University                   **
+**                                                                      **
+**                               EECS 293                               **
+**                        Software Craftsmanship                        **
+**                          2016 Fall Semester                          **
+\*                                                                      */
+
 package edu.cwru.eecs293.ttf10.uxb
 
 import edu.cwru.eecs293.ttf10.uxb.DeviceClass._
 
 /**
-  * <p> Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
+  * Represents a UXB device, which is a UXB-enabled computer, peripheral, or hub.
   *
   * @see [[https://blackboard.case.edu/bbcswebdav/pid-1385161-dt-content-rid-4331066_1/courses/eecs293_vxl11/Hw4.pdf Hw4.pdf]]
   * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1381847-dt-content-rid-4318401_1/xid-4318401_1 Hw3.pdf]]
   * <br> [[https://blackboard.case.edu/bbcswebdav/pid-1379538-dt-content-rid-4287477_1/xid-4287477_1 Hw2.pdf]]
   * @since Programming Assignment 2
-  * <br> <i>
-  * <br> Case Western Reserve University
-  * <br> EECS 293: Software Craftsmanship
-  * <br> 2016 Fall Semester
-  * @author Ted Frohlich < ttf10@case.edu >
+  * @author Ted Frohlich
   */
 trait Device {
   
